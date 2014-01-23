@@ -3,12 +3,22 @@
 <body>
 <center>
   <img src="badger-32.png"></img>
-  <p>The following stuff has been blocked</p>
+  <p>The following stuff has been blocked:
+  <span id="privacy-badger-blocklist"></span>
+  </p>
   <p>
     <p>
     <button id="hide" onClick="addon.postMessage('hide');">Done</button>
   </p>
 </center>
+<script>
+  addon.on("message", function(message) {
+    if (message.type && message.value) {
+      document.getElementById(message.type).textContent = message.value;
+    } else {
+      addon.postMessage(message);
+    }
+  });
+</script>
 </body>
 </html>
-
