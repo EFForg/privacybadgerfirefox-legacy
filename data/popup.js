@@ -189,24 +189,6 @@ function saveAction(userAction, origin) {
   return true;
 }
 
-function syncSettingsDict(settingsDict) {
-  // track whether reload is needed: only if things are being unblocked
-  var reloadNeeded = false;
-  var tabId = parseInt($('#associatedTab').attr('data-tab-id'), 10);
-  // we get the blocked data again in case anything changed, but the user's change when
-  // closing a popup is authoritative and we should sync the real state to that
-  for (var origin in settingsDict) {
-    var userAction = settingsDict[origin];
-    if (saveAction(userAction, origin))
-      reloadNeeded = true; // js question: slower than "if (!reloadNeeded) reloadNeeded = true"?
-                           // would be fun to check with jsperf.com
-  }
-  console.log("Finished syncing. Now refreshing popup.");
-  // the popup needs to be refreshed to display current results
-  refreshPopup(tabId);
-  return reloadNeeded;
-}
-
 function getCurrentClass(elt) {
   if ($(elt).hasClass("block"))
     return "block";
@@ -233,14 +215,6 @@ function buildSettingsDict() {
   return settingsDict;
 }
 
-// syncs the user-selected cookie blocking options, etc
-function syncUISelections() {
-  var settingsDict = buildSettingsDict();
-  console.log("Sync of userset options: " + JSON.stringify(settingsDict));
-  if (syncSettingsDict(settingsDict))
-    reloadPage();
-}
-
 
 /*
  * Listeners for communicating with the main process.
@@ -248,7 +222,7 @@ function syncUISelections() {
 
 window.addEventListener('unload', function() {
   console.log("Starting to unload popup");
-  var settings = getNewSettings();
+  var settings = buildSettingsDict();
   self.port.emit("done", settings);
 });
 
