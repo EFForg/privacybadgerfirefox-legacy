@@ -40,7 +40,7 @@ function _addOriginHTML(origin, printable, action) {
   console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker"];
   var feedTheBadgerTitle = '';
-  if (action.indexOf("user") == 0) {
+  if (action.indexOf("user") === 0) {
     feedTheBadgerTitle = "click to return control of this tracker to Privacy Badger";
     classes.push("userset");
     action = action.substr(4);
@@ -61,7 +61,7 @@ function _trim(str,max){
 }
 
 function _badgerStatusTitle(action){
-  if(action.indexOf("user") == 0){
+  if(action.indexOf("user") === 0){
     var prefix = "You have ";
   } else {
     var prefix = "Privacy Badger has ";
@@ -81,7 +81,7 @@ function _badgerStatusTitle(action){
 function _addToggleHtml(origin, action){
   var output = "";
   output += '<div class="switch-container ' + action + '">';
-  output += '<div class="switch-toggle switch-3 switch-candy">'
+  output += '<div class="switch-toggle switch-3 switch-candy">';
   output += '<input id="block-' + origin + '" name="' + origin + '" type="radio" '+ _checked('block',action)+ '><label tooltip="click here to block this tracker entirely" class="tooltip actionToggle" for="block-' + origin + '" data-origin="' + origin + '" data-action="block"></label>';
   output += '<input id="cookieblock-' + origin + '" name="' + origin + '" type="radio" '+ _checked('cookieblock',action)+ '><label tooltip="click here to block this tracker from setting cookies" class="tooltip actionToggle" for="cookieblock-' + origin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
   output += '<input id="noaction-' + origin + '" name="' + origin + '" type="radio" '+ _checked('noaction',action)+ '><label tooltip="click here to allow this tracker" class="tooltip actionToggle" for="noaction-' + origin + '" data-origin="' + origin + '" data-action="noaction"></label>';
@@ -124,7 +124,7 @@ function toggleBlockedStatus(elt,status) {
 
 function refreshPopup(settings) {
   var origins = Object.keys(settings);
-  if (!origins || origins.length == 0) {
+  if (!origins || origins.length === 0) {
     document.getElementById("blockedResources").innerHTML = "Could not detect any tracking cookies.";
     return;
   }
@@ -167,26 +167,6 @@ function hideTooltip(event){
   var $elm = $(event.currentTarget);
   var $container = $elm.parents('.clicker').children('.tooltipContainer');
   $container.text('');
-}
-
-function saveAction(userAction, origin) {
-  var allUserActions = {'block': 'userRed',
-                        'cookieblock': 'userYellow',
-                        'noaction': 'userBlue'};
-  console.log("Saving user action " + userAction + " for " + origin);
-  for (var action in allUserActions) {
-    var filter = Filter.fromText("||" + origin + "^$third_party");
-    if (action == userAction){
-      console.log('adding filter', filter, 'to', action);
-      FilterStorage.addFilter(filter, FilterStorage.knownSubscriptions[allUserActions[action]]);
-    } else {
-      console.log('removing filter', filter, 'from', action);
-      FilterStorage.removeFilter(filter, FilterStorage.knownSubscriptions[allUserActions[action]]);
-    }
-  }
-  console.log("Finished saving action " + userAction + " for " + origin);
-  // todo: right now we don't determine whether a reload is needed
-  return true;
 }
 
 function getCurrentClass(elt) {
