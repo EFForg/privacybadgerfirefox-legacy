@@ -1,0 +1,36 @@
+// For description of these values see http://privacybadger.org/en/preferences
+
+pref("extensions.privacybadger.currentVersion", "0.0");
+pref("extensions.privacybadger.enabled", true);
+pref("extensions.privacybadger.frameobjects", true);
+pref("extensions.privacybadger.fastcollapse", false);
+pref("extensions.privacybadger.showinstatusbar", false);
+pref("extensions.privacybadger.detachsidebar", false);
+pref("extensions.privacybadger.defaulttoolbaraction", 0);
+pref("extensions.privacybadger.defaultstatusbaraction", 0);
+pref("extensions.privacybadger.sidebar_key", "Accel Shift V, Accel Shift U");
+pref("extensions.privacybadger.sendReport_key", "");
+pref("extensions.privacybadger.filters_key", "Accel Shift E, Accel Shift F, Accel Shift O");
+pref("extensions.privacybadger.enable_key", "");
+pref("extensions.privacybadger.flash_scrolltoitem", true);
+pref("extensions.privacybadger.previewimages", true);
+pref("extensions.privacybadger.data_directory", "privacybadger");
+pref("extensions.privacybadger.patternsbackups", 5);
+pref("extensions.privacybadger.patternsbackupinterval", 24);
+pref("extensions.privacybadger.whitelistschemes", "about chrome file irc moz-safe-about news resource snews x-jsd addbook cid imap mailbox nntp pop data javascript moz-icon");
+pref("extensions.privacybadger.subscriptions_autoupdate", true);
+pref("extensions.privacybadger.subscriptions_listurl", "https://privacybadger.org/subscriptions2.xml");
+pref("extensions.privacybadger.subscriptions_fallbackurl", "https://privacybadger.org/getSubscription?version=%VERSION%&url=%SUBSCRIPTION%&downloadURL=%URL%&error=%ERROR%&channelStatus=%CHANNELSTATUS%&responseStatus=%RESPONSESTATUS%");
+pref("extensions.privacybadger.subscriptions_fallbackerrors", 5);
+pref("extensions.privacybadger.subscriptions_exceptionsurl", "https://easylist-downloads.privacybadger.org/exceptionrules.txt");
+pref("extensions.privacybadger.subscriptions_exceptionscheckbox", true);
+pref("extensions.privacybadger.documentation_link", "https://privacybadger.org/redirect?link=%LINK%&lang=%LANG%");
+pref("extensions.privacybadger.savestats", true);
+pref("extensions.privacybadger.composer_default", 2);
+pref("extensions.privacybadger.clearStatsOnHistoryPurge", true);
+pref("extensions.privacybadger.report_submiturl", "https://reports.privacybadger.org/submitReport?version=1&guid=%GUID%&lang=%LANG%");
+pref("extensions.privacybadger.recentReports", []);
+pref("extensions.privacybadger.hideContributeButton", false);
+pref("extensions.privacybadger.blockableItemsSize", {width: 200, height: 200});
+pref("extensions.privacybadger.notificationurl", "https://notification.privacybadger.org/notification.json");
+pref("extensions.privacybadger.notificationdata", {});
