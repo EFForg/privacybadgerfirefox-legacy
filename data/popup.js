@@ -33,7 +33,7 @@ function deactivate() {
 
 /*
  * Possible states for action:
- *  noaction, block, usernoaction, userblock, usercookieblock
+ *  noaction, block, cookieblock, usernoaction, userblock, usercookieblock
  */
 
 function _addOriginHTML(origin, printable, action) {
@@ -109,7 +109,7 @@ function toggleBlockedStatus(elt,status) {
   if ($(elt).hasClass("block"))
     $(elt).toggleClass("block");
   else if ($(elt).hasClass("cookieblock")) {
-    $(elt).toggleClass("block");
+    $(elt).toggleClass("block"); // Why is this here?
     $(elt).toggleClass("cookieblock");
   }
   else
