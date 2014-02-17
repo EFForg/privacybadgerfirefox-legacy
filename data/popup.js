@@ -140,6 +140,7 @@ function refreshPopup(settings) {
     console.log('adding html for', origin, action);
   }
   document.getElementById("blockedResources").innerHTML = printable;
+  $('#applyButton').click(applySettings);
   console.log("Done refreshing popup");
 }
 
@@ -200,10 +201,11 @@ function buildSettingsDict() {
  * Listeners for communicating with the main process.
  */
 
-window.addEventListener('unload', function() {
+function applySettings() {
   console.log("Starting to unload popup");
   var settings = buildSettingsDict();
+  console.log("settings: ", JSON.stringify(settings));
   self.port.emit("done", settings);
-});
+};
 
 self.port.on("show-trackers", function(settings) { refreshPopup(settings); });
