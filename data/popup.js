@@ -125,6 +125,7 @@ function toggleBlockedStatus(elt,status) {
 function refreshPopup(settings) {
   var origins = Object.keys(settings);
   if (!origins || origins.length === 0) {
+    $('#applyButtonDiv').hide();
     document.getElementById("blockedResources").innerHTML = "Could not detect any tracking cookies.";
     return;
   }
@@ -140,6 +141,7 @@ function refreshPopup(settings) {
     console.log('adding html for', origin, action);
   }
   document.getElementById("blockedResources").innerHTML = printable;
+  $('#applyButtonDiv').show();
   $('#applyButton').click(applySettings);
   console.log("Done refreshing popup");
 }
