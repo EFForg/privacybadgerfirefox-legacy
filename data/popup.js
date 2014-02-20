@@ -31,9 +31,9 @@ function deactivate() {
 
 // ugly helpers: not to be used!
 
-/*
+/**
  * Possible states for action:
- *  noaction, block, usernoaction, userblock, usercookieblock
+ *  noaction, block, cookieblock, usernoaction, userblock, usercookieblock
  */
 
 function _addOriginHTML(origin, printable, action) {
@@ -109,7 +109,7 @@ function toggleBlockedStatus(elt,status) {
   if ($(elt).hasClass("block"))
     $(elt).toggleClass("block");
   else if ($(elt).hasClass("cookieblock")) {
-    $(elt).toggleClass("block");
+    $(elt).toggleClass("block"); // Why is this here?
     $(elt).toggleClass("cookieblock");
   }
   else
@@ -125,6 +125,7 @@ function toggleBlockedStatus(elt,status) {
 function refreshPopup(settings) {
   var origins = Object.keys(settings);
   if (!origins || origins.length === 0) {
+    $('#applyButtonDiv').hide();
     document.getElementById("blockedResources").innerHTML = "Could not detect any tracking cookies.";
     return;
   }
@@ -140,6 +141,8 @@ function refreshPopup(settings) {
     console.log('adding html for', origin, action);
   }
   document.getElementById("blockedResources").innerHTML = printable;
+  $('#applyButtonDiv').show();
+  $('#applyButton').click(applySettings);
   console.log("Done refreshing popup");
 }
 
@@ -196,14 +199,15 @@ function buildSettingsDict() {
 }
 
 
-/*
+/**
  * Listeners for communicating with the main process.
  */
 
-window.addEventListener('unload', function() {
+function applySettings() {
   console.log("Starting to unload popup");
   var settings = buildSettingsDict();
+  console.log("settings: ", JSON.stringify(settings));
   self.port.emit("done", settings);
-});
+};
 
 self.port.on("show-trackers", function(settings) { refreshPopup(settings); });
