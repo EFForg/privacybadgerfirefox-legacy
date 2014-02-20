@@ -31,7 +31,7 @@ function deactivate() {
 
 // ugly helpers: not to be used!
 
-/*
+/**
  * Possible states for action:
  *  noaction, block, cookieblock, usernoaction, userblock, usercookieblock
  */
@@ -199,7 +199,7 @@ function buildSettingsDict() {
 }
 
 
-/*
+/**
  * Listeners for communicating with the main process.
  */
 
