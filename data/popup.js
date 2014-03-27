@@ -49,7 +49,7 @@ function _addOriginHTML(origin, printable, action) {
     classes.push(action);
   var classText = 'class="' + classes.join(" ") + '"';
 
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" data-original-action="' + action + '"><div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><div class="origin tooltip" tooltip="' + _badgerStatusTitle(action) + '">' + _trim(origin,24) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" data-original-action="' + action + '"><div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><div class="origin tooltip" tooltip="' + _badgerStatusTitle(action, origin) + '">' + _trim(origin,24) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
 }
 
 function _trim(str,max){
@@ -60,31 +60,30 @@ function _trim(str,max){
   }
 }
 
-function _badgerStatusTitle(action){
-  if(action.indexOf("user") === 0){
-    var prefix = "You have ";
+function _badgerStatusTitle(action, origin){
+  let postfix;
+  if (!origin) {
+    postfix = " this tracker.";
   } else {
-    var prefix = "Privacy Badger has ";
+    postfix = " "+origin+".";
   }
 
   var statusMap = {
-    block: "blocked",
-    cookieblock: "blocked cookies from",
-    noaction: "allowed"
+    block: "Blocked",
+    cookieblock: "Blocked cookies from",
+    noaction: "Allowed"
   };
 
-  var postfix = " this tracker.";
-
-  return prefix + statusMap[action] + postfix;
+  return statusMap[action] + postfix;
 }
 
 function _addToggleHtml(origin, action){
   var output = "";
   output += '<div class="switch-container ' + action + '">';
   output += '<div class="switch-toggle switch-3 switch-candy">';
-  output += '<input id="block-' + origin + '" name="' + origin + '" type="radio" '+ _checked('block',action)+ '><label tooltip="click here to block this tracker entirely" class="tooltip actionToggle" for="block-' + origin + '" data-origin="' + origin + '" data-action="block"></label>';
-  output += '<input id="cookieblock-' + origin + '" name="' + origin + '" type="radio" '+ _checked('cookieblock',action)+ '><label tooltip="click here to block this tracker from setting cookies" class="tooltip actionToggle" for="cookieblock-' + origin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
-  output += '<input id="noaction-' + origin + '" name="' + origin + '" type="radio" '+ _checked('noaction',action)+ '><label tooltip="click here to allow this tracker" class="tooltip actionToggle" for="noaction-' + origin + '" data-origin="' + origin + '" data-action="noaction"></label>';
+  output += '<input id="block-' + origin + '" name="' + origin + '" type="radio" '+ _checked('block',action)+ '><label tooltip="Block ' + origin + '" class="tooltip actionToggle" for="block-' + origin + '" data-origin="' + origin + '" data-action="block"></label>';
+  output += '<input id="cookieblock-' + origin + '" name="' + origin + '" type="radio" '+ _checked('cookieblock',action)+ '><label tooltip="Block cookies from ' + origin + '" class="tooltip actionToggle" for="cookieblock-' + origin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
+  output += '<input id="noaction-' + origin + '" name="' + origin + '" type="radio" '+ _checked('noaction',action)+ '><label tooltip="Allow ' + origin + '" class="tooltip actionToggle" for="noaction-' + origin + '" data-origin="' + origin + '" data-action="noaction"></label>';
   output += '<a></a></div></div>';
   return output;
 }
