@@ -3,7 +3,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 // From https://raw.github.com/mozilla/addon-sdk/1.15/test/test-request.js
-// Tests basic request functionality
+
+// Tests basic request functionality without privacy badger
 
 const { Request } = require("sdk/request");
 const { pathFor } = require("sdk/system");
@@ -231,6 +232,29 @@ exports.testHead = function (assert, done) {
     }
   }).head();
 };
+
+// Tests DNT header is unset when PB is not running
+exports.testDNTNoPB = function(assert, done) {
+
+  let srv = startServerAsync(port, basePath);
+  let basename = "test-dnt-no-pb.sjs";
+  let url = "http://localhost:" + port + "/" + basename;
+
+  function handleRequest(request, response) {
+    var dnt = request.hasHeader("DNT");
+    response.setHeader("DNT", JSON.stringify(dnt))
+  }
+
+  prepareFile(basename, handleRequest.toString());
+
+  runMultipleURLs(srv, assert, done, {
+    url: url,
+    onComplete: function(response) {
+      assert.equal(response.headers['DNT'], "false");
+    }
+  });
+};
+
 
 function runMultipleURLs (srv, assert, done, options) {
   let urls = [options.url, URL(options.url)];
