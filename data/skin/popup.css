@@ -41,7 +41,7 @@ a:hover { color: #eeeeff }
 .click-nav ul .cookieblock:hover {background:#FFF79A; color:black}
 .click-nav ul .greyed {background:#C0C0C0; color:gray}
 .click-nav ul .greyed:hover {background:#E0E0E0; color:gray} */
-.click-nav ul .userset {background-image:url('/skin/lock.png');background-repeat:no-repeat;background-position: right center;} 
+.click-nav ul .userset {background-image:url('lock.png');background-repeat:no-repeat;background-position: right center;} 
 .clicker{
   border-top: 1px solid #aaaaaa;
   padding: 5px;
@@ -79,11 +79,34 @@ a:hover { color: #eeeeff }
   margin-right: 4px;
 }
 .userset .honeybadgerPowered{
-  background: url('/icons/badger-19.png') no-repeat;
+  background: url('../icons/badger-pin.png') no-repeat;
 }
 .tooltipContainer{
 display: block;
 clear: both;
 color: #555555;
 font-size: 12px;
+}
+#privacyBadgerHeader{
+color: #505050;
+font-size: 16px;
+}
+#privacyBadgerHeader h2{
+  margin-left: 10px;
+  display: inline;
+  float: left;
+  color: #454545;
+  font-size: 18px;
+}
+#privacyBadgerHeader img{
+  display: inline;
+  float: left;
+}
+#helplink {
+  padding-top: 5px;
+  color: #4183c4;
+}
+#thirdPartyCookiesError {
+  background-color: #f00;
+  color: #f0f0f0;
 }
