@@ -210,3 +210,15 @@ function applySettings() {
 };
 
 self.port.on("show-trackers", function(settings) { refreshPopup(settings); });
+
+self.port.on("cookiePrefsChange", function(prefBlocksCookies) {
+  var cookiePrefsWarning = $('#cookiePrefsWarning');
+  if (prefBlocksCookies) {
+    if (cookiePrefsWarning.length == 0) {
+      cookiePrefsWarning = $('<p id="cookiePrefsWarning">Your cookie preferences are changed from the defaults. This may reduce the effectiveness of Privacy Badger.</p>');
+      $('#privacyBadgerHeader').prepend(cookiePrefsWarning);
+    }
+  } else {
+    cookiePrefsWarning.remove();
+  }
+});

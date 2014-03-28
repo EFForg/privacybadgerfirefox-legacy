@@ -110,3 +110,9 @@ font-size: 16px;
   background-color: #f00;
   color: #f0f0f0;
 }
+#cookiePrefsWarning {
+  background-color:#FF5757;
+  color:white;
+  font-size:0.75em;
+  padding:0.75em;
+}
