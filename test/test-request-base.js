@@ -165,6 +165,8 @@ exports.test3rdPartyCookies = function (assert, done) {
   // Disable the 3rd party cookies
   Services.prefs.setIntPref("network.cookie.cookieBehavior", 1);
 
+  // XXX: This test was co-opted from the Addon SDK test suite. Seems like
+  // it's misnamed because this request isn't considered third-party.
   Request({
     url: "http://localhost:" + port + "/test-request-3rd-party-cookies.sjs",
     onComplete: function (response) {
