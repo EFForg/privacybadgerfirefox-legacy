@@ -97,13 +97,18 @@ function _checked(name, action){
 }
 
 function toggleBlockedStatus(elt,status) {
-  console.log('toggle blocked status', elt, status);
   if(status){
+    console.log('toggle blocked status', elt, status);
     $(elt).removeClass("block cookieblock noaction").addClass(status);
     $(elt).addClass("userset");
-    return;
+    updateSettings(elt, status);
+    return true;
+  } else {
+    console.log("ERROR: no status for", elt);
+    return false;
   }
 
+  /* This was copied from PB chrome. Unclear what it does; delete?
   var originalAction = elt.getAttribute('data-original-action');
   if ($(elt).hasClass("block"))
     $(elt).toggleClass("block");
@@ -119,12 +124,12 @@ function toggleBlockedStatus(elt,status) {
     $(elt).removeClass("userset");
   else
     $(elt).addClass("userset");
+   */
 }
 
 function refreshPopup(settings) {
   var origins = Object.keys(settings);
   if (!origins || origins.length === 0) {
-    $('#applyButtonDiv').hide();
     document.getElementById("blockedResources").innerHTML = "Could not detect any tracking cookies.";
     return;
   }
@@ -140,8 +145,6 @@ function refreshPopup(settings) {
     console.log('adding html for', origin, action);
   }
   document.getElementById("blockedResources").innerHTML = printable;
-  $('#applyButtonDiv').show();
-  $('#applyButton').click(applySettings);
   console.log("Done refreshing popup");
 }
 
@@ -181,10 +184,13 @@ function getCurrentClass(elt) {
 }
 
 function buildSettingsDict() {
+  // Only useful if we have a way to emit the changed settings right *before*
+  // the panel gets hidden. onHide is called too late.
   var settingsDict = {};
   $('.clicker').each(function() {
     var origin = $(this).attr("data-origin");
-    if ($(this).hasClass("userset") && getCurrentClass(this) != $(this).attr("data-original-action")) {
+    if ($(this).hasClass("userset") &&
+        getCurrentClass(this) !== $(this).attr("data-original-action")) {
       // todo: DRY; same as code above, break out into helper
       if ($(this).hasClass("block"))
         settingsDict[origin] = "block";
@@ -202,12 +208,14 @@ function buildSettingsDict() {
  * Listeners for communicating with the main process.
  */
 
-function applySettings() {
-  console.log("Starting to unload popup");
-  var settings = buildSettingsDict();
-  console.log("settings: ", JSON.stringify(settings));
-  self.port.emit("done", settings);
-};
+function updateSettings(elt, status) {
+  var $elt = $(elt);
+  var origin = $elt.attr("data-origin");
+  if ($elt.hasClass("userset"))
+    self.port.emit("update", {origin: origin, action: status});
+  else
+    console.log("Got update that wasn't user-set:", origin, status);
+}
 
 self.port.on("show-trackers", function(settings) { refreshPopup(settings); });
 
