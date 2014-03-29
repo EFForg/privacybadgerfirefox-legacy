@@ -71,6 +71,9 @@ a:hover { color: #eeeeff }
 .noaction .switch-candy a{
   background-color: #70c66b;
 }
+.reset .switch-candy a{
+  background-color: #333333;
+}
 .honeybadgerPowered{
   width: 20px;
   height: 20px;

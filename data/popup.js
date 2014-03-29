@@ -173,6 +173,7 @@ function resetControl(event) {
   var origin = $clicker.attr("data-origin");
   self.port.emit("reset", origin);
   // Don't let the user toggle settings until refresh
+  $clicker.removeClass("block cookieblock noaction").addClass("reset");
   $clicker.find("input").prop("disabled", true);
   $clicker.click(function (event) {
     event.stopPropagation();
