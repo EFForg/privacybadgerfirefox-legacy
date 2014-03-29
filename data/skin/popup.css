@@ -77,6 +77,11 @@ a:hover { color: #eeeeff }
   color: #555555;
   font-size: 12px;
 }
+#prefs {
+  float: right;
+  margin-left: 3px;
+  margin-top: 3px;
+}
 #detected {
   text-align: center;
   color: #707070;
