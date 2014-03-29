@@ -102,7 +102,7 @@ function _checked(name, action){
 function toggleBlockedStatus(elt,status) {
   if(status){
     console.log('toggle blocked status', elt, status);
-    $(elt).removeClass("block cookieblock noaction").addClass(status);
+    $(elt).removeClass("reset block cookieblock noaction").addClass(status);
     $(elt).addClass("userset");
     updateSettings(elt, status);
     return true;
@@ -161,7 +161,7 @@ function updateOrigin(event){
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
-  $switchContainer.removeClass('block cookieblock noaction').addClass(action);
+  $switchContainer.removeClass('reset block cookieblock noaction').addClass(action);
   toggleBlockedStatus($clicker, action);
   $clicker.find('.honeybadgerPowered').first().attr('tooltip', feedTheBadgerTitle);
 }
@@ -173,11 +173,13 @@ function resetControl(event) {
   var origin = $clicker.attr("data-origin");
   self.port.emit("reset", origin);
   // Don't let the user toggle settings until refresh
-  $clicker.removeClass("block cookieblock noaction").addClass("reset");
+  $clicker.removeClass("reset block cookieblock noaction").addClass("reset");
   $clicker.find("input").prop("disabled", true);
   $clicker.click(function (event) {
     event.stopPropagation();
   });
+  $elm.css('background', 'None');
+  $elm.removeClass("userset");
 }
 
 function displayTooltip(event){
