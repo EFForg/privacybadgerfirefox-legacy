@@ -133,12 +133,14 @@ function toggleBlockedStatus(elt,status) {
 function refreshPopup(settings) {
   var origins = Object.keys(settings);
   if (!origins || origins.length === 0) {
-    document.getElementById("blockedResources").innerHTML = "Could not detect any tracking cookies.";
+    $("#detected").html("Could not detect any tracking cookies.");
+    $("#blockedResources").html("");
     return;
   }
   // old text that could go in printable:
   // "Suspicious 3rd party domains in this page.  Red: we've blocked it;
   // yellow: only cookies blocked; blue: no blocking yet";
+  $("#detected").html("Detected trackers from these sites:");
   var printable = '<div id="associatedTab" data-tab-id="' + 0 + '"></div>';
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
@@ -147,7 +149,7 @@ function refreshPopup(settings) {
     printable = _addOriginHTML(origin, printable, action);
     console.log('adding html for', origin, action);
   }
-  document.getElementById("blockedResources").innerHTML = printable;
+  $("#blockedResources").html(printable);
   console.log("Done refreshing popup");
 }
 
@@ -243,7 +245,7 @@ self.port.on("cookiePrefsChange", function(prefBlocksCookies) {
   var cookiePrefsWarning = $('#cookiePrefsWarning');
   if (prefBlocksCookies) {
     if (cookiePrefsWarning.length == 0) {
-      cookiePrefsWarning = $('<p id="cookiePrefsWarning">Your cookie preferences are changed from the defaults. This may reduce the effectiveness of Privacy Badger.</p>');
+      cookiePrefsWarning = $('<p id="cookiePrefsWarning">Your cookie preferences are changed from the defaults. This may reduce the effectiveness of Privacy Badger. <a href="https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences">Learn more</a>.</p>');
       $('#privacyBadgerHeader').prepend(cookiePrefsWarning);
     }
   } else {

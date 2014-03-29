@@ -6,7 +6,10 @@ body {
   font-family: helvetica, arial, sans-serif;
 }
 
-a { text-decoration: none }
+a {
+  color: #3333cc;
+}
+
 a:hover { color: #eeeeff }
 
 #filtersList {
@@ -17,7 +20,7 @@ a:hover { color: #eeeeff }
 }
 
 .ui-button {
-    padding: 3px;
+  padding: 3px;
 }
 
 .spacer {
@@ -26,22 +29,6 @@ a:hover { color: #eeeeff }
   display: block;
 }
 
-.click-nav ul {position:relative;font-weight:900;list-style-type:none;}
-.click-nav ul li {position:relative;list-style:none;cursor:pointer;}
-.click-nav ul li ul {position:relative;}
-.click-nav ul .clicker {position:relative;background:#2284B5;color:#FFF;}
-.click-nav ul .clicker:hover,.click-nav ul .active {background:#196F9A;}
-.click-nav .imglink img {position:absolute;top:9px;left:12px;}
-.click-nav ul li a {transition:background-color 0.2s ease-in-out;-webkit-transition:background-color 0.2s ease-in-out;
--moz-transition:background-color 0.2s ease-in-out;display:block;padding:8px 10px 8px 40px;background:#FFF;color:#333;text-decoration:none;}
-.click-nav ul li a:hover {background:#F2F2F2;}
-/*.click-nav ul .block {background:#FF0000;}
-.click-nav ul .block:hover {background:#BE2625;}
-.click-nav ul .cookieblock {background:#FFF200; color:black}
-.click-nav ul .cookieblock:hover {background:#FFF79A; color:black}
-.click-nav ul .greyed {background:#C0C0C0; color:gray}
-.click-nav ul .greyed:hover {background:#E0E0E0; color:gray} */
-.click-nav ul .userset {background-image:url('lock.png');background-repeat:no-repeat;background-position: right center;} 
 .clicker{
   border-top: 1px solid #aaaaaa;
   padding: 5px;
@@ -79,34 +66,37 @@ a:hover { color: #eeeeff }
   height: 20px;
   display: inline;
   float: left;
-  margin-right: 4px;
+  margin-right: 2px;
 }
 .userset .honeybadgerPowered{
   background: url('../icons/badger-pin.png') no-repeat;
 }
 .tooltipContainer{
-display: block;
-clear: both;
-color: #555555;
-font-size: 12px;
+  display: block;
+  clear: both;
+  color: #555555;
+  font-size: 12px;
 }
-#privacyBadgerHeader{
-color: #505050;
-font-size: 16px;
+#detected {
+  text-align: center;
+  color: #707070;
+  font-size: 16px;
+  padding-bottom: 7px;
 }
 #privacyBadgerHeader h2{
   margin-left: 10px;
   display: inline;
-  float: left;
   color: #454545;
   font-size: 18px;
 }
 #privacyBadgerHeader img{
   display: inline;
+  margin-left: 20%;
   float: left;
 }
 #helplink {
   padding-top: 5px;
+  text-decoration: none;
   color: #4183c4;
 }
 #thirdPartyCookiesError {
@@ -116,6 +106,6 @@ font-size: 16px;
 #cookiePrefsWarning {
   background-color:#FF5757;
   color:white;
-  font-size:0.75em;
+  font-size:1em;
   padding:0.75em;
 }
