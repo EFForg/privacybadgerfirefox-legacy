@@ -8,6 +8,7 @@ function init()
   // Initialize based on activation state
   $(document).ready(function () {
     $('#blockedResourcesContainer').on('click', '.actionToggle', updateOrigin);
+    $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', resetControl);
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
   });
@@ -36,20 +37,22 @@ function deactivate() {
  *  noaction, block, cookieblock, usernoaction, userblock, usercookieblock
  */
 
+var feedTheBadgerTitle = "Click to return control of this tracker to Privacy Badger.";
 function _addOriginHTML(origin, printable, action) {
   console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker"];
-  var feedTheBadgerTitle = '';
+  var title = feedTheBadgerTitle;
   if (action.indexOf("user") === 0) {
-    feedTheBadgerTitle = "click to return control of this tracker to Privacy Badger";
     classes.push("userset");
     action = action.substr(4);
+  } else {
+    title = '';
   }
   if (action == "block" || action == "cookieblock")
     classes.push(action);
   var classText = 'class="' + classes.join(" ") + '"';
 
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" data-original-action="' + action + '"><div class="honeybadgerPowered tooltip" tooltip="'+ feedTheBadgerTitle + '"></div><div class="origin tooltip" tooltip="' + _badgerStatusTitle(action, origin) + '">' + _trim(origin,24) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" data-original-action="' + action + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin tooltip" tooltip="' + _badgerStatusTitle(action, origin) + '">' + _trim(origin,24) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
 }
 
 function _trim(str,max){
@@ -160,6 +163,20 @@ function updateOrigin(event){
   var action = $elm.data('action');
   $switchContainer.removeClass('block cookieblock noaction').addClass(action);
   toggleBlockedStatus($clicker, action);
+  $clicker.find('.honeybadgerPowered').first().attr('tooltip', feedTheBadgerTitle);
+}
+
+function resetControl(event) {
+  // Removes a userset setting
+  var $elm = $(event.currentTarget);
+  var $clicker = $elm.parents('.clicker').first();
+  var origin = $clicker.attr("data-origin");
+  self.port.emit("reset", origin);
+  // Don't let the user toggle settings until refresh
+  $clicker.find("input").prop("disabled", true);
+  $clicker.click(function (event) {
+    event.stopPropagation();
+  });
 }
 
 function displayTooltip(event){
