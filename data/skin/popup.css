@@ -125,12 +125,12 @@ a:hover { color: #eeeeff }
   background: #FFFFFF;
   font-size: 20px;
   text-align: center;
-  margin-bottom: 5px;
-  margin-top: 5px;
+  margin-bottom: 7px;
+  margin-top: 7px;
   cursor: pointer;
 }
 .buttonActive {
-  background: #DDDDDD;
+  background: #EEEEEE;
 }
 #buttonsDiv {
   font-family: helvetica, arial, sans-serif;

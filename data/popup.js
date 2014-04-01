@@ -19,16 +19,24 @@ function init()
     });
     $('#gearImg').click(function() {
       // Create the settings menu
-      let disableHTML = '<div id="disableButtonDiv" class="modalButton">Disable</div>';
+      let disableHTML = '<div id="disableButtonDiv" class="modalButton">Disable Privacy Badger</div>';
+      let heuristicHTML = '<div id="heuristicButtonDiv" class="modalButton">Turn off automatic blocking</div>';
       let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Restore default settings</div>';
-      let contentHTML = disableHTML + restoreHTML;
+      let contentHTML = disableHTML + heuristicHTML + restoreHTML;
       vex.open({
         content: contentHTML,
         appendLocation: 'body',
         css: {'width':'80%',
               'margin-left':'auto',
               'margin-right':'auto',
-              'margin-top': '25px',
+              'margin-top': '25px'
+        },
+        contentCSS: {'background': '#BB5555',
+                     'border-top': '20px solid #333333',
+                     'padding-left': '1em',
+                     'padding-right': '1em',
+                     'padding-top': '0.5em',
+                     'padding-bottom': '0.5em'
         },
         showCloseButton: false
       }).bind('vexOpen', function(options) {
