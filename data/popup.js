@@ -212,6 +212,8 @@ function resetControl(event) {
     event.stopPropagation();
   });
   $elm.css('background', 'None');
+  $elm.css('cursor', 'default');
+  $clicker.find('.honeybadgerPowered').first().attr('tooltip', '');
   $elm.removeClass("userset");
 }
 

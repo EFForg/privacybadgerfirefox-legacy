@@ -4,6 +4,7 @@ body {
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
+  cursor: default;
 }
 
 a {
@@ -46,6 +47,9 @@ a:hover { color: #eeeeff }
   float: right;
   display: inline;
 }
+.actionToggle {
+  cursor: pointer;
+}
 .clear{
   clear: both;
 }
@@ -70,6 +74,7 @@ a:hover { color: #eeeeff }
 }
 .userset .honeybadgerPowered{
   background: url('../icons/badger-pin.png') no-repeat;
+  cursor: pointer;
 }
 .tooltipContainer{
   display: block;
@@ -122,6 +127,7 @@ a:hover { color: #eeeeff }
   text-align: center;
   margin-bottom: 5px;
   margin-top: 5px;
+  cursor: pointer;
 }
 .buttonActive {
   background: #DDDDDD;
