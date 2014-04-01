@@ -1,5 +1,6 @@
 function init()
 {
+  vex.defaultOptions.className = 'vex-theme-os';
   console.log("Initializing popup.js");
   // Attach event listeners
   $("#activate_btn").click(activate);
@@ -11,6 +12,34 @@ function init()
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', resetControl);
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
+    $('#prefs').hover(function() {
+      $('#gearImg').attr('src', 'icons/gear-25.png');
+    }, function() {
+      $('#gearImg').attr('src', 'icons/gear-light-25.png');
+    });
+    $('#gearImg').click(function() {
+      // Create the settings menu
+      let disableHTML = '<div id="disableButtonDiv" class="modalButton">Disable</div>';
+      let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Restore default settings</div>';
+      let contentHTML = disableHTML + restoreHTML;
+      vex.open({
+        content: contentHTML,
+        appendLocation: 'body',
+        css: {'width':'80%',
+              'margin-left':'auto',
+              'margin-right':'auto',
+              'margin-top': '25px',
+        },
+        showCloseButton: false
+      }).bind('vexOpen', function(options) {
+        $('.modalButton').wrapAll('<div id="buttonsDiv" />');
+        // Listeners for events in the settings menu
+        $('.modalButton').hover(function() {
+          $(this).toggleClass('buttonActive');
+        });
+      }).bind('vexClose', function() {
+      });
+    });
   });
 }
 $(init);
@@ -134,12 +163,14 @@ function refreshPopup(settings) {
   var origins = Object.keys(settings);
   if (!origins || origins.length === 0) {
     $("#detected").html("Could not detect any tracking cookies.");
+    $('#badgerImg').attr('src', 'icons/badger-grey-32.png');
     $("#blockedResources").html("");
     return;
   }
   // old text that could go in printable:
   // "Suspicious 3rd party domains in this page.  Red: we've blocked it;
   // yellow: only cookies blocked; blue: no blocking yet";
+  $('#badgerImg').attr('src', 'icons/badger-32.png');
   $("#detected").html("Detected trackers from these sites:");
   var printable = '<div id="associatedTab" data-tab-id="' + 0 + '"></div>';
   for (var i=0; i < origins.length; i++) {

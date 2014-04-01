@@ -1,39 +1,19 @@
 <!DOCTYPE html>
 
-<!--
-  - This file was part of Adblock Plus <http://adblockplus.org/>,
-  - Copyright (C) 2006-2013 Eyeo GmbH
-
-  - Modified for Privacy Badger
-  - Copyright (C) 2013- Electronic Frontier Foundation & others
-
-  -
-  - Adblock Plus is free software: you can redistribute it and/or modify
-  - it under the terms of the GNU General Public License version 3 as
-  - published by the Free Software Foundation.
-  -
-  - Adblock Plus is distributed in the hope that it will be useful,
-  - but WITHOUT ANY WARRANTY; without even the implied warranty of
-  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  - GNU General Public License for more details.
-  -
-  - You should have received a copy of the GNU General Public License
-  - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
-  -->
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" href="vex/vex.css" />
+<link type="text/css" rel="stylesheet" href="vex/vex-theme-os.css" />
 <link type="text/css" href="jquery-ui/css/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 <link type="text/css" media="screen" href="skin/popup.css" rel="stylesheet" />
 <link type="text/css" media="screen" href="skin/toggle-switch.css" rel="stylesheet" />
-
 </head>
 <body id="main">
 
 <div id='privacyBadgerHeader'>
-  <span id='title'><img src='icons/badger-32.png'><h2>Privacy Badger</h2></span>
-  <span id='prefs'><img src='icons/gear-light-25.png' title="Settings"></span>
+  <span id='title'><img id="badgerImg" src='icons/badger-32.png'><h2>Privacy Badger</h2></span>
+  <span id='prefs'><a href="javascript:void(0)"><img id="gearImg" src='icons/gear-light-25.png' title="Settings"></a></span>
   <div id='detected' class='clear'></div>
 </div>
 
