@@ -122,7 +122,7 @@ a:hover { color: #eeeeff }
 .modalButton {
   height: 70px;
   line-height: 70px;
-  background: #FFFFFF;
+  background: #E8E8E8;
   font-size: 20px;
   text-align: center;
   margin-bottom: 7px;
@@ -130,7 +130,7 @@ a:hover { color: #eeeeff }
   cursor: pointer;
 }
 .buttonActive {
-  background: #EEEEEE;
+  background: #FFFFFF;
 }
 #buttonsDiv {
   font-family: helvetica, arial, sans-serif;

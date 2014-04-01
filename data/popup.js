@@ -3,8 +3,7 @@ function init()
   vex.defaultOptions.className = 'vex-theme-os';
   console.log("Initializing popup.js");
   // Attach event listeners
-  $("#activate_btn").click(activate);
-  $("#deactivate_btn").click(deactivate);
+  $("#activateButtonDiv").click(activate);
 
   // Initialize based on activation state
   $(document).ready(function () {
@@ -21,8 +20,8 @@ function init()
       // Create the settings menu
       let disableHTML = '<div id="disableButtonDiv" class="modalButton">Disable Privacy Badger</div>';
       let heuristicHTML = '<div id="heuristicButtonDiv" class="modalButton">Turn off automatic blocking</div>';
-      let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Restore default settings</div>';
-      let contentHTML = disableHTML + heuristicHTML + restoreHTML;
+      let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Restore defaults . . . </div>';
+      let contentHTML = heuristicHTML + restoreHTML + disableHTML;
       vex.open({
         content: contentHTML,
         appendLocation: 'body',
@@ -44,6 +43,9 @@ function init()
         // Listeners for events in the settings menu
         $('.modalButton').hover(function() {
           $(this).toggleClass('buttonActive');
+        });
+        $('#disableButtonDiv').click(function() {
+          deactivate();
         });
       }).bind('vexClose', function() {
       });
@@ -285,7 +287,7 @@ self.port.on("show-trackers", function(settings) { refreshPopup(settings); });
 self.port.on("cookiePrefsChange", function(prefBlocksCookies) {
   var cookiePrefsWarning = $('#cookiePrefsWarning');
   if (prefBlocksCookies) {
-    if (cookiePrefsWarning.length == 0) {
+    if (cookiePrefsWarning.length === 0) {
       cookiePrefsWarning = $('<p id="cookiePrefsWarning">Your cookie preferences are changed from the defaults. This may reduce the effectiveness of Privacy Badger. <a href="https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences">Learn more</a>.</p>');
       $('#privacyBadgerHeader').prepend(cookiePrefsWarning);
     }
