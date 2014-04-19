@@ -129,6 +129,9 @@ a:hover { color: #eeeeff }
   margin-top: 7px;
   cursor: pointer;
 }
+.clickable {
+  cursor: pointer;
+}
 .buttonActive {
   background: #FFFFFF;
 }

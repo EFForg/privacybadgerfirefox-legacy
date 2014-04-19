@@ -1,75 +1,85 @@
-function init()
+function init(isActive)
 {
-  vex.defaultOptions.className = 'vex-theme-os';
   console.log("Initializing popup.js");
-  // Attach event listeners
-  $("#activateButtonDiv").click(activate);
 
-  // Initialize based on activation state
-  $(document).ready(function () {
+  // If not active, just show an activation button
+  if (!isActive) {
+    resetHTML();
+    return;
+  }
+
+  // Initialize more HTML if PB is active
+  vex.defaultOptions.className = 'vex-theme-os';
+  $("#badgerImg2").hide();
+  $("#badgerImg").show();
+  $("#badgerImg").hover(function () {
+    $("#detected").html("Click to deactivate Privacy Badger!");
+  }, function () {
+    $("#detected").html(trackerStatus);
+  });
+  $('#prefs').hover(function() {
+    $('#gearImg').attr('src', 'icons/gear-25.png');
+  }, function() {
+    $('#gearImg').attr('src', 'icons/gear-light-25.png');
+  });
+  $(function() {
+    $("#gearImg").show();
     $('#blockedResourcesContainer').on('click', '.actionToggle', updateOrigin);
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', resetControl);
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
-    $('#prefs').hover(function() {
-      $('#gearImg').attr('src', 'icons/gear-25.png');
-    }, function() {
-      $('#gearImg').attr('src', 'icons/gear-light-25.png');
-    });
-    $('#gearImg').click(function() {
-      // Create the settings menu
-      let disableHTML = '<div id="disableButtonDiv" class="modalButton">Disable Privacy Badger</div>';
-      let heuristicHTML = '<div id="heuristicButtonDiv" class="modalButton">Turn off automatic blocking</div>';
-      let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Restore defaults . . . </div>';
-      let contentHTML = heuristicHTML + restoreHTML + disableHTML;
-      vex.open({
-        content: contentHTML,
-        appendLocation: 'body',
-        css: {'width':'80%',
-              'margin-left':'auto',
-              'margin-right':'auto',
-              'margin-top': '25px'
-        },
-        contentCSS: {'background': '#BB5555',
-                     'border-top': '20px solid #333333',
-                     'padding-left': '1em',
-                     'padding-right': '1em',
-                     'padding-top': '0.5em',
-                     'padding-bottom': '0.5em'
-        },
-        showCloseButton: false
-      }).bind('vexOpen', function(options) {
-        $('.modalButton').wrapAll('<div id="buttonsDiv" />');
-        // Listeners for events in the settings menu
-        $('.modalButton').hover(function() {
-          $(this).toggleClass('buttonActive');
-        });
-        $('#disableButtonDiv').click(function() {
-          deactivate();
-        });
-      }).bind('vexClose', function() {
-      });
-    });
   });
 }
-$(init);
 
-function activate() {
-  $("#activate_btn").toggle();
-  $("#deactivate_btn").toggle();
-  $(".clicker").toggleClass("greyed");
-  self.port.emit("activate");
+function resetHTML() {
+  $("#badgerImg").hide();
+  $("#badgerImg2").show();
+  $("#detected").html("Click the badger icon to activate Privacy Badger!");
+  $("#blockedResources").html("");
+  $("#gearImg").hide();
+  return;
 }
 
-function deactivate() {
-  $("#activate_btn").toggle();
-  $("#deactivate_btn").toggle();
-  $(".clicker").toggleClass("greyed");
-  self.port.emit("deactivate");
-}
+$("#badgerImg2").click(function() { self.port.emit("activate") });
 
+$("#badgerImg").click(function () { self.port.emit("deactivate"); });
 
-// ugly helpers: not to be used!
+$('#gearImg').click(function() {
+  // Create the settings menu
+  let disableHTML = '<div id="disableButtonDiv" class="modalButton">Disable Privacy Badger</div>';
+  let heuristicHTML = '<div id="heuristicButtonDiv" class="modalButton">Turn off automatic blocking</div>';
+  let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Restore defaults . . . </div>';
+  let contentHTML = heuristicHTML + restoreHTML + disableHTML;
+  vex.open({
+    content: contentHTML,
+    appendLocation: 'body',
+    css: {'width':'80%',
+          'margin-left':'auto',
+          'margin-right':'auto',
+          'margin-top': '25px'
+    },
+    contentCSS: {'background': '#BB5555',
+                 'border-top': '20px solid #333333',
+                 'padding-left': '1em',
+                 'padding-right': '1em',
+                 'padding-top': '0.5em',
+                 'padding-bottom': '0.5em'
+    },
+    showCloseButton: false
+  }).bind('vexOpen', function(options) {
+    $('.modalButton').wrapAll('<div id="buttonsDiv" />');
+    // Listeners for events in the settings menu
+    $('.modalButton').hover(function() {
+      $(this).toggleClass('buttonActive');
+    });
+    $('#disableButtonDiv').click(function() {
+      self.port.emit("deactivate");
+      vex.close();
+    });
+  }).bind('vexClose', function() {
+  });
+});
+
 
 /**
  * Possible states for action:
@@ -169,19 +179,21 @@ function toggleBlockedStatus(elt,status) {
    */
 }
 
+var trackerStatus;
 function refreshPopup(settings) {
   var origins = Object.keys(settings);
   if (!origins || origins.length === 0) {
-    $("#detected").html("Could not detect any tracking cookies.");
-    $('#badgerImg').attr('src', 'icons/badger-grey-32.png');
+    trackerStatus = "Could not detect any tracking cookies.";
+    $("#detected").html(trackerStatus);
     $("#blockedResources").html("");
     return;
   }
   // old text that could go in printable:
   // "Suspicious 3rd party domains in this page.  Red: we've blocked it;
   // yellow: only cookies blocked; blue: no blocking yet";
-  $('#badgerImg').attr('src', 'icons/badger-32.png');
-  $("#detected").html("Detected trackers from these sites:");
+
+  trackerStatus = "Detected trackers from these sites: "
+  $("#detected").html(trackerStatus);
   var printable = '<div id="associatedTab" data-tab-id="' + 0 + '"></div>';
   for (var i=0; i < origins.length; i++) {
     var origin = origins[i];
@@ -282,7 +294,12 @@ function updateSettings(elt, status) {
     console.log("Got update that wasn't user-set:", origin, status);
 }
 
-self.port.on("show-trackers", function(settings) { refreshPopup(settings); });
+self.port.on("show-trackers", function(settings) {
+  init(true);
+  refreshPopup(settings);
+});
+
+self.port.on("show-inactive", function() { init(false); });
 
 self.port.on("cookiePrefsChange", function(prefBlocksCookies) {
   var cookiePrefsWarning = $('#cookiePrefsWarning');
