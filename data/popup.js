@@ -34,6 +34,11 @@ function init(isActive)
 function resetHTML() {
   $("#badgerImg").hide();
   $("#badgerImg2").show();
+  $("#badgerImg2").hover(function () {
+    $("#detected").html("Click to activate Privacy Badger!");
+  }, function () {
+    $("#detected").html("Click the badger icon to activate Privacy Badger!");
+  });
   $("#detected").html("Click the badger icon to activate Privacy Badger!");
   $("#blockedResources").html("");
   $("#gearImg").hide();
