@@ -40,16 +40,19 @@ function resetHTML() {
   return;
 }
 
-$("#badgerImg2").click(function() { self.port.emit("activate") });
+$("#badgerImg2").click(function() { self.port.emit("activate"); });
 
 $("#badgerImg").click(function () { self.port.emit("deactivate"); });
 
 $('#gearImg').click(function() {
   // Create the settings menu
   let disableHTML = '<div id="disableButtonDiv" class="modalButton">Disable Privacy Badger</div>';
-  let heuristicHTML = '<div id="heuristicButtonDiv" class="modalButton">Turn off automatic blocking</div>';
-  let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Restore defaults . . . </div>';
-  let contentHTML = heuristicHTML + restoreHTML + disableHTML;
+  let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Restore defaults . . .</div>';
+  let reportHTML = '<div id="reportButtonDiv" class="modalButton">Report a bug . . .</div>';
+  let deleteMySettingsHTML = '<div id="deleteMySettingsButtonDiv" class="modalButton">Delete <b>my</b> blocker settings</div>';
+  let deleteAllSettingsHTML = '<div id="deleteAllSettingsButtonDiv" class="modalButton">Delete <b>all</b> blocker settings</div>';
+  let comingSoonHTML = '<div id="messageDiv" class="vexMessage"></div>';
+  let contentHTML = restoreHTML + disableHTML + reportHTML + deleteMySettingsHTML + deleteAllSettingsHTML + comingSoonHTML;
   vex.open({
     content: contentHTML,
     appendLocation: 'body',
@@ -68,6 +71,9 @@ $('#gearImg').click(function() {
     showCloseButton: false
   }).bind('vexOpen', function(options) {
     $('.modalButton').wrapAll('<div id="buttonsDiv" />');
+    $('#deleteMySettingsButtonDiv').hide();
+    $('#deleteAllSettingsButtonDiv').hide();
+    $('#messageDiv').hide();
     // Listeners for events in the settings menu
     $('.modalButton').hover(function() {
       $(this).toggleClass('buttonActive');
@@ -76,8 +82,33 @@ $('#gearImg').click(function() {
       self.port.emit("deactivate");
       vex.close();
     });
-  }).bind('vexClose', function() {
-  });
+    $('#restoreButtonDiv').click(function() {
+      $('#disableButtonDiv').slideUp();
+      $('#restoreButtonDiv').slideUp();
+      $('#reportButtonDiv').slideUp();
+      $('#deleteMySettingsButtonDiv').slideDown();
+      $('#deleteAllSettingsButtonDiv').slideDown();
+    });
+    $('#reportButtonDiv').click(function() {
+      // #TODO: Replace with bug report form or link to bug tracker
+      $('#disableButtonDiv').slideUp();
+      $('#restoreButtonDiv').slideUp();
+      $('#reportButtonDiv').slideUp();
+      $('#messageDiv').html("Coming soon!").show();
+    });
+    $('#deleteMySettingsButtonDiv').click(function() {
+      self.port.emit("deleteUserSettings");
+      $('#deleteMySettingsButtonDiv').slideUp();
+      $('#deleteAllSettingsButtonDiv').slideUp();
+      $('#messageDiv').html("User settings deleted!").show();
+    });
+    $('#deleteAllSettingsButtonDiv').click(function() {
+      self.port.emit("deleteAllSettings");
+      $('#deleteMySettingsButtonDiv').slideUp();
+      $('#deleteAllSettingsButtonDiv').slideUp();
+      $('#messageDiv').html("All settings deleted!").show();
+    });
+  }).bind('vexClose', function() {});
 });
 
 
@@ -192,7 +223,7 @@ function refreshPopup(settings) {
   // "Suspicious 3rd party domains in this page.  Red: we've blocked it;
   // yellow: only cookies blocked; blue: no blocking yet";
 
-  trackerStatus = "Detected trackers from these sites: "
+  trackerStatus = "Detected trackers from these sites: ";
   $("#detected").html(trackerStatus);
   var printable = '<div id="associatedTab" data-tab-id="' + 0 + '"></div>';
   for (var i=0; i < origins.length; i++) {

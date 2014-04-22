@@ -138,3 +138,11 @@ a:hover { color: #eeeeff }
 #buttonsDiv {
   font-family: helvetica, arial, sans-serif;
 }
+.vexMessage {
+  height: 50px;
+  line-height: 50px;
+  font-weight: bold;
+  color:black;
+  font-size: 20px;
+  text-align: center;
+}
