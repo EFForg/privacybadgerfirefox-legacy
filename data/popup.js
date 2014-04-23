@@ -45,6 +45,12 @@ function resetHTML() {
   return;
 }
 
+function cleanup() {
+  vex.close();
+}
+
+self.port.on("afterClose", cleanup);
+
 $("#badgerImg2").click(function() { self.port.emit("activate"); });
 
 $("#badgerImg").click(function () { self.port.emit("deactivate"); });
@@ -52,10 +58,10 @@ $("#badgerImg").click(function () { self.port.emit("deactivate"); });
 $('#gearImg').click(function() {
   // Create the settings menu
   let disableHTML = '<div id="disableButtonDiv" class="modalButton">Disable Privacy Badger</div>';
-  let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Restore defaults . . .</div>';
+  let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Unblock sites . . .</div>';
   let reportHTML = '<div id="reportButtonDiv" class="modalButton">Report a bug . . .</div>';
-  let deleteMySettingsHTML = '<div id="deleteMySettingsButtonDiv" class="modalButton">Delete <b>my</b> blocker settings</div>';
-  let deleteAllSettingsHTML = '<div id="deleteAllSettingsButtonDiv" class="modalButton">Delete <b>all</b> blocker settings</div>';
+  let deleteMySettingsHTML = '<div id="deleteMySettingsButtonDiv" class="modalButton">Unblock sites blocked by me</div>';
+  let deleteAllSettingsHTML = '<div id="deleteAllSettingsButtonDiv" class="modalButton">Unblock all sites</div>';
   let comingSoonHTML = '<div id="messageDiv" class="vexMessage"></div>';
   let contentHTML = restoreHTML + disableHTML + reportHTML + deleteMySettingsHTML + deleteAllSettingsHTML + comingSoonHTML;
   vex.open({
@@ -217,6 +223,12 @@ function toggleBlockedStatus(elt,status) {
 
 var trackerStatus;
 function refreshPopup(settings) {
+  if (settings.cleared) {
+    trackerStatus = "Reload the page to see active trackers."
+    $("#detected").html(trackerStatus);
+    $("#blockedResources").html("");
+    return;
+  }
   var origins = Object.keys(settings);
   if (!origins || origins.length === 0) {
     trackerStatus = "Could not detect any tracking cookies.";
