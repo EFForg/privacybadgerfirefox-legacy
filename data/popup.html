@@ -1,55 +1,25 @@
 <!DOCTYPE html>
 
-<!--
-  - This file was part of Adblock Plus <http://adblockplus.org/>,
-  - Copyright (C) 2006-2013 Eyeo GmbH
-
-  - Modified for Privacy Badger
-  - Copyright (C) 2013- Electronic Frontier Foundation & others
-
-  -
-  - Adblock Plus is free software: you can redistribute it and/or modify
-  - it under the terms of the GNU General Public License version 3 as
-  - published by the Free Software Foundation.
-  -
-  - Adblock Plus is distributed in the hope that it will be useful,
-  - but WITHOUT ANY WARRANTY; without even the implied warranty of
-  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  - GNU General Public License for more details.
-  -
-  - You should have received a copy of the GNU General Public License
-  - along with Adblock Plus.  If not, see <http://www.gnu.org/licenses/>.
-  -->
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" href="vex/vex.css" />
+<link type="text/css" rel="stylesheet" href="vex/vex-theme-os.css" />
 <link type="text/css" href="jquery-ui/css/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
-<link type="text/css" media="screen" href="skin/popup.css" rel="stylesheet" /> 
-<link type="text/css" media="screen" href="skin/toggle-switch.css" rel="stylesheet" /> 
-
+<link type="text/css" media="screen" href="skin/popup.css" rel="stylesheet" />
+<link type="text/css" media="screen" href="skin/toggle-switch.css" rel="stylesheet" />
 </head>
 <body id="main">
 
 <div id='privacyBadgerHeader'>
-  <div id='title'><img src='icons/badger-48.png'> <h2>Privacy Badger</h2></div>
-  <div class='clear'></div>
-  Detected third party trackers at the following domains:
-</div>
-
-<!-- In soviet EFF extension, popup clicks you. -->
-<div id="enabledCheckboxAndLabel" style="display:none">
-  <center><button id="deactivate_btn" class="grey-button" style="display:block"> Deactivate </button></center>
-  <center><button id="activate_btn" class="red-button" style="display:none"> Activate </button></center>
+  <span id='title'><img id="badgerImg" src='icons/badger-32.png' class="clickable"><img id="badgerImg2" src='icons/badger-grey-32.png' class="clickable"><h2>Privacy Badger</h2></span>
+  <span id='prefs'><a href="javascript:void(0)"><img id="gearImg" src='icons/gear-light-25.png' title="Settings"></a></span>
+  <div id='detected' class='clear'></div>
 </div>
 
 <div id="blockedResourcesContainer">
   <div class="spacer"></div>
   <div id="blockedResources">Loading...</div>
-</div>
-
-<div id="applyButtonDiv" style="text-align:center">
-<button id="applyButton" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Apply changes</span></button>
 </div>
 
 <center><a id='helplink' href='https://eff.org/privacybadger' target=_blank tabindex=-1 title="Privacy Badger Website">What is Privacy Badger?</a></center>
