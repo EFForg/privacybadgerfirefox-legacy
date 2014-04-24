@@ -60,8 +60,8 @@ $('#gearImg').click(function() {
   let disableHTML = '<div id="disableButtonDiv" class="modalButton">Disable Privacy Badger</div>';
   let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Unblock sites . . .</div>';
   let reportHTML = '<div id="reportButtonDiv" class="modalButton">Report a bug . . .</div>';
-  let deleteMySettingsHTML = '<div id="deleteMySettingsButtonDiv" class="modalButton">Unblock sites blocked by me</div>';
-  let deleteAllSettingsHTML = '<div id="deleteAllSettingsButtonDiv" class="modalButton">Unblock all sites</div>';
+  let deleteMySettingsHTML = '<div id="deleteMySettingsButtonDiv" class="modalButton">Unblock <b>my</b> blocked sites</div>';
+  let deleteAllSettingsHTML = '<div id="deleteAllSettingsButtonDiv" class="modalButton">Unblock <b>all</b> blocked sites</div>';
   let comingSoonHTML = '<div id="messageDiv" class="vexMessage"></div>';
   let contentHTML = restoreHTML + disableHTML + reportHTML + deleteMySettingsHTML + deleteAllSettingsHTML + comingSoonHTML;
   vex.open({
@@ -111,13 +111,13 @@ $('#gearImg').click(function() {
       self.port.emit("deleteUserSettings");
       $('#deleteMySettingsButtonDiv').slideUp();
       $('#deleteAllSettingsButtonDiv').slideUp();
-      $('#messageDiv').html("User settings deleted!").show();
+      vex.close();
     });
     $('#deleteAllSettingsButtonDiv').click(function() {
       self.port.emit("deleteAllSettings");
       $('#deleteMySettingsButtonDiv').slideUp();
       $('#deleteAllSettingsButtonDiv').slideUp();
-      $('#messageDiv').html("All settings deleted!").show();
+      vex.close();
     });
   }).bind('vexClose', function() {});
 });
