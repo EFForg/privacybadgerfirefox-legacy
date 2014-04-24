@@ -18,5 +18,5 @@
     "type": "bool",
     "value": true
   }],
-  "dependencies": ["browser-action"]
+  "dependencies": ["toolbarwidget"]
 }
