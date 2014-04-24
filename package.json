@@ -17,5 +17,6 @@
     "title": "Automatic blocking enabled",
     "type": "bool",
     "value": true
-  }]
+  }],
+  "dependencies": ["browser-action"]
 }
