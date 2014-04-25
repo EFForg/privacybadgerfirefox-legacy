@@ -13,7 +13,7 @@ function init(isActive)
   $("#badgerImg2").hide();
   $("#badgerImg").show();
   $("#badgerImg").hover(function () {
-    $("#detected").html("Click to deactivate Privacy Badger!");
+    $("#detected").html("Click to deactivate Privacy Badger on this site.");
   }, function () {
     $("#detected").html(trackerStatus);
   });
@@ -35,11 +35,11 @@ function resetHTML() {
   $("#badgerImg").hide();
   $("#badgerImg2").show();
   $("#badgerImg2").hover(function () {
-    $("#detected").html("Click to activate Privacy Badger!");
+    $("#detected").html("Click to activate Privacy Badger on this site.");
   }, function () {
-    $("#detected").html("Click the badger icon to activate Privacy Badger!");
+    $("#detected").html("Click the badger icon to activate Privacy Badger on this site.");
   });
-  $("#detected").html("Click the badger icon to activate Privacy Badger!");
+  $("#detected").html("Click the badger icon to activate Privacy Badger on this site.");
   $("#blockedResources").html("");
   $("#gearImg").hide();
   return;
@@ -51,19 +51,18 @@ function cleanup() {
 
 self.port.on("afterClose", cleanup);
 
-$("#badgerImg2").click(function() { self.port.emit("activate"); });
+$("#badgerImg2").click(function() { self.port.emit("activateSite"); });
 
-$("#badgerImg").click(function () { self.port.emit("deactivate"); });
+$("#badgerImg").click(function () { self.port.emit("deactivateSite"); });
 
 $('#gearImg').click(function() {
   // Create the settings menu
-  let disableHTML = '<div id="disableButtonDiv" class="modalButton">Disable Privacy Badger</div>';
   let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Unblock sites . . .</div>';
   let reportHTML = '<div id="reportButtonDiv" class="modalButton">Report a bug . . .</div>';
   let deleteMySettingsHTML = '<div id="deleteMySettingsButtonDiv" class="modalButton">Unblock <b>my</b> blocked sites</div>';
   let deleteAllSettingsHTML = '<div id="deleteAllSettingsButtonDiv" class="modalButton">Unblock <b>all</b> blocked sites</div>';
   let comingSoonHTML = '<div id="messageDiv" class="vexMessage"></div>';
-  let contentHTML = restoreHTML + disableHTML + reportHTML + deleteMySettingsHTML + deleteAllSettingsHTML + comingSoonHTML;
+  let contentHTML = restoreHTML + reportHTML + deleteMySettingsHTML + deleteAllSettingsHTML + comingSoonHTML;
   vex.open({
     content: contentHTML,
     appendLocation: 'body',
@@ -89,6 +88,7 @@ $('#gearImg').click(function() {
     $('.modalButton').hover(function() {
       $(this).toggleClass('buttonActive');
     });
+    // Currently unreachable until a button is added to globally disable PB
     $('#disableButtonDiv').click(function() {
       self.port.emit("deactivate");
       vex.close();
