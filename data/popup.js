@@ -353,7 +353,7 @@ self.port.on("cookiePrefsChange", function(prefBlocksCookies) {
   var cookiePrefsWarning = $('#cookiePrefsWarning');
   if (prefBlocksCookies) {
     if (cookiePrefsWarning.length === 0) {
-      cookiePrefsWarning = $('<p id="cookiePrefsWarning">Your cookie preferences are changed from the defaults. This may reduce the effectiveness of Privacy Badger. <a href="https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences">Learn more</a>.</p>');
+      cookiePrefsWarning = $('<p id="cookiePrefsWarning">Your cookie preferences are changed from the defaults. This may reduce the effectiveness of Privacy Badger. <a href="https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences" target="_blank">Learn more</a>.</p>');
       $('#privacyBadgerHeader').prepend(cookiePrefsWarning);
     }
   } else {
