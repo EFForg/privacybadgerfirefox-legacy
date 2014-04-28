@@ -140,6 +140,7 @@ exports.testComplexHeader = function (assert, done) {
 };
 
 // Force Allow Third Party cookies
+/*
 exports.test3rdPartyCookies = function (assert, done) {
   let srv = startServerAsync(port, basePath);
 
@@ -188,6 +189,7 @@ exports.test3rdPartyCookies = function (assert, done) {
     }
   }).get();
 };
+*/
 
 exports.testSimpleJSON = function (assert, done) {
   let srv = startServerAsync(port, basePath);
@@ -236,6 +238,7 @@ exports.testHead = function (assert, done) {
 };
 
 // Tests DNT header is unset when PB is not running
+/*
 exports.testDNTNoPB = function(assert, done) {
 
   let srv = startServerAsync(port, basePath);
@@ -256,7 +259,7 @@ exports.testDNTNoPB = function(assert, done) {
     }
   });
 };
-
+*/
 
 function runMultipleURLs (srv, assert, done, options) {
   let urls = [options.url, URL(options.url)];
