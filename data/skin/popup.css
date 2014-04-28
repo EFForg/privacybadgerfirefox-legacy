@@ -73,7 +73,7 @@ a:hover { color: #eeeeff }
   margin-right: 2px;
 }
 .userset .honeybadgerPowered{
-  background: url('../icons/badger-pin.png') no-repeat;
+  background: url('../icons/badger-undo.png') no-repeat;
   cursor: pointer;
 }
 .tooltipContainer{
