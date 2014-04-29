@@ -1,3 +1,7 @@
+/**
+ * Initializes the popup panel UI depending on whether PB is active
+ * for the current page.
+ */
 function init(isActive)
 {
   console.log("Initializing popup.js");
@@ -31,6 +35,9 @@ function init(isActive)
   });
 }
 
+/**
+ * Sets HTML for inactive state.
+ */
 function resetHTML() {
   $("#badgerImg").hide();
   $("#badgerImg2").show();
@@ -45,16 +52,18 @@ function resetHTML() {
   return;
 }
 
+/**
+ * Called from lib/ui.js to clean up UI after the panel is hidden.
+ */
 function cleanup() {
   vex.close();
 }
 
-self.port.on("afterClose", cleanup);
-
+/**
+ * Listeners for click events in the panel header.
+ */
 $("#badgerImg2").click(function() { self.port.emit("activateSite"); });
-
 $("#badgerImg").click(function () { self.port.emit("deactivateSite"); });
-
 $('#gearImg').click(function() {
   // Create the settings menu
   let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Unblock sites . . .</div>';
@@ -84,15 +93,15 @@ $('#gearImg').click(function() {
     $('#deleteMySettingsButtonDiv').hide();
     $('#deleteAllSettingsButtonDiv').hide();
     $('#messageDiv').hide();
-    // Listeners for events in the settings menu
     $('.modalButton').hover(function() {
       $(this).toggleClass('buttonActive');
     });
-    // Currently unreachable until a button is added to globally disable PB
+    // Button to globally disable PB. Currently unreachable (intentionally).
     $('#disableButtonDiv').click(function() {
       self.port.emit("deactivate");
       vex.close();
     });
+    // Button to clear blockers
     $('#restoreButtonDiv').click(function() {
       $('#disableButtonDiv').slideUp();
       $('#restoreButtonDiv').slideUp();
@@ -100,6 +109,7 @@ $('#gearImg').click(function() {
       $('#deleteMySettingsButtonDiv').slideDown();
       $('#deleteAllSettingsButtonDiv').slideDown();
     });
+    // Button to report bugs
     $('#reportButtonDiv').click(function() {
       // #TODO: Replace with bug report form or link to bug tracker
       $('#disableButtonDiv').slideUp();
@@ -107,12 +117,14 @@ $('#gearImg').click(function() {
       $('#reportButtonDiv').slideUp();
       $('#messageDiv').html("Coming soon!").show();
     });
+    // Button to clear all userset blockers.
     $('#deleteMySettingsButtonDiv').click(function() {
       self.port.emit("deleteUserSettings");
       $('#deleteMySettingsButtonDiv').slideUp();
       $('#deleteAllSettingsButtonDiv').slideUp();
       vex.close();
     });
+    // Button to clear all blockers.
     $('#deleteAllSettingsButtonDiv').click(function() {
       self.port.emit("deleteAllSettings");
       $('#deleteMySettingsButtonDiv').slideUp();
@@ -124,10 +136,38 @@ $('#gearImg').click(function() {
 
 
 /**
+ * Methods to add HTML for showing and controlling blockers. Called after init.
  * Possible states for action:
  *  noaction, block, cookieblock, usernoaction, userblock, usercookieblock
  */
-
+var trackerStatus;
+function refreshPopup(settings) {
+  if (settings.cleared) {
+    trackerStatus = "Reload the page to see active trackers."
+    $("#detected").html(trackerStatus);
+    $("#blockedResources").html("");
+    return;
+  }
+  var origins = Object.keys(settings);
+  if (!origins || origins.length === 0) {
+    trackerStatus = "Could not detect any tracking cookies.";
+    $("#detected").html(trackerStatus);
+    $("#blockedResources").html("");
+    return;
+  }
+  trackerStatus = "Detected trackers from these sites: ";
+  $("#detected").html(trackerStatus);
+  var printable = '<div id="associatedTab" data-tab-id="' + 0 + '"></div>';
+  for (var i=0; i < origins.length; i++) {
+    var origin = origins[i];
+    var action = settings[origin];
+    // todo: gross hack, use templating framework
+    printable = _addOriginHTML(origin, printable, action);
+    console.log('adding html for', origin, action);
+  }
+  $("#blockedResources").html(printable);
+  console.log("Done refreshing popup");
+}
 var feedTheBadgerTitle = "Click to return control of this tracker to Privacy Badger.";
 function _addOriginHTML(origin, printable, action) {
   console.log("Popup: adding origin HTML for " + origin);
@@ -145,7 +185,6 @@ function _addOriginHTML(origin, printable, action) {
 
   return printable + '<div ' + classText + '" data-origin="' + origin + '" data-original-action="' + action + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin tooltip" tooltip="' + _badgerStatusTitle(action, origin) + '">' + _trim(origin,24) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
 }
-
 function _trim(str,max){
   if(str.length >= max){
     return str.slice(0,max-3)+'...';
@@ -153,7 +192,6 @@ function _trim(str,max){
     return str;
   }
 }
-
 function _badgerStatusTitle(action, origin){
   let postfix;
   if (!origin) {
@@ -170,7 +208,6 @@ function _badgerStatusTitle(action, origin){
 
   return statusMap[action] + postfix;
 }
-
 function _addToggleHtml(origin, action){
   var output = "";
   output += '<div class="switch-container ' + action + '">';
@@ -181,7 +218,6 @@ function _addToggleHtml(origin, action){
   output += '<a></a></div></div>';
   return output;
 }
-
 function _checked(name, action){
   if(name == action){
     return 'checked';
@@ -190,6 +226,9 @@ function _checked(name, action){
   }
 }
 
+/**
+ * Methods to react to user interaction with blocker controls.
+ */
 function toggleBlockedStatus(elt,status) {
   if(status){
     console.log('toggle blocked status', elt, status);
@@ -220,45 +259,6 @@ function toggleBlockedStatus(elt,status) {
     $(elt).addClass("userset");
    */
 }
-
-var trackerStatus;
-function refreshPopup(settings) {
-  if (settings.cleared) {
-    trackerStatus = "Reload the page to see active trackers."
-    $("#detected").html(trackerStatus);
-    $("#blockedResources").html("");
-    return;
-  }
-  var origins = Object.keys(settings);
-  if (!origins || origins.length === 0) {
-    trackerStatus = "Could not detect any tracking cookies.";
-    $("#detected").html(trackerStatus);
-    $("#blockedResources").html("");
-    return;
-  }
-  // old text that could go in printable:
-  // "Suspicious 3rd party domains in this page.  Red: we've blocked it;
-  // yellow: only cookies blocked; blue: no blocking yet";
-
-  trackerStatus = "Detected trackers from these sites: ";
-  $("#detected").html(trackerStatus);
-  var printable = '<div id="associatedTab" data-tab-id="' + 0 + '"></div>';
-  for (var i=0; i < origins.length; i++) {
-    var origin = origins[i];
-    var action = settings[origin];
-    // todo: gross hack, use templating framework
-    printable = _addOriginHTML(origin, printable, action);
-    console.log('adding html for', origin, action);
-  }
-  $("#blockedResources").html(printable);
-  console.log("Done refreshing popup");
-}
-
-function reloadPage() {
-  // TODO: fill in
-  console.log("Reload page called");
-}
-
 function updateOrigin(event){
   var $elm = $(event.currentTarget);
   var $switchContainer = $elm.parents('.switch-container').first();
@@ -268,7 +268,6 @@ function updateOrigin(event){
   toggleBlockedStatus($clicker, action);
   $clicker.find('.honeybadgerPowered').first().attr('tooltip', feedTheBadgerTitle);
 }
-
 function resetControl(event) {
   // Removes a userset setting
   var $elm = $(event.currentTarget);
@@ -286,19 +285,16 @@ function resetControl(event) {
   $clicker.find('.honeybadgerPowered').first().attr('tooltip', '');
   $elm.removeClass("userset");
 }
-
 function displayTooltip(event){
   var $elm = $(event.currentTarget);
   var $container = $elm.parents('.clicker').children('.tooltipContainer');
   $container.text($elm.attr('tooltip'));
 }
-
 function hideTooltip(event){
   var $elm = $(event.currentTarget);
   var $container = $elm.parents('.clicker').children('.tooltipContainer');
   $container.text('');
 }
-
 function getCurrentClass(elt) {
   if ($(elt).hasClass("block"))
     return "block";
@@ -307,32 +303,6 @@ function getCurrentClass(elt) {
   else
     return "noaction";
 }
-
-function buildSettingsDict() {
-  // Only useful if we have a way to emit the changed settings right *before*
-  // the panel gets hidden. onHide is called too late.
-  var settingsDict = {};
-  $('.clicker').each(function() {
-    var origin = $(this).attr("data-origin");
-    if ($(this).hasClass("userset") &&
-        getCurrentClass(this) !== $(this).attr("data-original-action")) {
-      // todo: DRY; same as code above, break out into helper
-      if ($(this).hasClass("block"))
-        settingsDict[origin] = "block";
-      else if ($(this).hasClass("cookieblock"))
-        settingsDict[origin] = "cookieblock";
-      else
-        settingsDict[origin] = "noaction";
-    }
-  });
-  return settingsDict;
-}
-
-
-/**
- * Listeners for communicating with the main process.
- */
-
 function updateSettings(elt, status) {
   var $elt = $(elt);
   var origin = $elt.attr("data-origin");
@@ -342,13 +312,21 @@ function updateSettings(elt, status) {
     console.log("Got update that wasn't user-set:", origin, status);
 }
 
+
+/**
+ * Listeners for messages from the main process.
+ */
+
+// Called when PB is active
 self.port.on("show-trackers", function(settings) {
   init(true);
   refreshPopup(settings);
 });
 
+// Called when PB is inactive
 self.port.on("show-inactive", function() { init(false); });
 
+// Shows a special header message if user has disabled 3rd party cookies in FF
 self.port.on("cookiePrefsChange", function(prefBlocksCookies) {
   var cookiePrefsWarning = $('#cookiePrefsWarning');
   if (prefBlocksCookies) {
@@ -360,3 +338,7 @@ self.port.on("cookiePrefsChange", function(prefBlocksCookies) {
     cookiePrefsWarning.remove();
   }
 });
+
+// Clean up panel state after the user closes it. This is less janky than
+// cleaning up panel state as soon as the user opens the panel.
+self.port.on("afterClose", cleanup);
