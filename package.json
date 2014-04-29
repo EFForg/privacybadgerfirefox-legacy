@@ -1,10 +1,12 @@
 {
   "name": "privacybadgerfirefox",
-  "title": "privacybadgerfirefox",
+  "title": "Privacy Badger Firefox",
   "id": "jid1-MnnxcxisBPnSXQ",
-  "description": "a basic add-on",
-  "author": "",
-  "license": "MPL 2.0",
+  "description": "Better privacy protection: block third-party trackers!",
+  "author": "Yan Zhu",
+  "contributors": ["Garrett Robinson", "Monica Chew", "Cooper Quentin",
+                   "Dan Auerbach", "Peter Eckersley", "Jonathan Mayer"],
+  "license": "GPL 3",
   "version": "0.1",
   "preferences": [{
     "name": "pbEnabled",
@@ -18,5 +20,7 @@
     "type": "bool",
     "value": true
   }],
-  "dependencies": ["toolbarwidget"]
+  "dependencies": ["toolbarwidget"],
+  "icon": "data/icons/badger-48.png",
+  "icon64": "data/icons/badger-64.png"
 }
