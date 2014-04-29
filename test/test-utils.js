@@ -1,4 +1,4 @@
-let cookieUtils = require("./cookieUtils.js");
+const cookieUtils = require("./cookieUtils.js");
 
 exports["test parseCookieString"] = function(assert) {
   let optimizelyCookie = 'optimizelyEndUserId=oeu1394241144653r0.538161732205'+
