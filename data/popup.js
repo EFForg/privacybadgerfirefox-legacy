@@ -24,7 +24,7 @@ function init(isActive)
   });
   $(function() {
     $("#gearImg").show();
-    $('#blockedResourcesContainer').on('click', '.actionToggle', updateOrigin);
+    $("#blockedResourcesContainer").on("change", "input:radio", updateOrigin);
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', resetControl);
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
@@ -175,9 +175,9 @@ function _addToggleHtml(origin, action){
   var output = "";
   output += '<div class="switch-container ' + action + '">';
   output += '<div class="switch-toggle switch-3 switch-candy">';
-  output += '<input id="block-' + origin + '" name="' + origin + '" type="radio" '+ _checked('block',action)+ '><label tooltip="Block ' + origin + '" class="tooltip actionToggle" for="block-' + origin + '" data-origin="' + origin + '" data-action="block"></label>';
-  output += '<input id="cookieblock-' + origin + '" name="' + origin + '" type="radio" '+ _checked('cookieblock',action)+ '><label tooltip="Block cookies from ' + origin + '" class="tooltip actionToggle" for="cookieblock-' + origin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
-  output += '<input id="noaction-' + origin + '" name="' + origin + '" type="radio" '+ _checked('noaction',action)+ '><label tooltip="Allow ' + origin + '" class="tooltip actionToggle" for="noaction-' + origin + '" data-origin="' + origin + '" data-action="noaction"></label>';
+  output += '<input id="block-' + origin + '" name="' + origin + '" value="0" type="radio" '+ _checked('block',action)+ '><label tooltip="Block ' + origin + '" class="tooltip actionToggle" for="block-' + origin + '" data-origin="' + origin + '" data-action="block"></label>';
+  output += '<input id="cookieblock-' + origin + '" name="' + origin + '" value="1" type="radio" '+ _checked('cookieblock',action)+ '><label tooltip="Block cookies from ' + origin + '" class="tooltip actionToggle" value="1" for="cookieblock-' + origin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
+  output += '<input id="noaction-' + origin + '" name="' + origin + '" value="2" type="radio" '+ _checked('noaction',action)+ '><label tooltip="Allow ' + origin + '" class="tooltip actionToggle" value="2" for="noaction-' + origin + '" data-origin="' + origin + '" data-action="noaction"></label>';
   output += '<a></a></div></div>';
   return output;
 }
@@ -251,6 +251,27 @@ function refreshPopup(settings) {
     console.log('adding html for', origin, action);
   }
   $("#blockedResources").html(printable);
+  $('.switch-toggle').each(function(){
+    let radios = $(this).children('input');
+    let value = $(this).children('input:checked').val();
+    let slider = $("<div></div>").slider({
+      min: 0,
+      max: 2,
+      value: parseInt(value, 10),
+      create: function(event, ui){
+        $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
+      },
+      slide: function(event, ui) {
+        radios.filter("[value=" + ui.value + "]").click();
+      },
+      stop: function(event, ui){
+        $(ui.handle).css('margin-left', -16 * ui.value + "px")
+      },
+    }).appendTo(this);
+    radios.change(function(){
+      slider.slider("value", parseInt(radios.filter(':checked').val(), 10));
+    });
+  });
   console.log("Done refreshing popup");
 }
 
@@ -260,7 +281,7 @@ function reloadPage() {
 }
 
 function updateOrigin(event){
-  var $elm = $(event.currentTarget);
+  var $elm = $('label[for="' + event.currentTarget.id + '"]');
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
   var action = $elm.data('action');
