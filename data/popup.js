@@ -111,11 +111,9 @@ $('#gearImg').click(function() {
     });
     // Button to report bugs
     $('#reportButtonDiv').click(function() {
-      // #TODO: Replace with bug report form or link to bug tracker
-      $('#disableButtonDiv').slideUp();
-      $('#restoreButtonDiv').slideUp();
-      $('#reportButtonDiv').slideUp();
-      $('#messageDiv').html("Coming soon!").show();
+      window.open("https://github.com/EFForg/privacybadgerfirefox/issues?state=open",
+                  "_blank");
+      vex.close();
     });
     // Button to clear all userset blockers.
     $('#deleteMySettingsButtonDiv').click(function() {
