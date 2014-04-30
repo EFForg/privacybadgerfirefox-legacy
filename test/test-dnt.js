@@ -2,7 +2,7 @@ const { Request } = require("sdk/request");
 const testUtils = require("./testUtils");
 const { startServerAsync } = require('sdk/test/httpd');
 const { Ci, Cc, Cr } = require("chrome");
-var main = require("./main");
+const main = require("./main");
 
 // Test that PB sets the DNT header to "1"
 exports.testDNT = function(assert, done) {
