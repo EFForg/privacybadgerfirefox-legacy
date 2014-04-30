@@ -78,9 +78,9 @@ $('#gearImg').click(function() {
     css: {'width':'80%',
           'margin-left':'auto',
           'margin-right':'auto',
-          'margin-top': '25px'
+          'margin-top': '28px'
     },
-    contentCSS: {'background': '#BB5555',
+    contentCSS: {'background': '#DD4444',
                  'border-top': '20px solid #333333',
                  'padding-left': '1em',
                  'padding-right': '1em',
