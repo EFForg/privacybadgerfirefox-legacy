@@ -1,6 +1,6 @@
 body {
-  font-size: 90%;
-  min-width: 330px;
+  font-size: 14px;
+ // min-width: 385px;
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
@@ -30,6 +30,14 @@ a:hover { color: #eeeeff }
   display: block;
 }
 
+#supQuest{
+  color: #4183c4;
+  text-decoration: none;
+  border-bottom; 1px dotted #4183c4;
+  position: relative;
+  bottom: 6px;
+  font-size: 75%;
+}
 .clicker{
   border-top: 1px solid #aaaaaa;
   padding: 5px;
@@ -38,7 +46,6 @@ a:hover { color: #eeeeff }
 .origin{
   width: 60%;
   color: #555555;
-  font-size: 16px;
   float: left;
   display: inline;
 }
@@ -46,6 +53,8 @@ a:hover { color: #eeeeff }
   width: 30%;
   float: right;
   display: inline;
+  position: relative;
+  right: 14px;
 }
 .actionToggle {
   cursor: pointer;
@@ -53,14 +62,19 @@ a:hover { color: #eeeeff }
 .clear{
   clear: both;
 }
+.switch-candy a img{
+  width: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .block .switch-candy a {
   background-color: #c61223;
 }
 .cookieblock .switch-candy a{
-  background-color: #f5e560;
+  background-color: #ffcc00;
 }
 .noaction .switch-candy a{
-  background-color: #70c66b;
+  background-color: #339900;
 }
 .reset .switch-candy a{
   background-color: #444444;
@@ -69,29 +83,39 @@ a:hover { color: #eeeeff }
   width: 20px;
   height: 20px;
   display: inline;
-  float: left;
-  margin-right: 2px;
+  float: right;
+  position: relative;
+  
 }
 .userset .honeybadgerPowered{
   background: url('../icons/badger-undo.png') no-repeat;
   cursor: pointer;
 }
 .tooltipContainer{
-  display: block;
+  display: none;
   clear: both;
-  color: #555555;
+  color: #fcfcfc;
   font-size: 12px;
+  background-color: #555;
+  height: 12px;
+  border-radius: 7px;
+  padding: 3px;
+  margin-top: 8px;
+}
+.tooltipArrow{
+  position: relative;
+  top: 8px;
+  right: 212px;
+  display: none;
 }
 #prefs {
   float: right;
   margin-left: 3px;
   margin-top: 3px;
 }
-#detected {
-  text-align: center;
-  color: #707070;
-  font-size: 16px;
-  padding-bottom: 7px;
+#privacyBadgerHeader{
+color: #505050;
+font-size: 16px;
 }
 #privacyBadgerHeader h2{
   margin-left: 10px;
@@ -145,4 +169,16 @@ a:hover { color: #eeeeff }
   color:black;
   font-size: 20px;
   text-align: center;
+}
+.ui-slider {
+  opacity: 0;
+  z-index: 20; 
+}
+.ui-slider a.ui-slider-handle {
+  cursor: move;
+}
+
+#blockedResources{
+  max-height: 350px;
+  overflow-y: auto;
 }
