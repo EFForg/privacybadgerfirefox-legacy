@@ -240,7 +240,7 @@ function refreshPopup(settings) {
   // "Suspicious 3rd party domains in this page.  Red: we've blocked it;
   // yellow: only cookies blocked; blue: no blocking yet";
 
-  trackerStatus = "Detected trackers from these sites: ";
+  trackerStatus = '<p id="pbInstructions"> Privacy Badger is protecting you on this page. These sliders let you control how privacy badger handles each tracker.<a id="supQuest" target=_blank tabindex=-1 title="What is a tracker?" href="https://eff.org/privacybadger#trackers">?</a></p>';
   $("#detected").html(trackerStatus);
   var printable = '<div id="associatedTab" data-tab-id="' + 0 + '"></div>';
   for (var i=0; i < origins.length; i++) {
