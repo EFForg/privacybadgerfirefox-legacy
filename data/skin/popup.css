@@ -1,17 +1,15 @@
 body {
-  font-size: 14px;
- // min-width: 385px;
+  font-size: 90%;
+  min-width: 330px;
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
   cursor: default;
 }
 
-a {
-  color: #3333cc;
-}
+a { color: #3333cc; }
 
-a:hover { color: #eeeeff }
+a:hover { color: #bbbbff }
 
 #filtersList {
   border: 1px dotted gray;
@@ -29,15 +27,6 @@ a:hover { color: #eeeeff }
   width: 5px;
   display: block;
 }
-
-#supQuest{
-  color: #4183c4;
-  text-decoration: none;
-  border-bottom; 1px dotted #4183c4;
-  position: relative;
-  bottom: 6px;
-  font-size: 75%;
-}
 .clicker{
   border-top: 1px solid #aaaaaa;
   padding: 5px;
@@ -46,6 +35,7 @@ a:hover { color: #eeeeff }
 .origin{
   width: 60%;
   color: #555555;
+  font-size: 16px;
   float: left;
   display: inline;
 }
@@ -54,7 +44,6 @@ a:hover { color: #eeeeff }
   float: right;
   display: inline;
   position: relative;
-  right: 14px;
 }
 .actionToggle {
   cursor: pointer;
@@ -84,23 +73,18 @@ a:hover { color: #eeeeff }
   height: 20px;
   display: inline;
   float: right;
+  left: 4px;
   position: relative;
-  
 }
 .userset .honeybadgerPowered{
   background: url('../icons/badger-undo.png') no-repeat;
   cursor: pointer;
 }
 .tooltipContainer{
-  display: none;
+  display: block;
   clear: both;
-  color: #fcfcfc;
+  color: #555555;
   font-size: 12px;
-  background-color: #555;
-  height: 12px;
-  border-radius: 7px;
-  padding: 3px;
-  margin-top: 8px;
 }
 .tooltipArrow{
   position: relative;
@@ -113,9 +97,11 @@ a:hover { color: #eeeeff }
   margin-left: 3px;
   margin-top: 3px;
 }
-#privacyBadgerHeader{
-color: #505050;
-font-size: 16px;
+#detected {
+  text-align: center;
+  color: #707070;
+  font-size: 16px;
+  padding-bottom: 7px;
 }
 #privacyBadgerHeader h2{
   margin-left: 10px;
@@ -132,6 +118,15 @@ font-size: 16px;
   padding-top: 5px;
   text-decoration: none;
   color: #4183c4;
+}
+#helplink:hover {
+  color: #aaaaff;
+}
+#trackerLink {
+  color: #4183c4;
+}
+#trackerLink:hover {
+  color: #aaaaff;
 }
 #thirdPartyCookiesError {
   background-color: #f00;
@@ -172,13 +167,13 @@ font-size: 16px;
 }
 .ui-slider {
   opacity: 0;
-  z-index: 20; 
+  z-index: 20;
 }
 .ui-slider a.ui-slider-handle {
   cursor: move;
 }
 
 #blockedResources{
-  max-height: 350px;
+  max-height: 400px;
   overflow-y: auto;
 }
