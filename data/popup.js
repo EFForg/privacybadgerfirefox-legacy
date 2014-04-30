@@ -141,7 +141,7 @@ $('#gearImg').click(function() {
 var trackerStatus;
 function refreshPopup(settings) {
   if (settings.cleared) {
-    trackerStatus = "Reload the page to see active trackers."
+    trackerStatus = "Reload the page to see active trackers.";
     $("#detected").html(trackerStatus);
     $("#blockedResources").html("");
     return;
