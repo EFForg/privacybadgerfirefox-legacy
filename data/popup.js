@@ -1,3 +1,7 @@
+/**
+ * Initializes the popup panel UI depending on whether PB is active
+ * for the current page.
+ */
 function init(isActive)
 {
   console.log("Initializing popup.js");
@@ -13,7 +17,7 @@ function init(isActive)
   $("#badgerImg2").hide();
   $("#badgerImg").show();
   $("#badgerImg").hover(function () {
-    $("#detected").html("Click to deactivate Privacy Badger!");
+    $("#detected").html("Click to deactivate Privacy Badger on this site.");
   }, function () {
     $("#detected").html(trackerStatus);
   });
@@ -31,39 +35,43 @@ function init(isActive)
   });
 }
 
+/**
+ * Sets HTML for inactive state.
+ */
 function resetHTML() {
   $("#badgerImg").hide();
   $("#badgerImg2").show();
   $("#badgerImg2").hover(function () {
-    $("#detected").html("Click to activate Privacy Badger!");
+    $("#detected").html("Click to activate Privacy Badger on this site.");
   }, function () {
-    $("#detected").html("Click the badger icon to activate Privacy Badger!");
+    $("#detected").html("Click the badger icon to activate Privacy Badger on this site.");
   });
-  $("#detected").html("Click the badger icon to activate Privacy Badger!");
+  $("#detected").html("Click the badger icon to activate Privacy Badger on this site.");
   $("#blockedResources").html("");
   $("#gearImg").hide();
   return;
 }
 
+/**
+ * Called from lib/ui.js to clean up UI after the panel is hidden.
+ */
 function cleanup() {
   vex.close();
 }
 
-self.port.on("afterClose", cleanup);
-
-$("#badgerImg2").click(function() { self.port.emit("activate"); });
-
-$("#badgerImg").click(function () { self.port.emit("deactivate"); });
-
+/**
+ * Listeners for click events in the panel header.
+ */
+$("#badgerImg2").click(function() { self.port.emit("activateSite"); });
+$("#badgerImg").click(function () { self.port.emit("deactivateSite"); });
 $('#gearImg').click(function() {
   // Create the settings menu
-  let disableHTML = '<div id="disableButtonDiv" class="modalButton">Disable Privacy Badger</div>';
   let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Unblock sites . . .</div>';
   let reportHTML = '<div id="reportButtonDiv" class="modalButton">Report a bug . . .</div>';
   let deleteMySettingsHTML = '<div id="deleteMySettingsButtonDiv" class="modalButton">Unblock <b>my</b> blocked sites</div>';
   let deleteAllSettingsHTML = '<div id="deleteAllSettingsButtonDiv" class="modalButton">Unblock <b>all</b> blocked sites</div>';
   let comingSoonHTML = '<div id="messageDiv" class="vexMessage"></div>';
-  let contentHTML = restoreHTML + disableHTML + reportHTML + deleteMySettingsHTML + deleteAllSettingsHTML + comingSoonHTML;
+  let contentHTML = restoreHTML + reportHTML + deleteMySettingsHTML + deleteAllSettingsHTML + comingSoonHTML;
   vex.open({
     content: contentHTML,
     appendLocation: 'body',
@@ -85,14 +93,15 @@ $('#gearImg').click(function() {
     $('#deleteMySettingsButtonDiv').hide();
     $('#deleteAllSettingsButtonDiv').hide();
     $('#messageDiv').hide();
-    // Listeners for events in the settings menu
     $('.modalButton').hover(function() {
       $(this).toggleClass('buttonActive');
     });
+    // Button to globally disable PB. Currently unreachable (intentionally).
     $('#disableButtonDiv').click(function() {
       self.port.emit("deactivate");
       vex.close();
     });
+    // Button to clear blockers
     $('#restoreButtonDiv').click(function() {
       $('#disableButtonDiv').slideUp();
       $('#restoreButtonDiv').slideUp();
@@ -100,19 +109,20 @@ $('#gearImg').click(function() {
       $('#deleteMySettingsButtonDiv').slideDown();
       $('#deleteAllSettingsButtonDiv').slideDown();
     });
+    // Button to report bugs
     $('#reportButtonDiv').click(function() {
-      // #TODO: Replace with bug report form or link to bug tracker
-      $('#disableButtonDiv').slideUp();
-      $('#restoreButtonDiv').slideUp();
-      $('#reportButtonDiv').slideUp();
-      $('#messageDiv').html("Coming soon!").show();
+      window.open("https://github.com/EFForg/privacybadgerfirefox/issues?state=open",
+                  "_blank");
+      vex.close();
     });
+    // Button to clear all userset blockers.
     $('#deleteMySettingsButtonDiv').click(function() {
       self.port.emit("deleteUserSettings");
       $('#deleteMySettingsButtonDiv').slideUp();
       $('#deleteAllSettingsButtonDiv').slideUp();
       vex.close();
     });
+    // Button to clear all blockers.
     $('#deleteAllSettingsButtonDiv').click(function() {
       self.port.emit("deleteAllSettings");
       $('#deleteMySettingsButtonDiv').slideUp();
@@ -124,10 +134,60 @@ $('#gearImg').click(function() {
 
 
 /**
+ * Methods to add HTML for showing and controlling blockers. Called after init.
  * Possible states for action:
  *  noaction, block, cookieblock, usernoaction, userblock, usercookieblock
  */
+var trackerStatus;
+function refreshPopup(settings) {
+  if (settings.cleared) {
+    trackerStatus = "Reload the page to see active trackers.";
+    $("#detected").html(trackerStatus);
+    $("#blockedResources").html("");
+    return;
+  }
+  var origins = Object.keys(settings);
+  if (!origins || origins.length === 0) {
+    trackerStatus = "Could not detect any tracking cookies.";
+    $("#detected").html(trackerStatus);
+    $("#blockedResources").html("");
+    return;
+  }
+  trackerStatus = '<p id="pbInstructions"> Privacy Badger is protecting you on this page. These sliders let you control how privacy badger handles each tracker.<a id="supQuest" target=_blank tabindex=-1 title="What is a tracker?" href="https://eff.org/privacybadger#trackers">?</a></p>';
+  $("#detected").html(trackerStatus);
+  var printable = '<div id="associatedTab" data-tab-id="' + 0 + '"></div>';
+  for (var i=0; i < origins.length; i++) {
+    var origin = origins[i];
+    var action = settings[origin];
+    // todo: gross hack, use templating framework
+    printable = _addOriginHTML(origin, printable, action);
+    console.log('adding html for', origin, action);
+  }  
+  $("#blockedResources").html(printable);
+  $('.switch-toggle').each(function(){
+    let radios = $(this).children('input');
+    let value = $(this).children('input:checked').val();
+    let slider = $("<div></div>").slider({
+      min: 0,
+      max: 2,
+      value: parseInt(value, 10),
+      create: function(event, ui){
+        $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
+      },
+      slide: function(event, ui) {
+        radios.filter("[value=" + ui.value + "]").click();
+      },
+      stop: function(event, ui){
+        $(ui.handle).css('margin-left', -16 * ui.value + "px")
+      },
+    }).appendTo(this);
+    radios.change(function(){
+      slider.slider("value", parseInt(radios.filter(':checked').val(), 10));
+    });
+  });
 
+  console.log("Done refreshing popup");
+}
 var feedTheBadgerTitle = "Click to return control of this tracker to Privacy Badger.";
 function _addOriginHTML(origin, printable, action) {
   console.log("Popup: adding origin HTML for " + origin);
@@ -145,7 +205,6 @@ function _addOriginHTML(origin, printable, action) {
 
   return printable + '<div ' + classText + '" data-origin="' + origin + '" data-original-action="' + action + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + _trim(origin,28) + '</div>' + _addToggleHtml(origin, action) + '<img class="tooltipArrow" src="icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
 }
-
 function _trim(str,max){
   if(str.length >= max){
     return str.slice(0,max-3)+'...';
@@ -153,7 +212,6 @@ function _trim(str,max){
     return str;
   }
 }
-
 function _badgerStatusTitle(action, origin){
   let postfix;
   if (!origin) {
@@ -170,7 +228,6 @@ function _badgerStatusTitle(action, origin){
 
   return statusMap[action] + postfix;
 }
-
 function _addToggleHtml(origin, action){
   var output = "";
   output += '<div class="switch-container ' + action + '">';
@@ -181,7 +238,6 @@ function _addToggleHtml(origin, action){
   output += '<a><img src="icons/badger-slider-handle.png"></a></div></div>';
   return output;
 }
-
 function _checked(name, action){
   if(name == action){
     return 'checked';
@@ -190,6 +246,9 @@ function _checked(name, action){
   }
 }
 
+/**
+ * Methods to react to user interaction with blocker controls.
+ */
 function toggleBlockedStatus(elt,status) {
   if(status){
     console.log('toggle blocked status', elt, status);
@@ -220,66 +279,6 @@ function toggleBlockedStatus(elt,status) {
     $(elt).addClass("userset");
    */
 }
-
-var trackerStatus;
-function refreshPopup(settings) {
-  if (settings.cleared) {
-    trackerStatus = "Reload the page to see active trackers."
-    $("#detected").html(trackerStatus);
-    $("#blockedResources").html("");
-    return;
-  }
-  var origins = Object.keys(settings);
-  if (!origins || origins.length === 0) {
-    trackerStatus = "Could not detect any tracking cookies.";
-    $("#detected").html(trackerStatus);
-    $("#blockedResources").html("");
-    return;
-  }
-  // old text that could go in printable:
-  // "Suspicious 3rd party domains in this page.  Red: we've blocked it;
-  // yellow: only cookies blocked; blue: no blocking yet";
-
-  trackerStatus = '<p id="pbInstructions"> Privacy Badger is protecting you on this page. These sliders let you control how privacy badger handles each tracker.<a id="supQuest" target=_blank tabindex=-1 title="What is a tracker?" href="https://eff.org/privacybadger#trackers">?</a></p>';
-  $("#detected").html(trackerStatus);
-  var printable = '<div id="associatedTab" data-tab-id="' + 0 + '"></div>';
-  for (var i=0; i < origins.length; i++) {
-    var origin = origins[i];
-    var action = settings[origin];
-    // todo: gross hack, use templating framework
-    printable = _addOriginHTML(origin, printable, action);
-    console.log('adding html for', origin, action);
-  }
-  $("#blockedResources").html(printable);
-  $('.switch-toggle').each(function(){
-    let radios = $(this).children('input');
-    let value = $(this).children('input:checked').val();
-    let slider = $("<div></div>").slider({
-      min: 0,
-      max: 2,
-      value: parseInt(value, 10),
-      create: function(event, ui){
-        $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
-      },
-      slide: function(event, ui) {
-        radios.filter("[value=" + ui.value + "]").click();
-      },
-      stop: function(event, ui){
-        $(ui.handle).css('margin-left', -16 * ui.value + "px")
-      },
-    }).appendTo(this);
-    radios.change(function(){
-      slider.slider("value", parseInt(radios.filter(':checked').val(), 10));
-    });
-  });
-  console.log("Done refreshing popup");
-}
-
-function reloadPage() {
-  // TODO: fill in
-  console.log("Reload page called");
-}
-
 function updateOrigin(event){
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
   var $switchContainer = $elm.parents('.switch-container').first();
@@ -291,7 +290,6 @@ function updateOrigin(event){
   $clicker.attr('tooltip', _badgerStatusTitle(action, origin));
   $clicker.children('.tooltipContainer').html(_badgerStatusTitle(action, origin));
 }
-
 function resetControl(event) {
   // Removes a userset setting
   var $elm = $(event.currentTarget);
@@ -324,7 +322,6 @@ function displayTooltip(event){
   },gTooltipDelay);
   $elm.on('mouseleave', function(){clearTimeout(displayTipTimer)}); 
 }
-
 function hideTooltip(event){
   var $elm = $(event.currentTarget);
   var hideTipTimer = setTimeout(function(){
@@ -336,7 +333,6 @@ function hideTooltip(event){
   },gTooltipDelay);
   $elm.on('mouseenter',function(){clearTimeout(hideTipTimer)});
 }
-
 function getCurrentClass(elt) {
   if ($(elt).hasClass("block"))
     return "block";
@@ -345,32 +341,6 @@ function getCurrentClass(elt) {
   else
     return "noaction";
 }
-
-function buildSettingsDict() {
-  // Only useful if we have a way to emit the changed settings right *before*
-  // the panel gets hidden. onHide is called too late.
-  var settingsDict = {};
-  $('.clicker').each(function() {
-    var origin = $(this).attr("data-origin");
-    if ($(this).hasClass("userset") &&
-        getCurrentClass(this) !== $(this).attr("data-original-action")) {
-      // todo: DRY; same as code above, break out into helper
-      if ($(this).hasClass("block"))
-        settingsDict[origin] = "block";
-      else if ($(this).hasClass("cookieblock"))
-        settingsDict[origin] = "cookieblock";
-      else
-        settingsDict[origin] = "noaction";
-    }
-  });
-  return settingsDict;
-}
-
-
-/**
- * Listeners for communicating with the main process.
- */
-
 function updateSettings(elt, status) {
   var $elt = $(elt);
   var origin = $elt.attr("data-origin");
@@ -380,13 +350,21 @@ function updateSettings(elt, status) {
     console.log("Got update that wasn't user-set:", origin, status);
 }
 
+
+/**
+ * Listeners for messages from the main process.
+ */
+
+// Called when PB is active
 self.port.on("show-trackers", function(settings) {
   init(true);
   refreshPopup(settings);
 });
 
+// Called when PB is inactive
 self.port.on("show-inactive", function() { init(false); });
 
+// Shows a special header message if user has disabled 3rd party cookies in FF
 self.port.on("cookiePrefsChange", function(prefBlocksCookies) {
   var cookiePrefsWarning = $('#cookiePrefsWarning');
   if (prefBlocksCookies) {
@@ -398,3 +376,7 @@ self.port.on("cookiePrefsChange", function(prefBlocksCookies) {
     cookiePrefsWarning.remove();
   }
 });
+
+// Clean up panel state after the user closes it. This is less janky than
+// cleaning up panel state as soon as the user opens the panel.
+self.port.on("afterClose", cleanup);
