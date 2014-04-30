@@ -188,7 +188,7 @@ function refreshPopup(settings) {
 
   console.log("Done refreshing popup");
 }
-var feedTheBadgerTitle = "Click to return control of this tracker to Privacy Badger.";
+var feedTheBadgerTitle = "Click to undo manual settings.";
 function _addOriginHTML(origin, printable, action) {
   console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker", "tooltip"];
@@ -203,7 +203,7 @@ function _addOriginHTML(origin, printable, action) {
     classes.push(action);
   var classText = 'class="' + classes.join(" ") + '"';
 
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" data-original-action="' + action + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + _trim(origin,28) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" data-original-action="' + action + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + _trim(origin,25) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
 }
 function _trim(str,max){
   if(str.length >= max){
@@ -226,7 +226,7 @@ function _badgerStatusTitle(action, origin){
     noaction: "Allowed"
   };
 
-  return statusMap[action] + postfix;
+  return _trim(statusMap[action] + postfix, 45);
 }
 function _addToggleHtml(origin, action){
   var output = "";
@@ -312,6 +312,11 @@ function displayTooltip(event){
   var $elm = $(event.currentTarget);
   var $container = $elm.closest('.clicker').children('.tooltipContainer');
   $container.text($elm.attr('tooltip'));
+  if ($elm.hasClass("honeybadgerPowered")) {
+    $container.css('text-align', 'right');
+  } else {
+    $container.css('text-align', 'left');
+  }
 }
 function hideTooltip(event){
   var $elm = $(event.currentTarget);

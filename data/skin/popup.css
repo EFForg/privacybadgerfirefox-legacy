@@ -1,6 +1,5 @@
 body {
   font-size: 90%;
-  min-width: 330px;
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
@@ -41,7 +40,7 @@ a:hover { color: #bbbbff }
 }
 .switch-container{
   width: 30%;
-  float: right;
+  float: left;
   display: inline;
   position: relative;
 }
@@ -73,7 +72,6 @@ a:hover { color: #bbbbff }
   height: 20px;
   display: inline;
   float: right;
-  left: 4px;
   position: relative;
 }
 .userset .honeybadgerPowered{
@@ -84,7 +82,7 @@ a:hover { color: #bbbbff }
   display: block;
   clear: both;
   color: #555555;
-  font-size: 12px;
+  font-size: 14px;
 }
 .tooltipArrow{
   position: relative;
