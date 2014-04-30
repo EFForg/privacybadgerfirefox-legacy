@@ -1,17 +1,14 @@
 body {
   font-size: 90%;
-  min-width: 330px;
   background: #fefefe;
   color: #333;
   font-family: helvetica, arial, sans-serif;
   cursor: default;
 }
 
-a {
-  color: #3333cc;
-}
+a { color: #3333cc; }
 
-a:hover { color: #eeeeff }
+a:hover { color: #bbbbff }
 
 #filtersList {
   border: 1px dotted gray;
@@ -29,7 +26,6 @@ a:hover { color: #eeeeff }
   width: 5px;
   display: block;
 }
-
 .clicker{
   border-top: 1px solid #aaaaaa;
   padding: 5px;
@@ -44,8 +40,10 @@ a:hover { color: #eeeeff }
 }
 .switch-container{
   width: 30%;
-  float: right;
+  float: left;
   display: inline;
+  position: relative;
+  cursor: pointer;
 }
 .actionToggle {
   cursor: pointer;
@@ -53,14 +51,19 @@ a:hover { color: #eeeeff }
 .clear{
   clear: both;
 }
+.switch-candy a img{
+  width: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .block .switch-candy a {
   background-color: #c61223;
 }
 .cookieblock .switch-candy a{
-  background-color: #f5e560;
+  background-color: #ffcc00;
 }
 .noaction .switch-candy a{
-  background-color: #70c66b;
+  background-color: #339900;
 }
 .reset .switch-candy a{
   background-color: #444444;
@@ -69,18 +72,25 @@ a:hover { color: #eeeeff }
   width: 20px;
   height: 20px;
   display: inline;
-  float: left;
-  margin-right: 2px;
+  float: right;
+  position: relative;
 }
 .userset .honeybadgerPowered{
-  background: url('../icons/badger-pin.png') no-repeat;
+  background: url('../icons/badger-undo.png') no-repeat;
   cursor: pointer;
 }
 .tooltipContainer{
   display: block;
   clear: both;
-  color: #555555;
-  font-size: 12px;
+  color: #777777;
+  font-size: 14px;
+  font-weight: bold;
+}
+.tooltipArrow{
+  position: relative;
+  top: 8px;
+  right: 212px;
+  display: none;
 }
 #prefs {
   float: right;
@@ -108,6 +118,15 @@ a:hover { color: #eeeeff }
   padding-top: 5px;
   text-decoration: none;
   color: #4183c4;
+}
+#helplink:hover {
+  color: #aaaaff;
+}
+#trackerLink {
+  color: #4183c4;
+}
+#trackerLink:hover {
+  color: #aaaaff;
 }
 #thirdPartyCookiesError {
   background-color: #f00;
@@ -145,4 +164,16 @@ a:hover { color: #eeeeff }
   color:black;
   font-size: 20px;
   text-align: center;
+}
+.ui-slider {
+  opacity: 0;
+  z-index: 20;
+}
+.ui-slider a.ui-slider-handle {
+  cursor: move;
+}
+
+#blockedResources{
+  max-height: 400px;
+  overflow-y: auto;
 }
