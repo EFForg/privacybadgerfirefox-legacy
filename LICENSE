@@ -39,6 +39,10 @@ https://adblockplus.org/en/firefox
 Copyright © 2006-2014 Eyeo GmbH
 Licensed GPL v3+
 
+Incorporating code from WorkerQueue,
+https://github.com/infojunkie/WorkerQueue
+Licensed GPL v3+
+
 
 Text of MIT License:
 ====================
