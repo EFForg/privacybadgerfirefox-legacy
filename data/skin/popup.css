@@ -43,6 +43,7 @@ a:hover { color: #bbbbff }
   float: left;
   display: inline;
   position: relative;
+  cursor: pointer;
 }
 .actionToggle {
   cursor: pointer;
@@ -81,8 +82,9 @@ a:hover { color: #bbbbff }
 .tooltipContainer{
   display: block;
   clear: both;
-  color: #555555;
+  color: #777777;
   font-size: 14px;
+  font-weight: bold;
 }
 .tooltipArrow{
   position: relative;

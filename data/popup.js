@@ -230,11 +230,11 @@ function _badgerStatusTitle(action, origin){
 }
 function _addToggleHtml(origin, action){
   var output = "";
-  output += '<div class="switch-container ' + action + '">';
+  output += '<div class="switch-container tooltip ' + action + '" tooltip="' + _badgerStatusTitle(action, origin)  + '">';
   output += '<div class="switch-toggle switch-3 switch-candy">';
-  output += '<input id="block-' + origin + '" name="' + origin + '" value="0" type="radio" '+ _checked('block',action)+ '><label tooltip="Block ' + origin + '" class="actionToggle" for="block-' + origin + '" data-origin="' + origin + '" data-action="block"></label>';
-  output += '<input id="cookieblock-' + origin + '" name="' + origin + '" value="1" type="radio" '+ _checked('cookieblock',action)+ '><label tooltip="Block cookies from ' + origin + '" class="actionToggle" value="1" for="cookieblock-' + origin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
-  output += '<input id="noaction-' + origin + '" name="' + origin + '" value="2" type="radio" '+ _checked('noaction',action)+ '><label tooltip="Allow ' + origin + '" class="actionToggle" value="2" for="noaction-' + origin + '" data-origin="' + origin + '" data-action="noaction"></label>';
+  output += '<input id="block-' + origin + '" name="' + origin + '" value="0" type="radio" '+ _checked('block',action)+ '><label class="actionToggle" for="block-' + origin + '" data-origin="' + origin + '" data-action="block"></label>';
+  output += '<input id="cookieblock-' + origin + '" name="' + origin + '" value="1" type="radio" '+ _checked('cookieblock',action)+ '><label class="actionToggle" value="1" for="cookieblock-' + origin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
+  output += '<input id="noaction-' + origin + '" name="' + origin + '" value="2" type="radio" '+ _checked('noaction',action)+ '><label class="actionToggle" value="2" for="noaction-' + origin + '" data-origin="' + origin + '" data-action="noaction"></label>';
   output += '<a><img src="icons/badger-slider-handle.png"></a></div></div>';
   return output;
 }
@@ -289,6 +289,7 @@ function updateOrigin(event){
   toggleBlockedStatus($clicker, action);
   $clicker.find('.honeybadgerPowered').first().attr('tooltip', feedTheBadgerTitle);
   $clicker.attr('tooltip', _badgerStatusTitle(action, origin));
+  $switchContainer.attr('tooltip', _badgerStatusTitle(action, origin));
   $clicker.children('.tooltipContainer').html(_badgerStatusTitle(action, origin));
 }
 function resetControl(event) {
