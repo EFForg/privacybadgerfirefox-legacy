@@ -161,7 +161,6 @@ function refreshPopup(settings) {
     var action = settings[origin];
     // todo: gross hack, use templating framework
     printable = _addOriginHTML(origin, printable, action);
-    console.log('adding html for', origin, action);
   }
   $("#blockedResources").html(printable);
   $('.switch-toggle').each(function(){
@@ -190,7 +189,6 @@ function refreshPopup(settings) {
 }
 var feedTheBadgerTitle = "Click to undo manual settings.";
 function _addOriginHTML(origin, printable, action) {
-  console.log("Popup: adding origin HTML for " + origin);
   var classes = ["clicker", "tooltip"];
   var title = feedTheBadgerTitle;
   if (action.indexOf("user") === 0) {
