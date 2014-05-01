@@ -6,7 +6,7 @@ APP_NAME=privacybadgerfirefox
 # Auto-generated XPI name from 'cfx xpi'
 PRE_XPI_NAME="$APP_NAME.xpi"
 
-if ! [ -x `which cfx` ] ; then
+if ! type cfx > /dev/null; then
   echo "Please activate the Firefox Addon SDK before running this script."
   exit 1
 fi
