@@ -28,7 +28,7 @@ function init(isActive)
   });
   $(function() {
     $("#gearImg").show();
-    $('#blockedResourcesContainer').on('click', '.actionToggle', updateOrigin);
+    $("#blockedResourcesContainer").on("change", "input:radio", updateOrigin);
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', resetControl);
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
@@ -78,9 +78,9 @@ $('#gearImg').click(function() {
     css: {'width':'80%',
           'margin-left':'auto',
           'margin-right':'auto',
-          'margin-top': '25px'
+          'margin-top': '28px'
     },
-    contentCSS: {'background': '#BB5555',
+    contentCSS: {'background': '#DD4444',
                  'border-top': '20px solid #333333',
                  'padding-left': '1em',
                  'padding-right': '1em',
@@ -153,7 +153,7 @@ function refreshPopup(settings) {
     $("#blockedResources").html("");
     return;
   }
-  trackerStatus = "Detected trackers from these sites: ";
+  trackerStatus = "Detected <a id='trackerLink' target=_blank tabindex=-1 title='What is a tracker?' href='https://www.eff.org/privacybadger#trackers'>trackers</a> from these sites:";
   $("#detected").html(trackerStatus);
   var printable = '<div id="associatedTab" data-tab-id="' + 0 + '"></div>';
   for (var i=0; i < origins.length; i++) {
@@ -164,12 +164,34 @@ function refreshPopup(settings) {
     console.log('adding html for', origin, action);
   }
   $("#blockedResources").html(printable);
+  $('.switch-toggle').each(function(){
+    let radios = $(this).children('input');
+    let value = $(this).children('input:checked').val();
+    let slider = $("<div></div>").slider({
+      min: 0,
+      max: 2,
+      value: parseInt(value, 10),
+      create: function(event, ui){
+        $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
+      },
+      slide: function(event, ui) {
+        radios.filter("[value=" + ui.value + "]").click();
+      },
+      stop: function(event, ui){
+        $(ui.handle).css('margin-left', -16 * ui.value + "px")
+      },
+    }).appendTo(this);
+    radios.change(function(){
+      slider.slider("value", parseInt(radios.filter(':checked').val(), 10));
+    });
+  });
+
   console.log("Done refreshing popup");
 }
-var feedTheBadgerTitle = "Click to return control of this tracker to Privacy Badger.";
+var feedTheBadgerTitle = "Click to undo manual settings.";
 function _addOriginHTML(origin, printable, action) {
   console.log("Popup: adding origin HTML for " + origin);
-  var classes = ["clicker"];
+  var classes = ["clicker", "tooltip"];
   var title = feedTheBadgerTitle;
   if (action.indexOf("user") === 0) {
     classes.push("userset");
@@ -181,7 +203,7 @@ function _addOriginHTML(origin, printable, action) {
     classes.push(action);
   var classText = 'class="' + classes.join(" ") + '"';
 
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" data-original-action="' + action + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin tooltip" tooltip="' + _badgerStatusTitle(action, origin) + '">' + _trim(origin,24) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" data-original-action="' + action + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + _trim(origin,25) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
 }
 function _trim(str,max){
   if(str.length >= max){
@@ -204,16 +226,16 @@ function _badgerStatusTitle(action, origin){
     noaction: "Allowed"
   };
 
-  return statusMap[action] + postfix;
+  return _trim(statusMap[action] + postfix, 45);
 }
 function _addToggleHtml(origin, action){
   var output = "";
-  output += '<div class="switch-container ' + action + '">';
+  output += '<div class="switch-container tooltip ' + action + '" tooltip="' + _badgerStatusTitle(action, origin)  + '">';
   output += '<div class="switch-toggle switch-3 switch-candy">';
-  output += '<input id="block-' + origin + '" name="' + origin + '" type="radio" '+ _checked('block',action)+ '><label tooltip="Block ' + origin + '" class="tooltip actionToggle" for="block-' + origin + '" data-origin="' + origin + '" data-action="block"></label>';
-  output += '<input id="cookieblock-' + origin + '" name="' + origin + '" type="radio" '+ _checked('cookieblock',action)+ '><label tooltip="Block cookies from ' + origin + '" class="tooltip actionToggle" for="cookieblock-' + origin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
-  output += '<input id="noaction-' + origin + '" name="' + origin + '" type="radio" '+ _checked('noaction',action)+ '><label tooltip="Allow ' + origin + '" class="tooltip actionToggle" for="noaction-' + origin + '" data-origin="' + origin + '" data-action="noaction"></label>';
-  output += '<a></a></div></div>';
+  output += '<input id="block-' + origin + '" name="' + origin + '" value="0" type="radio" '+ _checked('block',action)+ '><label class="actionToggle" for="block-' + origin + '" data-origin="' + origin + '" data-action="block"></label>';
+  output += '<input id="cookieblock-' + origin + '" name="' + origin + '" value="1" type="radio" '+ _checked('cookieblock',action)+ '><label class="actionToggle" value="1" for="cookieblock-' + origin + '" data-origin="' + origin + '" data-action="cookieblock"></label>';
+  output += '<input id="noaction-' + origin + '" name="' + origin + '" value="2" type="radio" '+ _checked('noaction',action)+ '><label class="actionToggle" value="2" for="noaction-' + origin + '" data-origin="' + origin + '" data-action="noaction"></label>';
+  output += '<a><img src="icons/badger-slider-handle.png"></a></div></div>';
   return output;
 }
 function _checked(name, action){
@@ -258,13 +280,17 @@ function toggleBlockedStatus(elt,status) {
    */
 }
 function updateOrigin(event){
-  var $elm = $(event.currentTarget);
+  var $elm = $('label[for="' + event.currentTarget.id + '"]');
   var $switchContainer = $elm.parents('.switch-container').first();
   var $clicker = $elm.parents('.clicker').first();
+  var origin = $clicker.data('origin');
   var action = $elm.data('action');
   $switchContainer.removeClass('reset block cookieblock noaction').addClass(action);
   toggleBlockedStatus($clicker, action);
   $clicker.find('.honeybadgerPowered').first().attr('tooltip', feedTheBadgerTitle);
+  $clicker.attr('tooltip', _badgerStatusTitle(action, origin));
+  $switchContainer.attr('tooltip', _badgerStatusTitle(action, origin));
+  $clicker.children('.tooltipContainer').html(_badgerStatusTitle(action, origin));
 }
 function resetControl(event) {
   // Removes a userset setting
@@ -285,12 +311,17 @@ function resetControl(event) {
 }
 function displayTooltip(event){
   var $elm = $(event.currentTarget);
-  var $container = $elm.parents('.clicker').children('.tooltipContainer');
+  var $container = $elm.closest('.clicker').children('.tooltipContainer');
   $container.text($elm.attr('tooltip'));
+  if ($elm.hasClass("honeybadgerPowered")) {
+    $container.css('text-align', 'right');
+  } else {
+    $container.css('text-align', 'left');
+  }
 }
 function hideTooltip(event){
   var $elm = $(event.currentTarget);
-  var $container = $elm.parents('.clicker').children('.tooltipContainer');
+  var $container = $elm.closest('.clicker').children('.tooltipContainer');
   $container.text('');
 }
 function getCurrentClass(elt) {
