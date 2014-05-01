@@ -3,4 +3,6 @@
 addon-sdk-*
 *.xpi
 *~
+release-utils/pkg
+release-utils/xpi
 **packages

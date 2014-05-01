@@ -2,6 +2,6 @@
 
 # this rule makes tag or branch targets
 %:
-	./release-utils/make-signed-xpi.sh $@
+	./release-utils/firefox-release.sh $@
 clean:
-	rm -r ./release-utils/pkg
+	rm -r ./release-utils/xpi

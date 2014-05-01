@@ -1,13 +1,16 @@
 #!/bin/bash
 
+set -e
+cd "`dirname $0`"
+
 RDFDIR=pkg/
 
-# To make an Privacy Badger firefox release
+# To make an Privacy Badger firefox release, signed with an offline key
 
 # 1. get the repo into a sane state for a release
 # 2. ensure that doc/Changelog approximately describes this release
 # 3. tag the release with "git tag -s <release version number>"
-# 4. run this script with <release vesion number> as the argument
+# 4. run this script with <release version number> as the argument
 
 
 if [ $# -ne 1 ] ; then
@@ -25,14 +28,14 @@ if ! [ -x `which festival` ] ; then
   echo "festival is not installed, cannot speak hashes aloud..."
 fi
 
-PKG=pkg/privacy-badger-$TARGET.xpi
-ALT=pkg/privacy-badger-latest.xpi
+PKG=$RDFDIR/privacy-badger-$TARGET.xpi
+ALT=$RDFDIR/privacy-badger-latest.xpi
 RDFFILE=$RDFDIR/privacy-badger-update-2048.rdf
 
 LZMARDF=$RDFFILE.lzma
 B_LZMARDF=$LZMARDF.b64
 
-if ! make $TARGET ; then
+if ! ./make-signed-xpi.sh $TARGET ; then
   echo "Failed to build target $TARGET"
   exit 1
 fi
@@ -42,7 +45,7 @@ if ! [ -f "$PKG" ] ; then
   exit 1
 fi
 
-
+# XXX: Why make a gpg detached sig?
 echo "Making (secondary) GPG signature"
 gpg --detach-sign $PKG
 
