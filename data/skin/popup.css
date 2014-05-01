@@ -105,9 +105,11 @@ a:hover { color: #bbbbff }
 }
 #privacyBadgerHeader h2{
   margin-left: 10px;
+  height: 48px;
+  line-height: 48px;
   display: inline;
   color: #454545;
-  font-size: 18px;
+  font-size: 20px;
 }
 #privacyBadgerHeader img{
   display: inline;
