@@ -9,12 +9,6 @@
   "license": "GPL 3",
   "version": "0.1",
   "preferences": [{
-    "name": "pbEnabled",
-    "title": "Privacy Badger enabled",
-    "type": "bool",
-    "value": true
-  },
-  {
     "name": "heuristicEnabled",
     "title": "Automatic blocking enabled",
     "type": "bool",
