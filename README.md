@@ -49,11 +49,12 @@ Before you submit a pull request:
 This is a rough summary of Privacy Badger's internal logic for blocking trackers. At the moment, "tracker" == "third-party cookie from a site that tracks you on multiple first-party origins." I am in the process of adding support for other non-cookie tracker types (local storage, etags, cache hits, etc.).
 
 Privacy Badger uses a (relatively-simple) heuristic algorithm for deciding whether a third-party is tracking you. When Privacy Badger sees a third-party request on a website, it checks:
+
 1. Does the third-party read a cookie? If not, don't count it in the blocking heuristic. Otherwise:
-2. Is the cookie sufficiently high-entropy? If not, don't count it. (Currently the entropy calculation is *very* crude! See lib/heuristicBlocker.js.) Otherwise:
-3. Has the base domain (eTLD+1) of the third-party read cookies on at least 3 first-party base domains? If not, don't block it (for now). Otherwise:
-4. Has the third party posted an acceptable DNT policy? (We check this using an XML HTTP Request to a well-known path where we are asking sites to post statements of [compliance with DNT](https://www.eff.org/dnt-policy).) If so, don't block it. Otherwise:
-5. Is the site on a preloaded whitelist of sites to not block because it would probably cause the first-party site to break (ex: Disqus)? If so, don't block it. Otherwise:
+2. Is the site on a preloaded whitelist of sites to not block because it would probably cause the first-party site to break (ex: Disqus)? If so, don't block it. Otherwise:
+3. Is the cookie sufficiently high-entropy? If not, don't count it. (Currently the entropy calculation is *very* crude! See lib/heuristicBlocker.js.) Otherwise:
+4. Has the base domain (eTLD+1) of the third-party read cookies on at least 3 first-party base domains? If not, don't block it (for now). Otherwise:
+5. Has the third party posted an acceptable DNT policy? (We check this using an XML HTTP Request to a well-known path where we are asking sites to post statements of [compliance with DNT](https://www.eff.org/dnt-policy).) If so, don't block it. Otherwise:
 6. Block third-party requests from the third-party entirely.
 
 In addition, Privacy Badger will block cookies from third-parties whose base domains have been blocked or cookie-blocked.
