@@ -51,17 +51,17 @@ This is a rough summary of Privacy Badger's internal logic for blocking trackers
 Privacy Badger uses a (relatively-simple) heuristic algorithm for deciding whether a third-party is tracking you. When Privacy Badger sees a third-party request on a website, it checks:
 
 1. Does the third-party read a cookie? If not, don't count it in the blocking heuristic. Otherwise:
-2. Is the site on a preloaded whitelist of sites to not block because it would probably cause the first-party site to break (ex: Disqus)? If so, don't block it. Otherwise:
-3. Is the cookie sufficiently high-entropy? If not, don't count it. (Currently the entropy calculation is *very* crude! See lib/heuristicBlocker.js.) Otherwise:
-4. Has the base domain (eTLD+1) of the third-party read cookies on at least 3 first-party base domains? If not, don't block it (for now). Otherwise:
-5. Has the third party posted an acceptable DNT policy? (We check this using an XML HTTP Request to a well-known path where we are asking sites to post statements of [compliance with DNT](https://www.eff.org/dnt-policy).) If so, don't block it. Otherwise:
+2. Is the cookie sufficiently high-entropy? If not, don't count it. (Currently the entropy calculation is *very* crude! See lib/heuristicBlocker.js.) Otherwise:
+3. Has the base domain (eTLD+1) of the third-party read cookies on at least 3 first-party base domains? If not, don't block it (for now). Otherwise:
+4. Has the third party posted an acceptable DNT policy? (We check this using an XML HTTP Request to a well-known path where we are asking sites to post statements of [compliance with DNT](https://www.eff.org/dnt-policy).) If so, don't block it. Otherwise:
+5. Is the third party or its base domain on a preloaded whitelist of sites to not block because it would probably cause the first-party site to break? If so, block it from reading cookies in a third-party context. Otherwise:
 6. Block third-party requests from the third-party entirely.
 
-In addition, Privacy Badger will block cookies from third-parties whose base domains have been blocked or cookie-blocked.
+In addition, Privacy Badger will block third-party cookies from sites whose base domains have been blocked or cookie-blocked.
 
 Note that users can manually set domains to be unblocked (green), cookie-blocked (yellow), or red (blocked). These choices *always* override the heuristic blocker.
 
-By default, Privacy Badger sends the Do Not Track header on all requests. It also clears the referer for all requests that are blocked from reading cookies.
+By default, Privacy Badger sends the Do Not Track header on all requests. It also clears the referer for all requests that are cookie-blocked.
 
 ## Contact
 
