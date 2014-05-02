@@ -13,7 +13,8 @@ if ! type cfx > /dev/null; then
 fi
 
 if ! cfx --version | grep -q "$LATEST_SDK_VERSION"; then
-    echo "WARNING: Not using the latest stable SDK version"
+    echo "Please use the latest stable SDK version or edit this script to the current version."
+    exit 1
 fi
 
 if [ $# -ne 1 ] ; then
