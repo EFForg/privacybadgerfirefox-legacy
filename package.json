@@ -7,7 +7,7 @@
   "contributors": ["Yan Zhu", "Garrett Robinson", "Monica Chew", "Cooper Quentin",
                    "Dan Auerbach", "Peter Eckersley", "Jonathan Mayer", "Hugh D'Andrade"],
   "license": "GPL 3",
-  "version": "0.1",
+  "version": "0.1.1",
   "preferences": [{
     "name": "heuristicEnabled",
     "title": "Automatic blocking enabled",

@@ -1,2 +1,6 @@
-0.1                                       (2014-??-??)
-  * Hard alpha release of Privacy Badger Firefox.
+0.1.1                                     (2014-05-02)
+  * Whitelists a domain if any of its parent domains are whitelisted (#58)
+  * Update README.md.
+
+0.1                                       (2014-05-01)
+  * hard alpha release of privacy badger firefox.
