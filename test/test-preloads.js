@@ -1,6 +1,9 @@
 const { Cc, Ci } = require("chrome");
-const utils = require('./utils');
 const { storage } = require("sdk/simple-storage");
+
+// Hack: import main first to trigger correct order of dependency resolution
+const main = require("./main");
+const utils = require('./utils');
 const { Policy } = require("./contentPolicy");
 const userStorage = require('./userStorage');
 

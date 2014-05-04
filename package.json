@@ -14,7 +14,6 @@
     "type": "bool",
     "value": true
   }],
-  "dependencies": ["toolbarwidget"],
   "icon": "data/icons/badger-48.png",
   "icon64": "data/icons/badger-64.png"
 }
