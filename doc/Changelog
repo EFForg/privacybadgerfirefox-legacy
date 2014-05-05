@@ -1,3 +1,7 @@
+0.1.2                                     (2014-05-05)
+  * Fix button icon issues (#72).
+  * Make third-party cookies warning clearer.
+
 0.1.1                                     (2014-05-02)
   * Whitelists a domain if any of its parent domains are whitelisted (#58)
   * Update README.md.
