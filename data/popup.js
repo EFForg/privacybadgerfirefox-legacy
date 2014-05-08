@@ -75,10 +75,9 @@ $('#gearImg').click(function() {
   vex.open({
     content: contentHTML,
     appendLocation: 'body',
-    css: {'width':'80%',
+    css: {'width':'100%',
           'margin-left':'auto',
-          'margin-right':'auto',
-          'margin-top': '44px'
+          'margin-right':'auto'
     },
     contentCSS: {'background': '#DD4444',
                  'border-top': '20px solid #333333',
@@ -117,17 +116,21 @@ $('#gearImg').click(function() {
     });
     // Button to clear all userset blockers.
     $('#deleteMySettingsButtonDiv').click(function() {
-      self.port.emit("deleteUserSettings");
-      $('#deleteMySettingsButtonDiv').slideUp();
-      $('#deleteAllSettingsButtonDiv').slideUp();
-      vex.close();
+      vex.dialog.confirm({
+        message: "This action cannot be undone! Continue?",
+        callback: function(value) {
+          if (value) { self.port.emit("deleteUserSettings"); }
+        }
+      });
     });
     // Button to clear all blockers.
     $('#deleteAllSettingsButtonDiv').click(function() {
-      self.port.emit("deleteAllSettings");
-      $('#deleteMySettingsButtonDiv').slideUp();
-      $('#deleteAllSettingsButtonDiv').slideUp();
-      vex.close();
+      vex.dialog.confirm({
+        message: "This action cannot be undone! Continue?",
+        callback: function(value) {
+          if (value) { self.port.emit("deleteAllSettings"); }
+        }
+      });
     });
   }).bind('vexClose', function() {});
 });

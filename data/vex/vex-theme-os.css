@@ -367,13 +367,14 @@
   -moz-box-shadow: inset 0 1px #a6a6a6, 0 0 0 1px rgba(0, 0, 0, 0.08);
   box-shadow: inset 0 1px #a6a6a6, 0 0 0 1px rgba(0, 0, 0, 0.08);
   font-family: "Helvetica Neue", sans-serif;
-  border-top: 20px solid #bbbbbb;
+  border-top: 20px solid #FF1111;
   background: #f0f0f0;
   color: #444444;
   padding: 1em;
   position: relative;
   margin: 0 auto;
-  max-width: 100%;
+  margin-top: 44px;
+  max-width: 80%;
   width: 450px;
   font-size: 1.1em;
   line-height: 1.5em;
@@ -505,7 +506,7 @@
 }
 /* line 118, ../sass/vex-theme-os.sass */
 .vex.vex-theme-os .vex-dialog-button.vex-dialog-button-primary {
-  background: #3288e6;
+  background: #44DD44;
   color: white;
 }
 /* line 122, ../sass/vex-theme-os.sass */
