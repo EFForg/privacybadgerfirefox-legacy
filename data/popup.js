@@ -356,12 +356,12 @@ self.port.on("show-trackers", function(settings) {
 // Called when PB is inactive
 self.port.on("show-inactive", function() { init(false); });
 
-// Shows a special header message if user has disabled 3rd party cookies in FF
-self.port.on("cookiePrefsChange", function(prefBlocksCookies) {
+// Shows a special header message if user has untested 3rd party cookie settings in FF
+self.port.on("cookiePrefsChange", function(weirdCookiePrefs) {
   var cookiePrefsWarning = $('#cookiePrefsWarning');
-  if (prefBlocksCookies) {
+  if (weirdCookiePrefs) {
     if (cookiePrefsWarning.length === 0) {
-      cookiePrefsWarning = $('<p id="cookiePrefsWarning">Sorry! Privacy Badger Alpha <a href="https://github.com/EFForg/privacybadgerfirefox/issues/64" target="_blank">will not work correctly</a> with your third-party cookie settings. This will be fixed in a future release. <a href="https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences" target="_blank">Learn how to change your settings</a>.</p>');
+      cookiePrefsWarning = $('<p id="cookiePrefsWarning">Warning: Privacy Badger Alpha may not work as expected with <a href="https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences" target="_blank">your third-party cookie settings</a>. You may find some bugs, which you can report <a href="https://github.com/EFForg/privacybadgerfirefox/issues/" target="_blank">here</a>. Thanks for your help!</p>');
       $('#privacyBadgerHeader').prepend(cookiePrefsWarning);
     }
   } else {
