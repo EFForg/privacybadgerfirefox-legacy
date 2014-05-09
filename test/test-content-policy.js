@@ -11,7 +11,7 @@ exports["test Policy hasWhitelistedScheme"] = function(assert) {
 
   for (let url in urls) {
     let expected = urls[url];
-    assert.equal(Policy.hasWhitelistedScheme(ABPUtils.makeURI(url)),
+    assert.equal(Policy._hasWhitelistedScheme(ABPUtils.makeURI(url)),
                  expected,
                  url + " " + (expected ? "should be" : "should not be") + " whitelisted");
   }
