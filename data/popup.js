@@ -66,12 +66,11 @@ $("#badgerImg2").click(function() { self.port.emit("activateSite"); });
 $("#badgerImg").click(function () { self.port.emit("deactivateSite"); });
 $('#gearImg').click(function() {
   // Create the settings menu
-  let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Unblock sites . . .</div>';
+  let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Unblock all trackers . . .</div>';
+  let disableHTML = '<div id="disableButtonDiv" class="modalButton">Disable on current page</div>';
   let reportHTML = '<div id="reportButtonDiv" class="modalButton">Report a bug . . .</div>';
-  let deleteMySettingsHTML = '<div id="deleteMySettingsButtonDiv" class="modalButton">Unblock <b>my</b> blocked sites</div>';
-  let deleteAllSettingsHTML = '<div id="deleteAllSettingsButtonDiv" class="modalButton">Unblock <b>all</b> blocked sites</div>';
-  let comingSoonHTML = '<div id="messageDiv" class="vexMessage"></div>';
-  let contentHTML = restoreHTML + reportHTML + deleteMySettingsHTML + deleteAllSettingsHTML + comingSoonHTML;
+  let messageHTML = '<div id="messageDiv" class="vexMessage"></div>';
+  let contentHTML = disableHTML + reportHTML + restoreHTML + messageHTML;
   vex.open({
     content: contentHTML,
     appendLocation: 'body',
@@ -89,48 +88,29 @@ $('#gearImg').click(function() {
     showCloseButton: false
   }).bind('vexOpen', function(options) {
     $('.modalButton').wrapAll('<div id="buttonsDiv" />');
-    $('#deleteMySettingsButtonDiv').hide();
-    $('#deleteAllSettingsButtonDiv').hide();
     $('#messageDiv').hide();
     $('.modalButton').hover(function() {
       $(this).toggleClass('buttonActive');
     });
-    // Button to globally disable PB. Currently unreachable (intentionally).
+    // Button to disable PB on the current page.
     $('#disableButtonDiv').click(function() {
-      self.port.emit("deactivate");
+      self.port.emit("deactivateSite");
       vex.close();
     });
     // Button to clear blockers
     $('#restoreButtonDiv').click(function() {
-      $('#disableButtonDiv').slideUp();
-      $('#restoreButtonDiv').slideUp();
-      $('#reportButtonDiv').slideUp();
-      $('#deleteMySettingsButtonDiv').slideDown();
-      $('#deleteAllSettingsButtonDiv').slideDown();
+      vex.dialog.confirm({
+        message: "This will set all trackers back to their default state (green if you allow 3rd party cookies by default in Firefox, yellow otherwise). Are you sure you want to continue?",
+        callback: function(value) {
+          if (value) { self.port.emit("unblockAll"); }
+        }
+      });
     });
     // Button to report bugs
     $('#reportButtonDiv').click(function() {
       window.open("https://github.com/EFForg/privacybadgerfirefox/issues?state=open",
                   "_blank");
       vex.close();
-    });
-    // Button to clear all userset blockers.
-    $('#deleteMySettingsButtonDiv').click(function() {
-      vex.dialog.confirm({
-        message: "This action cannot be undone! Continue?",
-        callback: function(value) {
-          if (value) { self.port.emit("deleteUserSettings"); }
-        }
-      });
-    });
-    // Button to clear all blockers.
-    $('#deleteAllSettingsButtonDiv').click(function() {
-      vex.dialog.confirm({
-        message: "This action cannot be undone! Continue?",
-        callback: function(value) {
-          if (value) { self.port.emit("deleteAllSettings"); }
-        }
-      });
     });
   }).bind('vexClose', function() {});
 });
