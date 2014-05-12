@@ -100,7 +100,7 @@ $('#gearImg').click(function() {
     // Button to clear blockers
     $('#restoreButtonDiv').click(function() {
       vex.dialog.confirm({
-        message: "This will set all trackers back to their default state (green if you allow 3rd party cookies by default in Firefox, yellow otherwise). Are you sure you want to continue?",
+        message: "This will set <b>all</b> trackers back to their default state (green if you allow 3rd party cookies by default in Firefox, yellow otherwise). Are you sure you want to continue?",
         callback: function(value) {
           if (value) { self.port.emit("unblockAll"); }
         }
