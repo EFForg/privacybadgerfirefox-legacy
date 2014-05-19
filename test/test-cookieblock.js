@@ -39,7 +39,7 @@ exports.test3rdPartyCookieblock = function (assert, done) {
 
   // Install the addon
   main.main();
-  userStorage.addYellow(origin);
+  userStorage.add("yellow", origin);
 
   // XXX: This isn't actually a 3rd party request. There is a hack in
   // clobberCookie that treats "localhost" as if it were a third party
@@ -61,7 +61,7 @@ exports.test3rdPartyCookieblock = function (assert, done) {
           assert.equal(response.headers['x-jetpack-3rd-party'], 'false');
 
           // Now unclobber the cookie and repeat the test
-          userStorage.addGreen(origin);
+          userStorage.add("green", origin);
           Request({
             url: url,
             onComplete: function (response) {
