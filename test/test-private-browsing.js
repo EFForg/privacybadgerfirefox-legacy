@@ -3,6 +3,7 @@ const { storage } = require("sdk/simple-storage");
 const windows = require("sdk/windows").browserWindows;
 const { before, after } = require("sdk/test/utils");
 const main = require("./main");
+const userStorage = require("./userStorage");
 
 // Site that sets a third party cookie
 const TEST_URL = "http://en.support.wordpress.com/third-party-cookies/";
@@ -27,11 +28,16 @@ exports.testNonPrivate = function(assert, done) {
                     "test originFrequency has wptpc.com tracking wordpress.com");
           assert.equal(Object.keys(storage.originFrequencyPrivate).length, 0,
                        "test originFrequencyPrivate is empty");
+          userStorage.addToDisabledSites(tab.url, tab);
           aWin.close();
         }
       });
     },
     onClose: function() {
+      assert.ok(storage.disabledSites["en.support.wordpress.com"],
+                "test disabledSites has en.support.wordpress.com");
+      assert.equal(Object.keys(storage.disabledSitesPrivate).length, 0,
+                   "test disabledSitesPrivate is empty");
       assert.ok(storage.originFrequency[TEST_COOKIE_HOST]["wordpress.com"],
                 "test originFrequency persists after closing window");
       teardown();
@@ -55,6 +61,9 @@ exports.testPrivate = function(assert, done) {
                        "test originFrequency is empty");
           storage.userYellow[TEST_COOKIE_HOST] = true;
           storage.blockedOrigins["example.com"] = true;
+          userStorage.addToDisabledSites(tab.url, tab);
+          assert.ok(storage.disabledSitesPrivate["en.support.wordpress.com"],
+                    "test disabledSitesPrivate has en.support.wordpress.com");
           aWin.close();
         }
       });
@@ -66,9 +75,12 @@ exports.testPrivate = function(assert, done) {
               "test that user-blocked cookie gets added to userYellow in private mode");
     assert.ok(storage.blockedOrigins["example.com"],
               "test that heuristic-blocked domain gets added to blockedOrigins in private mode");
-    // Check that originFrequencyPrivate gets cleared after session
+    // Check that originFrequencyPrivate and disabledSitesPrivate get cleared
+    // after session ends
     assert.equal(Object.keys(storage.originFrequencyPrivate).length, 0,
                  "test originFrequencyPrivate is empty after session");
+    assert.equal(Object.keys(storage.disabledSitesPrivate).length, 0,
+                 "test disabledSitesPrivate is empty after session");
     teardown();
     done();
   });
