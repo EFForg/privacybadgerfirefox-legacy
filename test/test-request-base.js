@@ -63,7 +63,7 @@ exports.testContentValidator = function(assert, done) {
 exports.testStatus200 = function (assert, done) {
   let srv = startServerAsync(port, basePath);
   let content = "Look ma, no hands!\n";
-  let basename = "test-request.txt"
+  let basename = "test-request.txt";
   prepareFile(basename, content);
 
   var req = Request({

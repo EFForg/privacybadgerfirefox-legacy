@@ -144,7 +144,7 @@ exports.testBoth = function(assert, done) {
         assert.ok(storage.originFrequency[TEST_COOKIE_HOST]["wordpress.com"],
                   "integrated test originFrequency has wptpc tracking wordpress");
       }
-    };
+    }
     window.close();
     return true;
   }

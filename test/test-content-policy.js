@@ -15,6 +15,6 @@ exports["test Policy hasWhitelistedScheme"] = function(assert) {
                  expected,
                  url + " " + (expected ? "should be" : "should not be") + " whitelisted");
   }
-}
+};
 
 require("sdk/test").run(exports);
