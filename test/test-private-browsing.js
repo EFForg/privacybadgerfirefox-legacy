@@ -1,9 +1,9 @@
 const events = require("sdk/system/events");
 const { storage } = require("sdk/simple-storage");
-const windows = require("sdk/windows").browserWindows;
-const { before, after } = require("sdk/test/utils");
+var windows = require("sdk/windows").browserWindows;
 const main = require("./main");
 const userStorage = require("./userStorage");
+const { isPrivate } = require("sdk/private-browsing");
 
 // Site that sets a third party cookie
 const TEST_URL = "http://en.support.wordpress.com/third-party-cookies/";
@@ -81,6 +81,86 @@ exports.testPrivate = function(assert, done) {
                  "test originFrequencyPrivate is empty after session");
     assert.equal(Object.keys(storage.disabledSitesPrivate).length, 0,
                  "test disabledSitesPrivate is empty after session");
+    teardown();
+    done();
+  });
+};
+
+// Test private and non-private windows open at the same time
+exports.testBoth = function(assert, done) {
+  setup();
+  function onWindowOpen(win, url) {
+    let bothTabsReady = false;
+    // Open a new tab and disable the loaded site
+    win.tabs.on("ready", function(tab) {
+      if (bothTabsReady) {
+        onBothWindowsReady();
+        return true;
+      }
+      bothTabsReady = true;
+      win.tabs.open({
+        isPrivate: isPrivate(win),
+        url: url,
+        onOpen: function(nextTab) {
+          userStorage.addToDisabledSites(url, win);
+        }
+      });
+      return false;
+    });
+  }
+  let testURLs = ["https://www.eff.org", "http://example.com"];
+  // Initialize non-private window
+  let aWin = windows.open({
+    url: TEST_URL,
+    isPrivate: false,
+    onOpen: function() { onWindowOpen(aWin, testURLs[0]); },
+  });
+  // Initialize private window
+  let aWinPrivate = windows.open({
+    url: TEST_URL,
+    isPrivate: true,
+    onOpen: function() { onWindowOpen(aWinPrivate, testURLs[1]); },
+  });
+  // Tests once all tabs in both windows are loaded
+  let bothWindowsReady = false;
+  function onBothWindowsReady() {
+    if (!bothWindowsReady) {
+      bothWindowsReady = true;
+      return false;
+    }
+    for each (var window in windows) {
+      if (isPrivate(window)) {
+        assert.ok(userStorage.isDisabledSite(testURLs[1], window),
+                  "test example.com disabled in private window");
+        assert.ok(!userStorage.isDisabledSite(testURLs[0], window),
+                  "test eff.org not disabled in private window");
+        assert.ok(storage.originFrequencyPrivate[TEST_COOKIE_HOST]["wordpress.com"],
+                  "integrated test originFrequencyPrivate has wptpc tracking wordpress");
+      } else {
+        assert.ok(userStorage.isDisabledSite(testURLs[0], window),
+                  "test eff.org disabled in regular window");
+        assert.ok(!userStorage.isDisabledSite(testURLs[1], window),
+                  "test example.com not disabled in regular window");
+        assert.ok(storage.originFrequency[TEST_COOKIE_HOST]["wordpress.com"],
+                  "integrated test originFrequency has wptpc tracking wordpress");
+      }
+    };
+    window.close();
+    return true;
+  }
+  // Tests once private browsing window is closed
+  events.once("last-pb-context-exited-done", function() {
+    // Check that originFrequencyPrivate and disabledSitesPrivate get cleared
+    // after session ends
+    assert.equal(Object.keys(storage.originFrequencyPrivate).length, 0,
+                 "integrated test originFrequencyPrivate is empty after session");
+    assert.equal(Object.keys(storage.disabledSitesPrivate).length, 0,
+                 "integrated test disabledSitesPrivate is empty after session");
+    // Check that originFrequency and disabledSites persist
+    assert.ok(storage.originFrequency[TEST_COOKIE_HOST]["wordpress.com"],
+              "integrated test originFrequency persists after session");
+    assert.ok(storage.disabledSites["www.eff.org"],
+              "integrated test disabledSites persists after session");
     teardown();
     done();
   });
