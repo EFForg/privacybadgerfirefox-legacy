@@ -53,6 +53,6 @@ exports["test parseCookieString"] = function(assert) {
                          JSON.stringify(actual));
     }
   }
-}
+};
 
 require("sdk/test").run(exports);

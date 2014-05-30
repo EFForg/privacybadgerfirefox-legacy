@@ -13,7 +13,8 @@ let preloadText = "@@||sgizmo.co^$third-party\n"+
                   "@@||piclens.co.uk^$third-party\n";
 
 exports.testPreloads = function(assert) {
-  userStorage.init();
+  main.main();
+  storage.preloads = {};
   userStorage.syncPreloads(preloadText);
   assert.equal(Object.keys(storage.preloads).length, 4, "test sync preloads");
   let goodDomains = [ "https://sgizmo.co",
@@ -39,7 +40,8 @@ exports.testPreloads = function(assert) {
     assert.ok(!Policy._isPreloadedWhitelistRequest(utils.makeURI(element)),
               "test that " + element + " is NOT whitelisted");
   });
-
+  main.clearData(true, true);
+  main.onUnload("disabled");
 };
 
 require("sdk/test").run(exports);
