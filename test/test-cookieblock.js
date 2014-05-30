@@ -7,6 +7,7 @@ const main = require("./main");
 const utils = require("./utils");
 const userStorage = require("./userStorage");
 const { Services } = Cu.import("resource://gre/modules/Services.jsm");
+const prefsService = require("sdk/preferences/service");
 
 // block a cookie by adding it to userYellow and then unblock it by
 // adding it to userGreen
@@ -77,7 +78,7 @@ exports.test3rdPartyCookieblock = function (assert, done) {
                 onComplete: function (response) {
                   // Note that the semicolon should be gone
                   assert.equal(response.headers['x-jetpack-3rd-party'], 'cookie=monster');
-                  srv.stop(done);
+                  finish();
                 }
               }).get();
             }
@@ -86,6 +87,17 @@ exports.test3rdPartyCookieblock = function (assert, done) {
       }).get();
     }
   }).get();
+
+  // Test whether blocked cookie is cleared when user pref is to
+  // clear all cookies when the browser closes
+  function finish() {
+    prefsService.set("network.cookie.lifetimePolicy", 2);
+    main.onQuitApplicationGranted(null);
+    let cookies = cookieUtils.getCookiesFromHost(origin);
+    assert.ok(!cookies.hasMoreElements(),
+              "test that cookies from localhost were cleared on exit");
+    srv.stop(done);
+  }
 };
 
 require('sdk/test').run(exports);
