@@ -8,7 +8,7 @@
                    "Dan Auerbach", "Peter Eckersley", "Jonathan Mayer", "Hugh D'Andrade"],
   "permissions": { "private-browsing": true },
   "license": "GPL 3",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "preferences": [{
     "name": "heuristicEnabled",
     "title": "Automatic blocking enabled",
