@@ -52,6 +52,7 @@ COOKIES[hackpadCookie] = {
   "1ASIE": "T"
 };
 
+// Test util for parsing a cookie string into name-value pairs
 exports["test parseCookieString"] = function(assert) {
   for (let cookieString in COOKIES) {
     if (COOKIES.hasOwnProperty(cookieString)) {
@@ -65,6 +66,8 @@ exports["test parseCookieString"] = function(assert) {
   }
 };
 
+// Test util for parsing stored nsICookie2 objects into HTTP response/request
+// header strings
 exports["test toString"] = function(assert, done) {
   let srv = startServerAsync(testUtils.port, testUtils.basePath);
   let basename = "test-request-set-cookie-to-string.sjs";
@@ -72,17 +75,24 @@ exports["test toString"] = function(assert, done) {
   let origin = utils.getBaseDomain(utils.makeURI(url));
   let responseCookie = 'acctIds=%5B%22mIqZhIPMu7j%22%2C%221394477194%22%2C%22u'+
     'T/ayZECO0g/+hHtQnjrdEZivWA%3D%22%5D; domain=localhost; path=/; expires=We'+
-    'd, 01 Jan 3000 08:00:00 GMT; httponly; secure';
+    'd, 01 Jan 3000 08:00:00 GMT; httponly; secure; zcookie=abc; domain=localhost;'+
+    ' path=/';
+  let requestCookie = 'acctIds=%5B%22mIqZhIPMu7j%22%2C%221394477194%22%2C%22u'+
+    'T/ayZECO0g/+hHtQnjrdEZivWA%3D%22%5D; zcookie=abc';
+  let requestCookieInsecure = 'zcookie=abc';
 
   function handleRequest(request, response) {
     var cookiePresent = request.hasHeader("Cookie");
     var responseCookie = 'acctIds=%5B%22mIqZhIPMu7j%22%2C%221394477194%22%2C%22u'+
     'T/ayZECO0g/+hHtQnjrdEZivWA%3D%22%5D; expires=Wed, 01-Jan-3000 08:00:00 G'+
     'MT; domain=localhost; path=/; secure; httponly';
+    var responseCookie2 = 'zcookie=abc'
     // If no cookie, set it
     if (!cookiePresent) {
-      response.setHeader("Set-Cookie", responseCookie);
+      response.setHeader("Set-Cookie", responseCookie, true);
+      response.setHeader("Set-Cookie", responseCookie2, true);
     }
+    response.setHeader("Got-Cookie", responseCookie2); // request.getHeader("Cookie"));
     response.write("<html><body>This tests cookie setting.</body></html>");
   }
   testUtils.prepareFile(basename, handleRequest.toString());
@@ -90,19 +100,40 @@ exports["test toString"] = function(assert, done) {
   Request({
     url: url,
     onComplete: function (response) {
+      // Check that handleRequest actually set the cookies
       let storedCookies = cookieUtils.getCookiesFromHost(origin);
       assert.ok(storedCookies.hasMoreElements(), "test that cookies were set for localhost");
-      if (storedCookies.hasMoreElements()) {
+      while (storedCookies.hasMoreElements()) {
         let expectedCookie = storedCookies.getNext().QueryInterface(Ci.nsICookie2);
-        assert.equal(expectedCookie.name, "acctIds",
-                     "test that acctIds cookie was set for localhost");
+        assert.ok((expectedCookie.name == "acctIds" ||
+                   expectedCookie.name == "zcookie"),
+                   "test that expected cookies were set for localhost");
       }
-      let cookieString = cookieUtils.toString(cookieUtils.getCookiesFromHost(origin),
+
+      storedCookies = cookieUtils.getCookiesFromHost(origin);
+      let cookieResponseString = cookieUtils.toString(storedCookies,
                                               true, true);
-      assert.equal(cookieString, responseCookie,
+      storedCookies = cookieUtils.getCookiesFromHost(origin);
+      let cookieRequestString = cookieUtils.toString(storedCookies,
+                                              false, true);
+      storedCookies = cookieUtils.getCookiesFromHost(origin);
+      let cookieRequestStringInsecure = cookieUtils.toString(storedCookies,
+                                              false, false);
+      assert.equal(cookieResponseString, responseCookie,
                    "test converting cookie back to response header string");
-      teardown();
-      srv.stop(done);
+      assert.equal(cookieRequestString, requestCookie,
+                   "test converting cookie to request header string");
+      assert.equal(cookieRequestStringInsecure, requestCookieInsecure,
+                   "test converting cookie to insecure request header string");
+      Request({
+        url: url,
+        onComplete: function (response) {
+          assert.equal(response.headers["got-cookie"], requestCookieInsecure,
+                       "test that insecure request only sends insecure cookie");
+          teardown();
+          srv.stop(done);
+        }
+      }).get();
     }
   }).get();
 };
