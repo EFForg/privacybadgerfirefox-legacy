@@ -184,13 +184,27 @@ function _addOriginHTML(origin, printable, action) {
     classes.push(action);
   var classText = 'class="' + classes.join(" ") + '"';
 
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" data-original-action="' + action + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + _trim(origin,25) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" data-original-action="' + action + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + _trimDomains(origin,25) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
 }
-function _trim(str,max){
-  if(str.length >= max){
-    return str.slice(0,max-3)+'...';
+function _trim(str, max) {
+  if (str.length >= max) {
+    return str.slice(0, max-3) + '...';
   } else {
     return str;
+  }
+}
+function _trimDomains(str, max) {
+  // Depends on tld.js bower package
+  if (!tld.isValid(str)) {
+    _trim(str, max);
+  }
+  let domain = tld.getDomain(str);
+  let subdomain = tld.getSubdomain(str);
+  let subdomainMax = max - domain.length;
+  if (subdomainMax > 3) {
+    return [_trim(subdomain, subdomainMax), domain].join('.');
+  } else {
+    return "..." + _trim(domain,max-3);
   }
 }
 function _badgerStatusTitle(action, origin){
