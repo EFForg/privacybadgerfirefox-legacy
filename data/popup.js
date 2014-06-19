@@ -6,6 +6,8 @@ function init(isActive)
 {
   console.log("Initializing popup.js");
 
+  $(".hidePanel").click(function() { self.port.emit("hidePanel"); });
+
   // If not active, just show an activation button
   if (!isActive) {
     resetHTML();
@@ -102,7 +104,9 @@ $('#gearImg').click(function() {
       vex.dialog.confirm({
         message: "This will set <b>all</b> trackers back to their default state (green if you allow 3rd party cookies by default in Firefox, yellow otherwise). Are you sure you want to continue?",
         callback: function(value) {
-          if (value) { self.port.emit("unblockAll"); }
+          if (value) {
+            self.port.emit("unblockAll");
+          }
         }
       });
     });
@@ -167,6 +171,7 @@ function refreshPopup(settings) {
       slider.slider("value", parseInt(radios.filter(':checked').val(), 10));
     });
   });
+  $("#trackerLink").click(function() { self.port.emit("hidePanel"); });
 
   console.log("Done refreshing popup");
 }
