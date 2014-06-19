@@ -9,6 +9,11 @@ const userStorage = require("./userStorage");
 const { Services } = Cu.import("resource://gre/modules/Services.jsm");
 const prefsService = require("sdk/preferences/service");
 
+function teardown() {
+  main.clearData(true, true);
+  prefsService.set("network.cookie.lifetimePolicy", 0);
+}
+
 // block a cookie by adding it to userYellow and then unblock it by
 // adding it to userGreen
 exports.test3rdPartyCookieblock = function (assert, done) {
@@ -21,6 +26,7 @@ exports.test3rdPartyCookieblock = function (assert, done) {
 
   let basename = "test-request-3rd-party-cookieblock.sjs";
   let url = "http://localhost:" + testUtils.port + "/" + basename;
+  let windowUrl = "resource://gre-resources/hiddenWindow.html";
   let origin = utils.getBaseDomain(utils.makeURI(url));
 
   function handleRequest(request, response) {
@@ -40,6 +46,7 @@ exports.test3rdPartyCookieblock = function (assert, done) {
 
   // Install the addon
   main.main();
+  // Cookieblock localhost
   userStorage.add("yellow", origin);
 
   // XXX: This isn't actually a 3rd party request. There is a hack in
@@ -47,7 +54,7 @@ exports.test3rdPartyCookieblock = function (assert, done) {
   // for the purpose of this test.
   Request({
     url: url,
-    onComplete: function (response) {
+    onComplete: function(response) {
       // Check that the server tries to set a cookie
       assert.equal(response.headers['Set-Cookie'], 'cookie=monster;');
 
@@ -58,14 +65,14 @@ exports.test3rdPartyCookieblock = function (assert, done) {
       // doesn't get the cookie
       Request({
         url: url,
-        onComplete: function (response) {
+        onComplete: function(response) {
           assert.equal(response.headers['x-jetpack-3rd-party'], 'false');
 
           // Now unclobber the cookie and repeat the test
           userStorage.add("green", origin);
           Request({
             url: url,
-            onComplete: function (response) {
+            onComplete: function(response) {
               // Check that the server tries to set a cookie
               assert.equal(response.headers['Set-Cookie'], 'cookie=monster;');
 
@@ -75,10 +82,24 @@ exports.test3rdPartyCookieblock = function (assert, done) {
               // Now the next request should include the cookie we just set
               Request({
                 url: url,
-                onComplete: function (response) {
+                onComplete: function(response) {
                   // Note that the semicolon should be gone
                   assert.equal(response.headers['x-jetpack-3rd-party'], 'cookie=monster');
-                  finish();
+                  // Clobber the cookie again
+                  userStorage.add("yellow", origin);
+                  // Add the hidden window corresponding to XHRs to disabledSies
+                  userStorage.addToDisabledSites(windowUrl);
+
+                  // Check that blocked cookie is injected when PB is disabled
+                  Request({
+                    url: url,
+                    onComplete: function(response) {
+                      assert.equal(response.headers['x-jetpack-3rd-party'],
+                                   'cookie=monster',
+                                   'test that blocked cookie is injected on disabled page');
+                      finish();
+                    }
+                  }).get();
                 }
               }).get();
             }
@@ -96,6 +117,7 @@ exports.test3rdPartyCookieblock = function (assert, done) {
     let cookies = cookieUtils.getCookiesFromHost(origin);
     assert.ok(!cookies.hasMoreElements(),
               "test that cookies from localhost were cleared on exit");
+    teardown();
     srv.stop(done);
   }
 };
