@@ -143,8 +143,9 @@ function refreshPopup(settings) {
   trackerStatus = "Detected <a id='trackerLink' target=_blank tabindex=-1 title='What is a tracker?' href='https://www.eff.org/privacybadger#trackers'>trackers</a> from these sites:";
   $("#detected").html(trackerStatus);
   var printable = '<div id="associatedTab" data-tab-id="' + 0 + '"></div>';
-  for (var i=0; i < origins.length; i++) {
-    var origin = origins[i];
+  let sortedOrigins = _reverseSort(origins);
+  for (var i=0; i < sortedOrigins.length; i++) {
+    var origin = sortedOrigins[i];
     var action = settings[origin];
     // todo: gross hack, use templating framework
     printable = _addOriginHTML(origin, printable, action);
@@ -205,12 +206,22 @@ function _trimDomains(str, max) {
   }
   let domain = tld.getDomain(str);
   let subdomain = tld.getSubdomain(str);
+  if (!subdomain) {
+    return _trim(str, max);
+  }
   let subdomainMax = max - domain.length;
   if (subdomainMax > 3) {
     return [_trim(subdomain, subdomainMax), domain].join('.');
   } else {
     return "..." + _trim(domain,max-3);
   }
+}
+// Partial-reverses each domain name in a list and sorts alphabetically
+function _reverseSort(list) {
+  function reverseString(str) {
+    return str.split('.').reverse().join('.');
+  }
+  return list.map(reverseString).sort().map(reverseString);
 }
 function _badgerStatusTitle(action, origin){
   let postfix;
