@@ -54,6 +54,11 @@ var REPLACEMENT_BUTTONS_FOLDER_PATH = "skin/socialwidgets/";
 var CONTENT_SCRIPT_STYLESHEET_PATH = "skin/socialwidgets.css";
 
 /**
+ * The absolute URL to the content script folder within the extension.
+ */
+var contentScriptFolderUrl;
+
+/**
  * Initializes the content script.
  */
 function initialize() {
@@ -61,10 +66,12 @@ function initialize() {
 }
 
 function delayedInitialize() {
-	getTrackerData(function (trackers, trackerButtonsToReplace) {
+	getTrackerData(function (contentScriptFolderUrl2, trackers, trackerButtonsToReplace) {
+		contentScriptFolderUrl = contentScriptFolderUrl2;
+
 		// add the Content.css stylesheet to the page
 		var head = document.querySelector("head");
-		var stylesheetLinkElement = getStylesheetLinkElement(CONTENT_SCRIPT_STYLESHEET_PATH);
+		var stylesheetLinkElement = getStylesheetLinkElement(contentScriptFolderUrl + CONTENT_SCRIPT_STYLESHEET_PATH);
 		head.appendChild(stylesheetLinkElement);
 		
 		replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace);
@@ -144,7 +151,7 @@ function createReplacementButtonImage(tracker) {
  * path in the replacement buttons folder
  */
 function getReplacementButtonUrl(replacementButtonLocation) {	
-	return REPLACEMENT_BUTTONS_FOLDER_PATH + replacementButtonLocation;
+	return contentScriptFolderUrl + REPLACEMENT_BUTTONS_FOLDER_PATH + replacementButtonLocation;
 }
 
 /**
@@ -252,7 +259,7 @@ function replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace) {
 		var replaceTrackerButtons = trackerButtonsToReplace[tracker.name];
 				
 		if (replaceTrackerButtons) {	
-			//console.log("replacing tracker button for " + tracker.name);
+			console.log("replacing tracker button for " + tracker.name);
 
 			// makes a comma separated list of CSS selectors that specify
 			// buttons for the current tracker; used for document.querySelectorAll
@@ -286,18 +293,12 @@ function replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace) {
 function getTrackerData(callback) {
 	self.port.emit("socialWidgetContentScriptReady");
 	self.port.on("socialWidgetContentScriptReady_Response", function(response) {
-		console.log("response: " + JSON.stringify(response));
-
+		var contentScriptFolderUrl = response.contentScriptFolderUrl;
                 var trackers = response.trackers;
                 var trackerButtonsToReplace = response.trackerButtonsToReplace;
 
-               	callback(trackers, trackerButtonsToReplace);
+               	callback(contentScriptFolderUrl, trackers, trackerButtonsToReplace);
         });
-	/*chrome.runtime.sendMessage({checkReplaceButton:document.location}, function(response) {
-		var trackers = response.trackers;
-		var trackerButtonsToReplace = response.trackerButtonsToReplace;
-		callback(trackers, trackerButtonsToReplace);
-	});*/
 }
 
 /**
