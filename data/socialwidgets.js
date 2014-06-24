@@ -211,7 +211,7 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
 		// check is needed as for an unknown reason this callback function is
 		// executed for buttons that have already been removed; we are trying
 		// to prevent replacing an already removed button
-		if (button.parentNode !== null) { 
+		if (button.parentNode !== null) {
 			var codeContainer = document.createElement("div");
 			codeContainer.innerHTML = html;
 			
