@@ -59,22 +59,37 @@ var CONTENT_SCRIPT_STYLESHEET_PATH = "skin/socialwidgets.css";
 var contentScriptFolderUrl;
 
 /**
+ * Keep track of buttons to replace, to avoid duplicate work on re-check
+ */
+var savedTrackerButtonsToReplace = {};
+var firstTime = true;
+
+/**
  * Initializes the content script.
  */
 function initialize() {
 	setTimeout(delayedInitialize, 100);
+
+	// Sometimes there's a race condition where the extension doesn't yet know something
+	// has been blocked. Try again after some time so we don't end up with blocked but
+	// un-replaced buttons...
+	setTimeout(delayedInitialize, 1000);
 }
 
 function delayedInitialize() {
 	getTrackerData(function (contentScriptFolderUrl2, trackers, trackerButtonsToReplace) {
-		contentScriptFolderUrl = contentScriptFolderUrl2;
+		if (firstTime) {
+			contentScriptFolderUrl = contentScriptFolderUrl2;
 
-		// add the Content.css stylesheet to the page
-		var head = document.querySelector("head");
-		var stylesheetLinkElement = getStylesheetLinkElement(contentScriptFolderUrl + CONTENT_SCRIPT_STYLESHEET_PATH);
-		head.appendChild(stylesheetLinkElement);
-		
+			// add the Content.css stylesheet to the page
+			var head = document.querySelector("head");
+			var stylesheetLinkElement = getStylesheetLinkElement(contentScriptFolderUrl + CONTENT_SCRIPT_STYLESHEET_PATH);
+			head.appendChild(stylesheetLinkElement);
+			firstTime = false;
+		}
+
 		replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace);
+		savedTrackerButtonsToReplace = trackerButtonsToReplace;
 	});
 }
 
@@ -255,11 +270,11 @@ function replaceScriptsRecurse(node) {
  */
 function replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace) {
 	trackers.forEach(function(tracker) {
-		// There's a race condition where background might not yet know
-		// about a widget to replace, unsure how to fix.
 		var replaceTrackerButtons = trackerButtonsToReplace[tracker.name];
+		var savedReplaceTrackerButtons = savedTrackerButtonsToReplace[tracker.name];
+		var statusChanged = (replaceTrackerButtons != savedReplaceTrackerButtons);
 				
-		if (replaceTrackerButtons) {	
+		if (replaceTrackerButtons && statusChanged) {	
 			console.log("replacing tracker button for " + tracker.name);
 
 			// makes a comma separated list of CSS selectors that specify
@@ -293,7 +308,7 @@ function replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace) {
 */
 function getTrackerData(callback) {
 	self.port.emit("socialWidgetContentScriptReady");
-	self.port.on("socialWidgetContentScriptReady_Response", function(response) {
+	self.port.once("socialWidgetContentScriptReady_Response", function(response) {
 		var contentScriptFolderUrl = response.contentScriptFolderUrl;
                 var trackers = response.trackers;
                 var trackerButtonsToReplace = response.trackerButtonsToReplace;
