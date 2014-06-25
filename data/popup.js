@@ -6,6 +6,8 @@ function init(isActive)
 {
   console.log("Initializing popup.js");
 
+  $(".hidePanel").click(function() { self.port.emit("hidePanel"); });
+
   // If not active, just show an activation button
   if (!isActive) {
     resetHTML();
@@ -102,7 +104,9 @@ $('#gearImg').click(function() {
       vex.dialog.confirm({
         message: "This will set <b>all</b> trackers back to their default state (green if you allow 3rd party cookies by default in Firefox, yellow otherwise). Are you sure you want to continue?",
         callback: function(value) {
-          if (value) { self.port.emit("unblockAll"); }
+          if (value) {
+            self.port.emit("unblockAll");
+          }
         }
       });
     });
@@ -139,8 +143,9 @@ function refreshPopup(settings) {
   trackerStatus = "Detected <a id='trackerLink' target=_blank tabindex=-1 title='What is a tracker?' href='https://www.eff.org/privacybadger#trackers'>trackers</a> from these sites:";
   $("#detected").html(trackerStatus);
   var printable = '<div id="associatedTab" data-tab-id="' + 0 + '"></div>';
-  for (var i=0; i < origins.length; i++) {
-    var origin = origins[i];
+  let sortedOrigins = _reverseSort(origins);
+  for (var i=0; i < sortedOrigins.length; i++) {
+    var origin = sortedOrigins[i];
     var action = settings[origin];
     // todo: gross hack, use templating framework
     printable = _addOriginHTML(origin, printable, action);
@@ -167,6 +172,7 @@ function refreshPopup(settings) {
       slider.slider("value", parseInt(radios.filter(':checked').val(), 10));
     });
   });
+  $("#trackerLink").click(function() { self.port.emit("hidePanel"); });
 
   console.log("Done refreshing popup");
 }
@@ -184,14 +190,38 @@ function _addOriginHTML(origin, printable, action) {
     classes.push(action);
   var classText = 'class="' + classes.join(" ") + '"';
 
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" data-original-action="' + action + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + _trim(origin,25) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" data-original-action="' + action + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + _trimDomains(origin,25) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
 }
-function _trim(str,max){
-  if(str.length >= max){
-    return str.slice(0,max-3)+'...';
+function _trim(str, max) {
+  if (str.length >= max) {
+    return str.slice(0, max-3) + '...';
   } else {
     return str;
   }
+}
+function _trimDomains(str, max) {
+  // Depends on tld.js bower package
+  if (!tld.isValid(str)) {
+    _trim(str, max);
+  }
+  let domain = tld.getDomain(str);
+  let subdomain = tld.getSubdomain(str);
+  if (!subdomain) {
+    return _trim(str, max);
+  }
+  let subdomainMax = max - domain.length;
+  if (subdomainMax > 3) {
+    return [_trim(subdomain, subdomainMax), domain].join('.');
+  } else {
+    return "..." + _trim(domain,max-3);
+  }
+}
+// Partial-reverses each domain name in a list and sorts alphabetically
+function _reverseSort(list) {
+  function reverseString(str) {
+    return str.split('.').reverse().join('.');
+  }
+  return list.map(reverseString).sort().map(reverseString);
 }
 function _badgerStatusTitle(action, origin){
   let postfix;
