@@ -84,8 +84,8 @@
 	"Pinterest": {
 		"domain": "assets.pinterest.com",
 		"buttonSelectors": [
-			"script[src='//assets.pinterest.com/js/pinit.js']",
-			".pin-it-button"
+			".pin-it-button",
+			"img[src^='//assets.pinterest.com']"
 		],
 		"replacementButton": {
 			"details": "http://pinterest.com/pin/create/button/?url=",
