@@ -56,6 +56,11 @@ let firstTime = true;
  * Initializes the content script.
  */
 function initialize() {
+  let head = document.querySelector("head");
+  if (head == null) {
+    return; // not really html page, don't bother
+  }
+
   setTimeout(delayedInitialize, 100);
 
   // Sometimes there's a race condition where the extension doesn't yet know if
@@ -66,7 +71,10 @@ function initialize() {
 
 function delayedInitialize() {
   getTrackerData(function (contentScriptFolderUrl2, trackers, 
-                           trackerButtonsToReplace) {
+                           trackerButtonsToReplace, socialWidgetReplacementEnabled) {
+
+    if (!socialWidgetReplacementEnabled) return;
+
     if (firstTime) {
       contentScriptFolderUrl = contentScriptFolderUrl2;
 
@@ -305,8 +313,9 @@ function getTrackerData(callback) {
     let contentScriptFolderUrl = response.contentScriptFolderUrl;
     let trackers = response.trackers;
     let trackerButtonsToReplace = response.trackerButtonsToReplace;
+    let socialWidgetReplacementEnabled = response.socialWidgetReplacementEnabled;
 
-    callback(contentScriptFolderUrl, trackers, trackerButtonsToReplace);
+    callback(contentScriptFolderUrl, trackers, trackerButtonsToReplace, socialWidgetReplacementEnabled);
   });
 }
 
