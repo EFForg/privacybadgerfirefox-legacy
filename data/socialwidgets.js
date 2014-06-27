@@ -126,26 +126,18 @@ function createReplacementButtonImage(tracker) {
       let iframeUrl = details + encodeURIComponent(window.location.href);
       
       button.addEventListener("click", function() {
-        // for some reason, the callback function can execute more than
-        // once when the user clicks on a replacement button
-        // (it executes for the buttons that have been previously
-        // clicked as well)
         replaceButtonWithIframeAndUnblockTracker(button, buttonData.unblockDomains, 
                                                  iframeUrl);
-      });
+      }, true);
     break;
     
     case 2: // in place button type; replace the existing button with code
             // specified in the Trackers file
       button.savedClickListener = function() {
-              // for some reason, the callback function can execute more than
-              // once when the user clicks on a replacement button
-              // (it executes for the buttons that have been previously
-              // clicked as well)
               replaceButtonWithHtmlCodeAndUnblockTracker(button, 
                                              buttonData.unblockDomains, details);
       };
-      button.addEventListener("click", button.savedClickListener);
+      button.addEventListener("click", button.savedClickListener, true);
     break;
     
     default:
