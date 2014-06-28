@@ -126,6 +126,10 @@ $('#gearImg').click(function() {
  *  noaction, block, cookieblock, usernoaction, userblock, usercookieblock
  */
 var trackerStatus;
+function changeOriginHTML(setting) {
+  let printable = _addOriginHTML(setting.origin, '', setting.action);
+  $("div[data-origin='"+setting.origin+"']").html(printable);
+}
 function refreshPopup(settings) {
   if (settings.cleared) {
     trackerStatus = "Reload the page to see active trackers.";
@@ -309,12 +313,14 @@ function resetControl(event) {
   var $clicker = $elm.parents('.clicker').first();
   var origin = $clicker.attr("data-origin");
   self.port.emit("reset", origin);
+  /*
   // Don't let the user toggle settings until refresh
   $clicker.removeClass("reset block cookieblock noaction").addClass("reset");
   $clicker.find("input").prop("disabled", true);
   $clicker.click(function (event) {
     event.stopPropagation();
   });
+  */
   $elm.css('background', 'None');
   $elm.css('cursor', 'default');
   $clicker.find('.honeybadgerPowered').first().attr('tooltip', '');
@@ -362,6 +368,9 @@ self.port.on("show-trackers", function(settings) {
   init(true);
   refreshPopup(settings);
 });
+
+// Called when a tracker is reset
+self.port.on("change-setting", changeOriginHTML);
 
 // Called when PB is inactive
 self.port.on("show-inactive", function() { init(false); });
