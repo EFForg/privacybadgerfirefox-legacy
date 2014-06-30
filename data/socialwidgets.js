@@ -8,9 +8,9 @@
 /*
  * ShareMeNot is licensed under the MIT license:
  * http://www.opensource.org/licenses/mit-license.php
- * 
+ *
  * Copyright (c) 2011-2014 University of Washington
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -18,10 +18,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included
  * in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
  * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -64,13 +64,13 @@ function initialize() {
   setTimeout(delayedInitialize, 100);
 
   // Sometimes there's a race condition where the extension doesn't yet know if
-  // something has been blocked. Try again after some time so we don't end up 
+  // something has been blocked. Try again after some time so we don't end up
   // with blocked but un-replaced buttons...
   setTimeout(delayedInitialize, 1000);
 }
 
 function delayedInitialize() {
-  getTrackerData(function (contentScriptFolderUrl2, trackers, 
+  getTrackerData(function (contentScriptFolderUrl2, trackers,
                            trackerButtonsToReplace, socialWidgetReplacementEnabled) {
 
     if (!socialWidgetReplacementEnabled) return;
@@ -80,7 +80,7 @@ function delayedInitialize() {
 
       // add the Content.css stylesheet to the page
       let head = document.querySelector("head");
-      let stylesheetLinkElement = getStylesheetLinkElement(contentScriptFolderUrl 
+      let stylesheetLinkElement = getStylesheetLinkElement(contentScriptFolderUrl
                                    + CONTENT_SCRIPT_STYLESHEET_PATH);
       head.appendChild(stylesheetLinkElement);
       firstTime = false;
@@ -95,95 +95,95 @@ function delayedInitialize() {
  * Creates a replacement button element for the given tracker.
  *
  * @param {Tracker} tracker the Tracker object for the button
- * 
+ *
  * @return {Element} a replacement button element for the tracker
  */
 function createReplacementButtonImage(tracker) {
   let buttonData = tracker.replacementButton;
 
   let button = document.createElement("img");
-  
+
   let buttonUrl = getReplacementButtonUrl(buttonData.imagePath);
   let buttonType = buttonData.type;
   let details = buttonData.details;
-  
+
   button.setAttribute("src", buttonUrl);
   button.setAttribute("class", "privacyBadgerReplacementButton");
   button.setAttribute("title", "PrivacyBadger has replaced this " + tracker.name
     + " button.");
-  
+
   switch (buttonType) {
     case 0: // normal button type; just open a new window when clicked
       let popupUrl = details + encodeURIComponent(window.location.href);
-      
+
       button.addEventListener("click", function() {
         window.open(popupUrl);
       });
     break;
-    
+
     case 1: // in place button type; replace the existing button with an
             // iframe when clicked
       let iframeUrl = details + encodeURIComponent(window.location.href);
-      
+
       button.addEventListener("click", function() {
-        replaceButtonWithIframeAndUnblockTracker(button, buttonData.unblockDomains, 
+        replaceButtonWithIframeAndUnblockTracker(button, buttonData.unblockDomains,
                                                  iframeUrl);
       }, true);
     break;
-    
+
     case 2: // in place button type; replace the existing button with code
             // specified in the Trackers file
       button.savedClickListener = function() {
-              replaceButtonWithHtmlCodeAndUnblockTracker(button, 
+              replaceButtonWithHtmlCodeAndUnblockTracker(button,
                                              buttonData.unblockDomains, details);
       };
       button.addEventListener("click", button.savedClickListener, true);
     break;
-    
+
     default:
       throw "Invalid button type specified: " + buttonType;
     break;
   }
-  
+
   return button;
 }
 
 /**
  * Returns the absolute URL of a replacement button given its relative path
  * in the replacement buttons folder.
- * 
+ *
  * @param {String} replacementButtonLocation the relative path of the
  * replacement button in the replacement buttons folder
- * 
+ *
  * @return {String} the absolute URL of a replacement button given its relative
  * path in the replacement buttons folder
  */
-function getReplacementButtonUrl(replacementButtonLocation) {  
-  return contentScriptFolderUrl + REPLACEMENT_BUTTONS_FOLDER_PATH 
+function getReplacementButtonUrl(replacementButtonLocation) {
+  return contentScriptFolderUrl + REPLACEMENT_BUTTONS_FOLDER_PATH
               + replacementButtonLocation;
 }
 
 /**
  * Returns a HTML link element for a stylesheet at the given URL.
- * 
+ *
  * @param {String} URL the URL of the stylesheet to link
- * 
+ *
  * @return {Element} the HTML link element for a stylesheet at the given URL
  */
 function getStylesheetLinkElement(url) {
   let linkElement = document.createElement("link");
-  
+
   linkElement.setAttribute("rel", "stylesheet");
   linkElement.setAttribute("type", "text/css");
   linkElement.setAttribute("href", url);
-  
+
   return linkElement;
 }
 
 /**
  * Unblocks the given tracker and replaces the given button with an iframe
  * pointing to the given URL.
- * 
+ *
  * @param {Element} button the DOM element of the button to replace
  * @param {Tracker} tracker the Tracker object for the tracker that should be
  *                          unblocked
@@ -194,21 +194,21 @@ function replaceButtonWithIframeAndUnblockTracker(button, tracker, iframeUrl) {
     // check is needed as for an unknown reason this callback function is
     // executed for buttons that have already been removed; we are trying
     // to prevent replacing an already removed button
-    if (button.parentNode !== null) { 
+    if (button.parentNode !== null) {
       let iframe = document.createElement("iframe");
-      
+
       iframe.setAttribute("src", iframeUrl);
       iframe.setAttribute("class", "privacyBadgerOriginalButton");
-    
+
       button.parentNode.replaceChild(iframe, button);
     }
   });
 }
 
 /**
- * Unblocks the given tracker and replaces the given button with the 
+ * Unblocks the given tracker and replaces the given button with the
  * HTML code defined in the provided Tracker object.
- * 
+ *
  * @param {Element} button the DOM element of the button to replace
  * @param {Tracker} tracker the Tracker object for the tracker that should be
  *                          unblocked
@@ -222,11 +222,11 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
     if (button.parentNode !== null) {
       let codeContainer = document.createElement("div");
       codeContainer.innerHTML = html;
-      
+
       button.parentNode.replaceChild(codeContainer, button);
 
       replaceScriptsRecurse(codeContainer);
-      
+
       button.removeEventListener("click", button.savedClickListener);
     }
   });
@@ -251,12 +251,12 @@ function replaceScriptsRecurse(node) {
     }
   }
   return node;
-}                                                    
+}
 
 /**
  * Replaces all tracker buttons on the current web page with the internal
  * replacement buttons, respecting the user's blocking settings.
- * 
+ *
  * @param {Array} trackers an array of Tracker objects
  * @param {Object} a map of Tracker names to Boolean values saying whether
  *                 those trackers' buttons should be replaced
@@ -266,8 +266,8 @@ function replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace) {
     let replaceTrackerButtons = trackerButtonsToReplace[tracker.name];
     let savedReplaceTrackerButtons = savedTrackerButtonsToReplace[tracker.name];
     let statusChanged = (replaceTrackerButtons != savedReplaceTrackerButtons);
-        
-    if (replaceTrackerButtons && statusChanged) {  
+
+    if (replaceTrackerButtons && statusChanged) {
       console.log("replacing tracker button for " + tracker.name);
 
       // makes a comma separated list of CSS selectors that specify
@@ -278,10 +278,10 @@ function replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace) {
 
       for (let i = 0; i < buttonsToReplace.length; i++) {
         let buttonToReplace = buttonsToReplace[i];
-        
+
         let button =
           createReplacementButtonImage(tracker);
-        
+
         buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
       }
     }
@@ -314,7 +314,7 @@ function getTrackerData(callback) {
 /**
 * Unblocks the tracker with the given name from the page. Calls the
 * provided callback function after the tracker has been unblocked.
-* 
+*
 * @param {String} trackerName the name of the tracker to unblock
 * @param {Function} callback the function to call after the tracker has
 *                            been unblocked
