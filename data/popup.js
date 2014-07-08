@@ -128,7 +128,7 @@ $('#gearImg').click(function() {
 var trackerStatus;
 function changeOriginHTML(setting) {
   let printable = _addOriginHTML(setting.origin, '', setting.action);
-  $("div[data-origin='"+setting.origin+"']").html(printable);
+  $("div[data-origin='"+setting.origin+"']").replaceWith(printable);
 }
 function refreshPopup(settings) {
   if (settings.cleared) {
@@ -194,7 +194,7 @@ function _addOriginHTML(origin, printable, action) {
     classes.push(action);
   var classText = 'class="' + classes.join(" ") + '"';
 
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" data-original-action="' + action + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + _trimDomains(origin,25) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + _trimDomains(origin,25) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
 }
 function _trim(str, max) {
   if (str.length >= max) {
@@ -275,24 +275,6 @@ function toggleBlockedStatus(elt,status) {
     console.log("ERROR: no status for", elt);
     return false;
   }
-
-  /* This was copied from PB chrome. Unclear what it does; delete?
-  var originalAction = elt.getAttribute('data-original-action');
-  if ($(elt).hasClass("block"))
-    $(elt).toggleClass("block");
-  else if ($(elt).hasClass("cookieblock")) {
-    $(elt).toggleClass("block"); // Why is this here?
-    $(elt).toggleClass("cookieblock");
-  }
-  else
-    $(elt).toggleClass("cookieblock");
-  if ($(elt).hasClass(originalAction) ||
-      (originalAction == 'noaction' && !($(elt).hasClass("block") ||
-                                         $(elt).hasClass("cookieblock"))))
-    $(elt).removeClass("userset");
-  else
-    $(elt).addClass("userset");
-   */
 }
 function updateOrigin(event){
   var $elm = $('label[for="' + event.currentTarget.id + '"]');
@@ -313,18 +295,6 @@ function resetControl(event) {
   var $clicker = $elm.parents('.clicker').first();
   var origin = $clicker.attr("data-origin");
   self.port.emit("reset", origin);
-  /*
-  // Don't let the user toggle settings until refresh
-  $clicker.removeClass("reset block cookieblock noaction").addClass("reset");
-  $clicker.find("input").prop("disabled", true);
-  $clicker.click(function (event) {
-    event.stopPropagation();
-  });
-  */
-  $elm.css('background', 'None');
-  $elm.css('cursor', 'default');
-  $clicker.find('.honeybadgerPowered').first().attr('tooltip', '');
-  $elm.removeClass("userset");
 }
 function displayTooltip(event){
   var $elm = $(event.currentTarget);
