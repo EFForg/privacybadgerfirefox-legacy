@@ -5,7 +5,8 @@
   "description": "Protects privacy by blocking spying ads and invisible trackers.",
   "author": "Electronic Frontier Foundation",
   "contributors": ["Yan Zhu", "Garrett Robinson", "Monica Chew", "Cooper Quentin",
-                   "Dan Auerbach", "Peter Eckersley", "Jonathan Mayer", "Hugh D'Andrade"],
+                   "Dan Auerbach", "Peter Eckersley", "Jonathan Mayer", "Hugh D'Andrade",
+                   "Franziska Roesner"],
   "permissions": { "private-browsing": true },
   "license": "GPL 3",
   "version": "0.1.4",
@@ -26,6 +27,11 @@
     "type": "integer",
     "value": 1,
     "hidden": true
+  }, {
+    "name": "socialWidgetReplacementEnabled",
+    "title": "Social widget replacement enabled",
+    "type": "bool",
+    "value": true
   }],
   "icon": "data/icons/badger-48.png",
   "icon64": "data/icons/badger-64.png"
