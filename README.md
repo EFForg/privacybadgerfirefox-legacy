@@ -39,12 +39,12 @@ Privacy Badger uses a (relatively-simple) heuristic algorithm for deciding wheth
 
 1. Does the third-party read a cookie? If not, don't count it in the blocking heuristic. Otherwise:
 2. Is the cookie sufficiently high-entropy? If not, don't count it. (Currently the entropy calculation is *very* crude! See lib/heuristicBlocker.js.) Otherwise:
-3. Has the base domain (eTLD+1) of the third-party read cookies on at least 3 first-party base domains? If not, don't block it (for now). Otherwise:
+3. Increment the heuristic blocker counter by +1 for that domain. Has the base domain (eTLD+1) of the third-party read cookies on at least 3 first-party base domains? If not, don't block it (for now). Otherwise:
 4. Has the third party posted an acceptable DNT policy? (We check this using an XML HTTP Request to a well-known path where we are asking sites to post statements of [compliance with DNT](https://www.eff.org/dnt-policy).) If so, don't block it. Otherwise:
-5. Is the third party or its base domain on a preloaded whitelist of sites to not block because it would probably cause the first-party site to break? If so, block it from reading cookies in a third-party context. Otherwise:
+5. Is the third party or any of its parent domains on a preloaded whitelist of sites to not block because it would probably cause the first-party site to break? If so, block it from reading cookies in a third-party context. Otherwise:
 6. Block third-party requests from the third-party entirely.
 
-In addition, Privacy Badger will block third-party cookies from sites whose base domains have been blocked or cookie-blocked.
+In addition, Privacy Badger will block third-party cookies from a domain if any of its parent domains have been blocked or cookie-blocked.
 
 Note that users can manually set domains to be unblocked (green), cookie-blocked (yellow), or red (blocked). These choices *always* override the heuristic blocker.
 
