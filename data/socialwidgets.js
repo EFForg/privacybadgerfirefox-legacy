@@ -57,7 +57,7 @@ let firstTime = true;
  */
 function initialize() {
   let head = document.querySelector("head");
-  if (head == null) {
+  if (head === null) {
     return; // not really html page, don't bother
   }
 
@@ -70,18 +70,19 @@ function initialize() {
 }
 
 function delayedInitialize() {
-  getTrackerData(function (contentScriptFolderUrl2, trackers,
-                           trackerButtonsToReplace, socialWidgetReplacementEnabled) {
+  getTrackerData(function(contentScriptFolderUrl2, trackers,
+                          trackerButtonsToReplace,
+                          socialWidgetReplacementEnabled) {
 
-    if (!socialWidgetReplacementEnabled) return;
+    if (!socialWidgetReplacementEnabled) { return; }
 
     if (firstTime) {
       contentScriptFolderUrl = contentScriptFolderUrl2;
 
       // add the Content.css stylesheet to the page
       let head = document.querySelector("head");
-      let stylesheetLinkElement = getStylesheetLinkElement(contentScriptFolderUrl
-                                   + CONTENT_SCRIPT_STYLESHEET_PATH);
+      let stylesheetLinkElement = getStylesheetLinkElement(contentScriptFolderUrl +
+                                                           CONTENT_SCRIPT_STYLESHEET_PATH);
       head.appendChild(stylesheetLinkElement);
       firstTime = false;
     }
@@ -109,40 +110,38 @@ function createReplacementButtonImage(tracker) {
 
   button.setAttribute("src", buttonUrl);
   button.setAttribute("class", "privacyBadgerReplacementButton");
-  button.setAttribute("title", "PrivacyBadger has replaced this " + tracker.name
-    + " button.");
+  button.setAttribute("title", "PrivacyBadger has replaced this " +
+                      tracker.name + " button.");
 
   switch (buttonType) {
     case 0: // normal button type; just open a new window when clicked
       let popupUrl = details + encodeURIComponent(window.location.href);
-
       button.addEventListener("click", function() {
         window.open(popupUrl);
       });
-    break;
+      break;
 
     case 1: // in place button type; replace the existing button with an
             // iframe when clicked
       let iframeUrl = details + encodeURIComponent(window.location.href);
-
       button.addEventListener("click", function() {
         replaceButtonWithIframeAndUnblockTracker(button, buttonData.unblockDomains,
                                                  iframeUrl);
       }, true);
-    break;
+      break;
 
     case 2: // in place button type; replace the existing button with code
             // specified in the Trackers file
       button.savedClickListener = function() {
-              replaceButtonWithHtmlCodeAndUnblockTracker(button,
-                                             buttonData.unblockDomains, details);
+        replaceButtonWithHtmlCodeAndUnblockTracker(button,
+                                                   buttonData.unblockDomains,
+                                                   details);
       };
       button.addEventListener("click", button.savedClickListener, true);
-    break;
+      break;
 
     default:
       throw "Invalid button type specified: " + buttonType;
-    break;
   }
 
   return button;
@@ -159,8 +158,8 @@ function createReplacementButtonImage(tracker) {
  * path in the replacement buttons folder
  */
 function getReplacementButtonUrl(replacementButtonLocation) {
-  return contentScriptFolderUrl + REPLACEMENT_BUTTONS_FOLDER_PATH
-              + replacementButtonLocation;
+  return contentScriptFolderUrl + REPLACEMENT_BUTTONS_FOLDER_PATH +
+    replacementButtonLocation;
 }
 
 /**
