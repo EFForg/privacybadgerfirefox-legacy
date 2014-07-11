@@ -61,10 +61,10 @@ function initialize() {
     return; // not really html page, don't bother
   }
 
-  setTimeout(delayedInitialize, 100);
+  realInitialize();
 }
 
-function delayedInitialize() {
+function realInitialize() {
   getTrackerData(function(contentScriptFolderUrl2, trackers,
                           trackerButtonsToReplace,
                           socialWidgetReplacementEnabled) {
@@ -78,13 +78,15 @@ function delayedInitialize() {
       let head = document.querySelector("head");
       let stylesheetLinkElement = getStylesheetLinkElement(contentScriptFolderUrl +
                                                            CONTENT_SCRIPT_STYLESHEET_PATH);
-      head.appendChild(stylesheetLinkElement);
+      if (head != null) {
+        head.appendChild(stylesheetLinkElement);
+      }
       firstTime = false;
 
       // Sometimes there's a race condition where the extension doesn't yet know if
       // something has been blocked. Try again after some time so we don't end up
       // with blocked but un-replaced buttons...
-      setTimeout(delayedInitialize, 1000);
+      setTimeout(realInitialize, 1000);
     }
 
     replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace);
