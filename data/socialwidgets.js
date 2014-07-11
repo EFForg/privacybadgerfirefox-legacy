@@ -62,11 +62,6 @@ function initialize() {
   }
 
   setTimeout(delayedInitialize, 100);
-
-  // Sometimes there's a race condition where the extension doesn't yet know if
-  // something has been blocked. Try again after some time so we don't end up
-  // with blocked but un-replaced buttons...
-  setTimeout(delayedInitialize, 1000);
 }
 
 function delayedInitialize() {
@@ -85,6 +80,11 @@ function delayedInitialize() {
                                                            CONTENT_SCRIPT_STYLESHEET_PATH);
       head.appendChild(stylesheetLinkElement);
       firstTime = false;
+
+      // Sometimes there's a race condition where the extension doesn't yet know if
+      // something has been blocked. Try again after some time so we don't end up
+      // with blocked but un-replaced buttons...
+      setTimeout(delayedInitialize, 1000);
     }
 
     replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace);
@@ -290,7 +290,7 @@ function replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace) {
 /**
 * Gets data about which tracker buttons need to be replaced from the main
 * extension and passes it to the provided callback function.
-* 
+*
 * @param {Function} callback the function to call when the tracker data is
 *                            received; the arguments passed are the folder
 *                            containing the content script, the tracker
