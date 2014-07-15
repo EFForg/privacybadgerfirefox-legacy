@@ -47,50 +47,39 @@ let CONTENT_SCRIPT_STYLESHEET_PATH = "skin/socialwidgets.css";
 let contentScriptFolderUrl;
 
 /**
- * Keep track of buttons to replace, to avoid duplicate work on re-check
+ * Social widget tracker data, read from file.
  */
-let savedTrackerButtonsToReplace = {};
-let firstTime = true;
+let trackerInfo;
 
 /**
  * Initializes the content script.
  */
 function initialize() {
-  let head = document.querySelector("head");
-  if (head === null) {
-    return; // not really html page, don't bother
-  }
+  // set up listener for blocks that happen after initial check
+  self.port.on("replaceSocialWidget", function(trackerDomain) {
+    replaceSubsequentTrackerButtonsHelper(trackerDomain);
+  });
 
-  realInitialize();
-}
-
-function realInitialize() {
+  // get tracker info and check for initial blocks (that happened
+  // before content script was attached)
   getTrackerData(function(contentScriptFolderUrl2, trackers,
                           trackerButtonsToReplace,
                           socialWidgetReplacementEnabled) {
 
     if (!socialWidgetReplacementEnabled) { return; }
 
-    if (firstTime) {
-      contentScriptFolderUrl = contentScriptFolderUrl2;
+    contentScriptFolderUrl = contentScriptFolderUrl2;
+    trackerInfo = trackers;
 
-      // add the Content.css stylesheet to the page
-      let head = document.querySelector("head");
-      let stylesheetLinkElement = getStylesheetLinkElement(contentScriptFolderUrl +
-                                                           CONTENT_SCRIPT_STYLESHEET_PATH);
-      if (head != null) {
-        head.appendChild(stylesheetLinkElement);
-      }
-      firstTime = false;
-
-      // Sometimes there's a race condition where the extension doesn't yet know if
-      // something has been blocked. Try again after some time so we don't end up
-      // with blocked but un-replaced buttons...
-      setTimeout(realInitialize, 1000);
+    // add the Content.css stylesheet to the page
+    let head = document.querySelector("head");
+    let stylesheetLinkElement = getStylesheetLinkElement(contentScriptFolderUrl +
+                                                         CONTENT_SCRIPT_STYLESHEET_PATH);
+    if (head != null) {
+      head.appendChild(stylesheetLinkElement);
     }
 
-    replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace);
-    savedTrackerButtonsToReplace = trackerButtonsToReplace;
+    replaceInitialTrackerButtonsHelper(trackerButtonsToReplace);
   });
 }
 
@@ -258,35 +247,50 @@ function replaceScriptsRecurse(node) {
  * Replaces all tracker buttons on the current web page with the internal
  * replacement buttons, respecting the user's blocking settings.
  *
- * @param {Array} trackers an array of Tracker objects
  * @param {Object} a map of Tracker names to Boolean values saying whether
  *                 those trackers' buttons should be replaced
  */
-function replaceTrackerButtonsHelper(trackers, trackerButtonsToReplace) {
-  trackers.forEach(function(tracker) {
+function replaceInitialTrackerButtonsHelper(trackerButtonsToReplace) {
+  trackerInfo.forEach(function(tracker) {
     let replaceTrackerButtons = trackerButtonsToReplace[tracker.name];
-    let savedReplaceTrackerButtons = savedTrackerButtonsToReplace[tracker.name];
-    let statusChanged = (replaceTrackerButtons != savedReplaceTrackerButtons);
-
-    if (replaceTrackerButtons && statusChanged) {
-      console.log("replacing tracker button for " + tracker.name);
-
-      // makes a comma separated list of CSS selectors that specify
-      // buttons for the current tracker; used for document.querySelectorAll
-      let buttonSelectorsString = tracker.buttonSelectors.toString();
-      let buttonsToReplace =
-        document.querySelectorAll(buttonSelectorsString);
-
-      for (let i = 0; i < buttonsToReplace.length; i++) {
-        let buttonToReplace = buttonsToReplace[i];
-
-        let button =
-          createReplacementButtonImage(tracker);
-
-        buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
-      }
+    if (replaceTrackerButtons) {
+      replaceIndividualButton(tracker);
     }
   });
+}
+
+/**
+ * Individually replaces tracker buttons blocked after initial check.
+ */
+function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
+  trackerInfo.forEach(function(tracker) {
+    let replaceTrackerButtons = (tracker.domain == trackerDomain);
+    if (replaceTrackerButtons) {
+      replaceIndividualButton(tracker);
+    }
+  });
+}
+
+/**
+ * Actually do the work of replacing the button.
+ */
+function replaceIndividualButton(tracker) {
+  console.log("replacing tracker button for " + tracker.name);
+
+  // makes a comma separated list of CSS selectors that specify
+  // buttons for the current tracker; used for document.querySelectorAll
+  let buttonSelectorsString = tracker.buttonSelectors.toString();
+  let buttonsToReplace =
+    document.querySelectorAll(buttonSelectorsString);
+
+  for (let i = 0; i < buttonsToReplace.length; i++) {
+   let buttonToReplace = buttonsToReplace[i];
+
+    let button =
+      createReplacementButtonImage(tracker);
+
+    buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
+  }
 }
 
 /**
