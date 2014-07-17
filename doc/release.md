@@ -13,7 +13,7 @@ The folowing are instructions to make a signed and self-hosted release of Privac
 ## Steps
 1. Get the extension into a satisfactory state.
 2. Make sure you have the latest stable version of the Mozilla Add-on SDK and that this variable is correctly set in release-utils/make-signed-xpi.sh.
-3. Update doc/Changelog with release notes.
+3. Update doc/Changelog with release notes and package.json with the correct release number.
 4. Create a gpg-signed release tag with the version number (ex: 0.1) and push the tags.
 5. From the root of the git directory, run `make <version>`.
 6. While make is running, to your airgapped signing machine and edit the RDF template to have the correct min and max installable versions (corresponding to the Addon SDK version that you are using). TODO: output this in the make scripts.
