@@ -49,7 +49,7 @@ let contentScriptFolderUrl;
 /**
  * Social widget tracker data, read from file.
  */
-let trackerInfo;
+let trackerInfo = [];
 
 /**
  * Initializes the content script.
@@ -62,7 +62,8 @@ function initialize() {
 
   // get tracker info and check for initial blocks (that happened
   // before content script was attached)
-  getTrackerData(function(contentScriptFolderUrl2, trackers,
+  getTrackerData(function(contentScriptFolderUrl2,
+                          trackers,
                           trackerButtonsToReplace,
                           socialWidgetReplacementEnabled) {
 
