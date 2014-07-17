@@ -5,4 +5,5 @@ addon-sdk-*
 *~
 release-utils/pkg
 release-utils/xpi
+release-utils/disconnect-content.txt
 **packages
