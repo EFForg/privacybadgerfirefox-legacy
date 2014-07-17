@@ -75,7 +75,7 @@ function initialize() {
     let head = document.querySelector("head");
     let stylesheetLinkElement = getStylesheetLinkElement(contentScriptFolderUrl +
                                                          CONTENT_SCRIPT_STYLESHEET_PATH);
-    if (head != null) {
+    if (head) {
       head.appendChild(stylesheetLinkElement);
     }
 
@@ -284,7 +284,7 @@ function replaceIndividualButton(tracker) {
     document.querySelectorAll(buttonSelectorsString);
 
   for (let i = 0; i < buttonsToReplace.length; i++) {
-   let buttonToReplace = buttonsToReplace[i];
+    let buttonToReplace = buttonsToReplace[i];
 
     let button =
       createReplacementButtonImage(tracker);
