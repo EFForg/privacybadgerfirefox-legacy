@@ -1,5 +1,6 @@
 0.2.1                                     (2014-07-21)
   * Migrate ShareMeNot icons to native icons with badger badge (#174)
+  * Fix console errors due to empty object lookups in WeakMaps
 
 0.2                                       (2014-07-17)
   * Incorporate ShareMeNot functionality.
