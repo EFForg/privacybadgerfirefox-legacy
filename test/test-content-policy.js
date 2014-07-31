@@ -5,8 +5,8 @@ exports["test Policy hasWhitelistedScheme"] = function(assert) {
   let urls = {
     "about:blank": true,
     "chrome://mozapps/skin/places/defaultFavicon.png": true,
-    "http://eff.org": false,
-    "https://eff.org": false
+    "http://www.eff.org": false,
+    "https://www.eff.org": false
   };
 
   for (let url in urls) {
