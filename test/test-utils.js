@@ -52,6 +52,30 @@ COOKIES[hackpadCookie] = {
   "1ASIE": "T"
 };
 
+// Test util for random number generation
+exports.testGetRandomNumber =  function(assert){
+  let rands = []
+  let min = 10;
+  let max = 20;
+  for(let i = 0; i < 1000; i++){
+    rands.push(utils.getRandomNumber(min,max));
+  }
+  assert.equal(Math.min.apply(null, rands), min);
+  assert.equal(Math.max.apply(null, rands), max);
+}
+
+exports.testRepeatAtRandom = function(assert, done){
+  var calls = 0;
+  var testy =  function(){
+    calls++;
+  }
+  utils.repeatAtRandom(testy,10,100,2,function(){
+    assert.equal(calls,2);
+    done();
+  });
+}
+
+
 // Test util for parsing a cookie string into name-value pairs
 exports["test parseCookieString"] = function(assert) {
   for (let cookieString in COOKIES) {
