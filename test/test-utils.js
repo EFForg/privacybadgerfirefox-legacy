@@ -19,13 +19,13 @@ let googleCookie = 'PREF=ID=d93d4e842d10e12a:U=3838eaea5cd40d37:FF=0:TM=139'+
   'OGqb3RtvUmH987K5DXFgKFAxFwafA_5VPF5_bsjhrCoM0BjyQdxyL2b-qs9b-fmYCQ_1Uqjt'+
   'qTeidAJBnc2ecjewJia6saHrcJ6yOVVgv';
 let hackpadCookie = 'acctIds=%5B%22mIqZhIPMu7j%22%2C%221394477194%22%2C%22u'+
-  'T/ayZECO0g/+hHtQnjrdEZivWA%3D%22%5D; expires=Wed, 01-Jan-3000 08:00:00 G'+
+  'T/ayZECO0g/+hHtQnjrdEZivWA%3D%22%5D; expires=Wed, 01-Jan-3000 08:00:01 G'+
   'MT; domain=.hackpad.com; path=/; secure; httponly\nacctIds=%5B%22mIqZhIP'+
   'Mu7j%22%2C%221394477194%22%2C%22uT/ayZECO0g/+hHtQnjrdEZivWA%3D%22%5D; ex'+
   'pires=Wed, 01-Jan-3000 08:00:00 GMT; domain=.hackpad.com; path=/; secure'+
-  '; httponly\n1ASIE=T; expires=Wed, 01-Jan-3000 08:00:00 GMT; domain=hackp'+
+  '; httponly\n1ASIE=T; expires=Wed, 01-Jan-3000 08:00:01 GMT; domain=hackp'+
   'ad.com; path=/\nPUAS3=3186efa7f8bca99c; expires=Wed, 01-Jan-3000 08:00:0'+
-  '0 GMT; path=/; secure; httponly';
+  '1 GMT; path=/; secure; httponly';
 let emptyCookie = '';
 let testCookie = ' notacookiestring; abc=123 ';
 
@@ -51,6 +51,30 @@ COOKIES[hackpadCookie] = {
   'PUAS3': '3186efa7f8bca99c',
   "1ASIE": "T"
 };
+
+// Test util for random number generation
+exports.testGetRandomNumber =  function(assert){
+  let rands = []
+  let min = 10;
+  let max = 20;
+  for(let i = 0; i < 1000; i++){
+    rands.push(utils.getRandomNumber(min,max));
+  }
+  assert.equal(Math.min.apply(null, rands), min);
+  assert.equal(Math.max.apply(null, rands), max);
+}
+
+exports.testRepeatAtRandom = function(assert, done){
+  var calls = 0;
+  var testy =  function(){
+    calls++;
+  }
+  utils.repeatAtRandom(testy,10,100,2,function(){
+    assert.equal(calls,2);
+    done();
+  });
+}
+
 
 // Test util for parsing a cookie string into name-value pairs
 exports["test parseCookieString"] = function(assert) {
