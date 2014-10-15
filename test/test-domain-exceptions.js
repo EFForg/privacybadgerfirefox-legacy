@@ -2,12 +2,14 @@ const userStorage = require("./userStorage");
 const { storage } = require("sdk/simple-storage");
 
 exports["test domain exceptions"] = function(assert) {
+
+  userStorage.init();
   let origin1 = "disqus.com";
   let suborigin1 = "www.disqus.com";
   let origin2 = "maps.google.co.uk";
   let superorigin2 = "google.co.uk";
-  let site1 = "http://example.com";
-  let site2 = "https://www.example.com";
+  let site1 = "example.com";
+  let site2 = "www.example.com";
 
   userStorage.addToDomainExceptions(site1, origin1);
   // Test that domain and subdomain of origin1 are exceptions on site1
