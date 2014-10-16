@@ -32,6 +32,11 @@
     "title": "Social widget replacement enabled",
     "type": "bool",
     "value": true
+  }, {
+    "name": "blockedDomainRecheckDNT",
+    "title": "Recheck blocked domains for DNT policy document",
+    "type": "bool",
+    "value": true
   }],
   "icon": "data/icons/badger-48.png",
   "icon64": "data/icons/badger-64.png"
