@@ -7,10 +7,10 @@ self.port.on("gotDomainException", function(msg) {
     '<h2>Privacy Badger Alert!</h2>' +
     '<div class="clear"></div>' +
     '<h3>Logging into ' + msg.whitelistDomain + ' can allow it to track you around the web.</h3>' +
-    //'<button class="pbButton default" id="allow_once">Only allow ' + msg.whitelistDomain + ' on ' + msg.currentDomain + '</button>' +
+    // TODO: Refactor privacy badger to not put things in firefox's cookie exceptions list
+    // so that we can allow trackers only on a given domain.
     '<button class="pbButton default" id="allow_all">Always allow ' + msg.whitelistDomain + '</button>' +
     '<button class="pbButton" id="never">Always block third party requests from ' + msg.whitelistDomain + '</button>' +
-    '<a id="useless"></a>' + 
     '</div>';
 
 
@@ -50,7 +50,9 @@ self.port.on("gotDomainException", function(msg) {
     })
   }
 
-  document.getElementById('useless').click();
+  // Focus on the dialog box.
+  document.getElementById('pbDialog').focus();
+
 
   var closeWindow = function(e){
     document.removeEventListener('keydown', keypressListener);
