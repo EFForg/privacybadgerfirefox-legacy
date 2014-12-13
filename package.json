@@ -9,7 +9,7 @@
                    "Franziska Roesner"],
   "permissions": { "private-browsing": true },
   "license": "GPL 3",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "preferences": [{
     "name": "heuristicEnabled",
     "title": "Automatic blocking enabled",
