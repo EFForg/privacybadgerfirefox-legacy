@@ -144,10 +144,10 @@ function refreshPopup(settings) {
     $("#blockedResources").html("");
     return;
   }
-  trackerStatus = "Detected <a id='trackerLink' target=_blank tabindex=-1 title='What is a tracker?' href='https://www.eff.org/privacybadger#trackers'>trackers</a> from these sites:";
+  let sortedOrigins = _reverseSort(origins);
+  trackerStatus = "Detected " + sortedOrigins.length + " <a id='trackerLink' target=_blank tabindex=-1 title='What is a tracker?' href='https://www.eff.org/privacybadger#trackers'>trackers</a> from these sites:";
   $("#detected").html(trackerStatus);
   var printable = '<div id="associatedTab" data-tab-id="' + 0 + '"></div>';
-  let sortedOrigins = _reverseSort(origins);
   for (var i=0; i < sortedOrigins.length; i++) {
     var origin = sortedOrigins[i];
     var action = settings[origin];
