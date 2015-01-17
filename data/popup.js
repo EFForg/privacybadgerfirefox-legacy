@@ -19,9 +19,9 @@ function init(isActive)
   $("#badgerImg2").hide();
   $("#badgerImg").show();
   $("#badgerImg").hover(function () {
-    $("#detected").html("Click to deactivate Privacy Badger on this site.");
+    $("#detected").text("Click to deactivate Privacy Badger on this site.");
   }, function () {
-    $("#detected").html(trackerStatus);
+    $("#detected").text(trackerStatus);
   });
   $('#prefs').hover(function() {
     $('#gearImg').attr('src', 'icons/gear-25.png');
@@ -44,12 +44,12 @@ function resetHTML() {
   $("#badgerImg").hide();
   $("#badgerImg2").show();
   $("#badgerImg2").hover(function () {
-    $("#detected").html("Click to activate Privacy Badger on this site.");
+    $("#detected").text("Click to activate Privacy Badger on this site.");
   }, function () {
-    $("#detected").html("Click the badger icon to activate Privacy Badger on this site.");
+    $("#detected").text("Click the badger icon to activate Privacy Badger on this site.");
   });
-  $("#detected").html("Click the badger icon to activate Privacy Badger on this site.");
-  $("#blockedResources").html("");
+  $("#detected").text("Click the badger icon to activate Privacy Badger on this site.");
+  $("#blockedResources").text("");
   $("#gearImg").hide();
   return;
 }
@@ -133,15 +133,15 @@ function changeOriginHTML(setting) {
 function refreshPopup(settings) {
   if (settings.cleared) {
     trackerStatus = "Reload the page to see active trackers.";
-    $("#detected").html(trackerStatus);
-    $("#blockedResources").html("");
+    $("#detected").text(trackerStatus);
+    $("#blockedResources").text("");
     return;
   }
   var origins = Object.keys(settings);
   if (!origins || origins.length === 0) {
     trackerStatus = "Could not detect any tracking cookies.";
-    $("#detected").html(trackerStatus);
-    $("#blockedResources").html("");
+    $("#detected").text(trackerStatus);
+    $("#blockedResources").text("");
     return;
   }
   let sortedOrigins = _reverseSort(origins);
@@ -180,8 +180,19 @@ function refreshPopup(settings) {
 
   console.log("Done refreshing popup");
 }
+
 var feedTheBadgerTitle = "Click to undo manual settings.";
-function _addOriginHTML(origin, printable, action) {
+
+/**
+ * Build the HTML string for an origin, to be placed in the popup.
+ * @param String rawOrigin the name of the origin.
+ * @param String printable a string to append the output too.
+ * @param String action the action that is taken on this origin, one of ['noaction', 'block', 'cookieblock', 'usernoaction', 'userblock', 'usercookieblock']
+ * @return String the html string to be printed
+ */
+function _addOriginHTML(rawOrigin, printable, action) {
+  // Sanitize origin string, strip out any HTML tags.
+  var origin = rawOrigin.replace(/</g, '').replace(/>/g, '');
   var classes = ["clicker", "tooltip"];
   var title = feedTheBadgerTitle;
   if (action.indexOf("user") === 0) {
@@ -190,8 +201,9 @@ function _addOriginHTML(origin, printable, action) {
   } else {
     title = '';
   }
-  if (action == "block" || action == "cookieblock")
+  if (action == "block" || action == "cookieblock") {
     classes.push(action);
+  }
   var classText = 'class="' + classes.join(" ") + '"';
 
   return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + _trimDomains(origin,25) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
@@ -244,6 +256,7 @@ function _badgerStatusTitle(action, origin){
   return _trim(statusMap[action] + postfix, 45);
 }
 function _addToggleHtml(origin, action){
+  
   var output = "";
   output += '<div class="switch-container tooltip ' + action + '" tooltip="' + _badgerStatusTitle(action, origin)  + '">';
   output += '<div class="switch-toggle switch-3 switch-candy">';
@@ -287,7 +300,7 @@ function updateOrigin(event){
   $clicker.find('.honeybadgerPowered').first().attr('tooltip', feedTheBadgerTitle);
   $clicker.attr('tooltip', _badgerStatusTitle(action, origin));
   $switchContainer.attr('tooltip', _badgerStatusTitle(action, origin));
-  $clicker.children('.tooltipContainer').html(_badgerStatusTitle(action, origin));
+  $clicker.children('.tooltipContainer').text(_badgerStatusTitle(action, origin));
 }
 function resetControl(event) {
   // Removes a userset setting
