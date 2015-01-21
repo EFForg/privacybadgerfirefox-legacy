@@ -1,5 +1,5 @@
 var stripHTML = function(str){
-  return str.replace(/[&"<>]/g, '');
+  return str.replace(/[&"'<>]/g, '');
 }
 
 self.port.on("gotDomainException", function(msg) {
