@@ -9,7 +9,7 @@
                    "Franziska Roesner", "Jacob Hoffman-Andrews", "Jeremey Gillula"],
   "permissions": { "private-browsing": true },
   "license": "GPL 3",
-  "version": "0.2.5",
+  "version": "0.2.5.1",
   "preferences": [{
     "name": "heuristicEnabled",
     "title": "Automatic blocking enabled",
