@@ -10,43 +10,7 @@
   }
 }
 
-@-webkit-keyframes vex-fadein {
-  /* line 9, ../sass/_keyframes.sass */
-  0% {
-    opacity: 0;
-  }
-
-  /* line 11, ../sass/_keyframes.sass */
-  100% {
-    opacity: 1;
-  }
-}
-
 @-moz-keyframes vex-fadein {
-  /* line 9, ../sass/_keyframes.sass */
-  0% {
-    opacity: 0;
-  }
-
-  /* line 11, ../sass/_keyframes.sass */
-  100% {
-    opacity: 1;
-  }
-}
-
-@-ms-keyframes vex-fadein {
-  /* line 9, ../sass/_keyframes.sass */
-  0% {
-    opacity: 0;
-  }
-
-  /* line 11, ../sass/_keyframes.sass */
-  100% {
-    opacity: 1;
-  }
-}
-
-@-o-keyframes vex-fadein {
   /* line 9, ../sass/_keyframes.sass */
   0% {
     opacity: 0;
@@ -70,18 +34,6 @@
   }
 }
 
-@-webkit-keyframes vex-fadeout {
-  /* line 16, ../sass/_keyframes.sass */
-  0% {
-    opacity: 1;
-  }
-
-  /* line 18, ../sass/_keyframes.sass */
-  100% {
-    opacity: 0;
-  }
-}
-
 @-moz-keyframes vex-fadeout {
   /* line 16, ../sass/_keyframes.sass */
   0% {
@@ -94,51 +46,7 @@
   }
 }
 
-@-ms-keyframes vex-fadeout {
-  /* line 16, ../sass/_keyframes.sass */
-  0% {
-    opacity: 1;
-  }
-
-  /* line 18, ../sass/_keyframes.sass */
-  100% {
-    opacity: 0;
-  }
-}
-
-@-o-keyframes vex-fadeout {
-  /* line 16, ../sass/_keyframes.sass */
-  0% {
-    opacity: 1;
-  }
-
-  /* line 18, ../sass/_keyframes.sass */
-  100% {
-    opacity: 0;
-  }
-}
-
 @keyframes vex-rotation {
-  /* line 127, ../sass/_keyframes.sass */
-  0% {
-    transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-  }
-
-  /* line 129, ../sass/_keyframes.sass */
-  100% {
-    transform: rotate(359deg);
-    -webkit-transform: rotate(359deg);
-    -moz-transform: rotate(359deg);
-    -ms-transform: rotate(359deg);
-    -o-transform: rotate(359deg);
-  }
-}
-
-@-webkit-keyframes vex-rotation {
   /* line 127, ../sass/_keyframes.sass */
   0% {
     transform: rotate(0deg);
@@ -178,49 +86,8 @@
   }
 }
 
-@-ms-keyframes vex-rotation {
-  /* line 127, ../sass/_keyframes.sass */
-  0% {
-    transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-  }
-
-  /* line 129, ../sass/_keyframes.sass */
-  100% {
-    transform: rotate(359deg);
-    -webkit-transform: rotate(359deg);
-    -moz-transform: rotate(359deg);
-    -ms-transform: rotate(359deg);
-    -o-transform: rotate(359deg);
-  }
-}
-
-@-o-keyframes vex-rotation {
-  /* line 127, ../sass/_keyframes.sass */
-  0% {
-    transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-  }
-
-  /* line 129, ../sass/_keyframes.sass */
-  100% {
-    transform: rotate(359deg);
-    -webkit-transform: rotate(359deg);
-    -moz-transform: rotate(359deg);
-    -ms-transform: rotate(359deg);
-    -o-transform: rotate(359deg);
-  }
-}
-
 /* line 11, ../sass/vex.sass */
 .vex, .vex *, .vex *:before, .vex *:after {
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
@@ -229,7 +96,6 @@
 .vex {
   position: fixed;
   overflow: auto;
-  -webkit-overflow-scrolling: touch;
   z-index: 1111;
   top: 0;
   right: 0;
@@ -240,18 +106,12 @@
 /* line 25, ../sass/vex.sass */
 .vex-overlay {
   background: black;
-  filter: alpha(opacity=40);
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
 }
 
 /* line 30, ../sass/vex.sass */
 .vex-overlay {
-  animation: vex-fadein 0.5s;
-  -webkit-animation: vex-fadein 0.5s;
   -moz-animation: vex-fadein 0.5s;
-  -ms-animation: vex-fadein 0.5s;
-  -o-animation: vex-fadein 0.5s;
-  -webkit-backface-visibility: hidden;
+  animation: vex-fadein 0.5s;
   position: fixed;
   background: rgba(0, 0, 0, 0.4);
   top: 0;
@@ -261,32 +121,20 @@
 }
 /* line 39, ../sass/vex.sass */
 .vex.vex-closing .vex-overlay {
-  animation: vex-fadeout 0.5s;
-  -webkit-animation: vex-fadeout 0.5s;
   -moz-animation: vex-fadeout 0.5s;
-  -ms-animation: vex-fadeout 0.5s;
-  -o-animation: vex-fadeout 0.5s;
-  -webkit-backface-visibility: hidden;
+  animation: vex-fadeout 0.5s;
 }
 
 /* line 42, ../sass/vex.sass */
 .vex-content {
-  animation: vex-fadein 0.5s;
-  -webkit-animation: vex-fadein 0.5s;
   -moz-animation: vex-fadein 0.5s;
-  -ms-animation: vex-fadein 0.5s;
-  -o-animation: vex-fadein 0.5s;
-  -webkit-backface-visibility: hidden;
+  animation: vex-fadein 0.5s;
   background: white;
 }
 /* line 46, ../sass/vex.sass */
 .vex.vex-closing .vex-content {
-  animation: vex-fadeout 0.5s;
-  -webkit-animation: vex-fadeout 0.5s;
   -moz-animation: vex-fadeout 0.5s;
-  -ms-animation: vex-fadeout 0.5s;
-  -o-animation: vex-fadeout 0.5s;
-  -webkit-backface-visibility: hidden;
+  animation: vex-fadeout 0.5s;
 }
 
 /* line 49, ../sass/vex.sass */
@@ -302,19 +150,13 @@
 
 /* line 56, ../sass/vex.sass */
 .vex-dialog-button {
-  -webkit-appearance: none;
   cursor: pointer;
 }
 
 /* line 60, ../sass/vex.sass */
 .vex-loading-spinner {
-  animation: vex-rotation 0.7s linear infinite;
-  -webkit-animation: vex-rotation 0.7s linear infinite;
   -moz-animation: vex-rotation 0.7s linear infinite;
-  -ms-animation: vex-rotation 0.7s linear infinite;
-  -o-animation: vex-rotation 0.7s linear infinite;
-  -webkit-backface-visibility: hidden;
-  -webkit-box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
+  animation: vex-rotation 0.7s linear infinite;
   -moz-box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
   box-shadow: 0 0 1em rgba(0, 0, 0, 0.1);
   position: fixed;
