@@ -1,6 +1,6 @@
 const { Request } = require("sdk/request");
 const testUtils = require("./testUtils");
-const { startServerAsync } = require('sdk/test/httpd');
+const { startServerAsync } = require('./httpd');
 const { Ci, Cc, Cu, Cr } = require("chrome");
 const cookieUtils = require("./cookieUtils");
 const main = require("./main");

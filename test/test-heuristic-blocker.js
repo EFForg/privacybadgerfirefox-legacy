@@ -31,11 +31,11 @@ exports.testHasTracking = function(assert){
   assert.ok(heuristicBlocker.hasTracking(channel,channelInfo,cookies),
             "blocks high entropy cookies");
 
-  let cookies = { test:"1", test2:"2", test3:"3" };
+  cookies = { test:"1", test2:"2", test3:"3" };
   assert.ok(heuristicBlocker.hasTracking(channel,channelInfo,cookies),
            "blocks multiple low entropy cookies");
 
-  let cookies = { dnt:"1" };
+  cookies = { dnt:"1" };
   assert.ok(!heuristicBlocker.hasTracking(channel,channelInfo,cookies),
            "does not block < gMaxCookieEntropy bits of low entropy cookies");
 };

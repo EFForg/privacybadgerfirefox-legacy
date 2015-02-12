@@ -15,7 +15,7 @@ const { Loader } = require("sdk/test/loader");
 const options = require("@test/options");
 
 const loader = Loader(module);
-const httpd = loader.require("sdk/test/httpd");
+const httpd = loader.require("./httpd");
 if (options.parseable || options.verbose)
   loader.sandbox("sdk/test/httpd").DEBUG = true;
 const { startServerAsync } = httpd;
