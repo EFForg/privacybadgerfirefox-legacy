@@ -4,7 +4,7 @@ before_script:
   - git submodule update --init
   - cd addon-sdk
   - . bin/activate
-  - cd ../extension
+  - cd ..
 env:
   - DISPLAY=':99.0'
 script: cfx test   
