@@ -1,4 +1,4 @@
-# Privacy Badger Firefox
+# Privacy Badger Firefox [![Build Status](https://travis-ci.org/EFForg/privacybadgerfirefox.svg)](https://travis-ci.org/EFForg/privacybadgerfirefox)
 
 ## Introduction
 
