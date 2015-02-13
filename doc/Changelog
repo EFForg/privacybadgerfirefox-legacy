@@ -1,7 +1,14 @@
-0.2.4					  (2014-12-05)
+0.2.6				  (2015-01-19)
+  * Various security tweaks for AMO
+
+0.2.5					  (2014-12-18)
+  * Fixes issue with disqus 'allow domain' dialog infinite loop
+  * Adds counter of potential trackers on a site for FF >= 36.0
+0.2.4					  (2014-12-17)
   * Dialog to allow user to whitelist certain trackers to improve functionality.  
   * Fixes to icon display code to make Privacy Badger work in nightly.
   * Revamped icon that should look better on dark backgrounds.
+  * Misc other bug fixes
 0.2.3					  (2014-10-16)
   * Strip cookies from DNT policy recheck
   * Don't recheck DNT policy each time the browser is started

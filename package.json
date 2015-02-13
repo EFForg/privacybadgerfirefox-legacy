@@ -6,10 +6,10 @@
   "author": "Electronic Frontier Foundation",
   "contributors": ["Yan Zhu", "Garrett Robinson", "Monica Chew", "Cooper Quentin",
                    "Dan Auerbach", "Peter Eckersley", "Jonathan Mayer", "Hugh D'Andrade",
-                   "Franziska Roesner"],
+                   "Franziska Roesner", "Jacob Hoffman-Andrews", "Jeremey Gillula"],
   "permissions": { "private-browsing": true },
   "license": "GPL 3",
-  "version": "0.2.4",
+  "version": "0.2.6",
   "preferences": [{
     "name": "heuristicEnabled",
     "title": "Automatic blocking enabled",

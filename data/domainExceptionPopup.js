@@ -1,18 +1,21 @@
+var stripHTML = function(str){
+  return str.replace(/[&"'<>]/g, '');
+}
+
 self.port.on("gotDomainException", function(msg) {
   console.log('got domain exception', msg);
   var contentHTML = '<div id="pbDialogContainer"></div>' +
     '<div id="pbDialog" class="privacyBadgerDialog">' +
     '<div id="closeWindow">&#215;</div>'+
-    '<div id="pbLogo"><img src="' + msg.imageData + '"></div>'+
+    '<div id="pbLogo"><img src="' + stripHTML(msg.imageData) + '"></div>'+
     '<h2>Privacy Badger Alert!</h2>' +
     '<div class="clear"></div>' +
-    '<h3>Logging into ' + msg.whitelistDomain + ' can allow it to track you around the web.</h3>' +
+    '<h3>Logging into ' + stripHTML(msg.whitelistDomain) + ' can allow it to track you around the web.</h3>' +
     // TODO: Refactor privacy badger to not put things in firefox's cookie exceptions list
     // so that we can allow trackers only on a given domain.
-    '<button class="pbButton default" id="allow_all">Always allow ' + msg.whitelistDomain + '</button>' +
-    '<button class="pbButton" id="never">Always block third party requests from ' + msg.whitelistDomain + '</button>' +
+    '<button class="pbButton default" id="allow_all">Always allow ' + stripHTML(msg.whitelistDomain) + '</button>' +
+    '<button class="pbButton" id="never">Always block third party requests from ' + stripHTML(msg.whitelistDomain) + '</button>' +
     '</div>';
-
 
 
   var contentStyle = '.privacyBadgerDialog{ height: auto; width: 400px; background-color: #FcFcFc; border: 1px solid #111; z-index: 1000; box-shadow: 2px 2px 10px #222; position: fixed; top: 33%; left: 33%; color: #050505 ; } '+
