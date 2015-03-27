@@ -4,7 +4,7 @@
   "id": "jid1-MnnxcxisBPnSXQ",
   "description": "Protects privacy by blocking spying ads and invisible trackers.",
   "author": "Electronic Frontier Foundation",
-  "contributors": ["Yan Zhu", "Garrett Robinson", "Monica Chew", "Cooper Quentin",
+  "contributors": ["Yan Zhu", "Garrett Robinson", "Monica Chew", "Cooper Quintin",
                    "Dan Auerbach", "Peter Eckersley", "Jonathan Mayer", "Hugh D'Andrade",
                    "Franziska Roesner", "Jacob Hoffman-Andrews", "Jeremey Gillula"],
   "permissions": { "private-browsing": true },
