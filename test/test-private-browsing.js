@@ -6,7 +6,7 @@ const userStorage = require("./userStorage");
 const { isPrivate } = require("sdk/private-browsing");
 
 // Site that sets a third party cookie
-const TEST_URL = "http://en.support.wordpress.com/third-party-cookies/";
+const TEST_URL = "https://en.support.wordpress.com/third-party-cookies/";
 const TEST_COOKIE_HOST = "wptpc.com";
 
 function setup() { main.main(); }
