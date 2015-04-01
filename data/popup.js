@@ -216,12 +216,12 @@ function _trim(str, max) {
   }
 }
 function _trimDomains(str, max) {
-  // Depends on tld.js bower package
-  if (!tld.isValid(str)) {
+  // Depends on tld.js browserify package
+  if (!tldjs.isValid(str)) {
     _trim(str, max);
   }
-  let domain = tld.getDomain(str);
-  let subdomain = tld.getSubdomain(str);
+  let domain = tldjs.getDomain(str);
+  let subdomain = tldjs.getSubdomain(str);
   if (!subdomain) {
     return _trim(str, max);
   }
