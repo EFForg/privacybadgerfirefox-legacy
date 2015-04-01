@@ -33,6 +33,11 @@
     "type": "bool",
     "value": true
   }, {
+    "name": "displayCounter",
+    "title": "Display Tracker Counter (experimental)",
+    "type": "bool",
+    "value": false
+  }, {
     "name": "blockedDomainRecheckDNT",
     "title": "Recheck blocked domains for DNT policy document",
     "type": "bool",
