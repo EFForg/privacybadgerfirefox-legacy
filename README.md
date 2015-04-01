@@ -8,8 +8,8 @@ Privacy Badger is a Firefox add-on that blocks spying ads and invisible trackers
 
 ### Getting started
 
-1.  Clone the Firefox Add-on SDK and checkout the latest stable release tag (currently 1.16): [github](https://github.com/mozilla/addon-sdk)
-2.  Read the [Add-on SDK documentation](https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Installation).
+1.  Initialize the Add-on SDK submodule in addon-sdk.  `git submodule update --init`
+2. Activate the Add-on SDK environment.  `cd addon-sdk; . bin/activate; cd ..;`
 3.  Once the SDK is activated, run `cfx run` to launch a clean Firefox profile with Privacy Badger installed. Run `cfx test` to run tests. `cfx xpi` creates a package (.xpi file) that you can install by loading into Firefox.
 
 ### Important directories and files
