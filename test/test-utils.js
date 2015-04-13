@@ -5,6 +5,7 @@ const { startServerAsync } = require('./httpd');
 const { Ci, Cc, Cu, Cr } = require("chrome");
 const main = require("./main");
 const utils = require("./utils");
+const { SHA1 } = require("./sha1");
 
 function teardown() {
   main.clearData(true, true);
@@ -62,6 +63,10 @@ exports.testGetRandomNumber =  function(assert){
   }
   assert.equal(Math.min.apply(null, rands), min);
   assert.equal(Math.max.apply(null, rands), max);
+}
+
+exports.testSHA1 = function(assert){
+  assert.equal(SHA1('test'), 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3');
 }
 
 exports.testRepeatAtRandom = function(assert, done){
