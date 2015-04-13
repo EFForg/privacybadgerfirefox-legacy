@@ -24,9 +24,9 @@ let hackpadCookie = 'acctIds=%5B%22mIqZhIPMu7j%22%2C%221394477194%22%2C%22u'+
   'MT; domain=.hackpad.com; path=/; secure; httponly\nacctIds=%5B%22mIqZhIP'+
   'Mu7j%22%2C%221394477194%22%2C%22uT/ayZECO0g/+hHtQnjrdEZivWA%3D%22%5D; ex'+
   'pires=Wed, 01-Jan-3000 08:00:00 GMT; domain=.hackpad.com; path=/; secure'+
-  '; httponly\n1ASIE=T; expires=Wed, 01-Jan-3000 08:00:01 GMT; domain=hackp'+
+  '; httponly\n1ASIE=T; expires=Wed, 01-Jan-3000 08:00:00 GMT; domain=hackp'+
   'ad.com; path=/\nPUAS3=3186efa7f8bca99c; expires=Wed, 01-Jan-3000 08:00:0'+
-  '1 GMT; path=/; secure; httponly';
+  '0 GMT; path=/; secure; httponly';
 let emptyCookie = '';
 let testCookie = ' notacookiestring; abc=123 ';
 
@@ -66,7 +66,7 @@ exports.testGetRandomNumber =  function(assert){
 }
 
 exports.testSHA1 = function(assert){
-  assert.equal(SHA1('test'), 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3');
+  assert.equal(SHA1('test'), 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'sha1 sum is incorrect');
 }
 
 exports.testRepeatAtRandom = function(assert, done){
