@@ -10,16 +10,35 @@
 </head>
 <body id="main">
   <div id='privacyBadgerHeader'>
-    <span id='title'><img id="badgerImg" src='icons/badger-48.png' class="clickable"><img id="badgerImg2" src='icons/badger-grey-48.png' class="clickable"><h2>Privacy Badger</h2></span>
+      <span id='title'><img id="badgerImg" src='icons/badger-48.png' class="clickable"><img id="badgerImg2" src='icons/badger-grey-48.png' class="clickable"><h2 data-l10n-id="privacy_badger"></h2></span>
     <span id='prefs'><img id="gearImg" src='icons/gear-light-25.png' title="Settings" class="clickable"></span>
     <div id='detected' class='clear'></div>
   </div>
 
   <div id="blockedResourcesContainer">
     <div class="spacer"></div>
-    <div id="blockedResources">Loading...</div>
+    <div id="blockedResources" data-l10n-id="loading"></div>
   </div>
 
-  <center><a id="helplink"class="hidePanel" href="https://www.eff.org/privacybadger" target="_blank" tabindex="-1" title="Privacy Badger Website">Frequently Asked Questions</a></center>
+  <center><a id="helplink"class="hidePanel" href="https://www.eff.org/privacybadger" target="_blank" tabindex="-1" title="Privacy Badger Website" data-l10n-id="frequently_asked_questions"></a></center>
+  <!-- forgive me father for I have sinned -->
+  <div id='privacy_badger' style="display:none" data-l10n-id="privacy_badger"></div>
+  <div id='loading' style="display:none" data-l10n-id="loading"></div>
+  <div id='frequently_asked_questions' style="display:none" data-l10n-id="frequently_asked_questions"></div>
+  <div id='deactivate_on_site' style="display:none" data-l10n-id="deactivate_on_site"></div>
+  <div id='activate_on_site' style="display:none" data-l10n-id="activate_on_site"></div>
+  <div id='click_badger_activate_on_site' style="display:none" data-l10n-id="click_badger_activate_on_site"></div>
+  <div id='settings_unblock' style="display:none" data-l10n-id="settings_unblock"></div>
+  <div id='settings_disable' style="display:none" data-l10n-id="settings_disable"></div>
+  <div id='settings_report' style="display:none" data-l10n-id="settings_report"></div>
+  <div id='restore_button' style="display:none" data-l10n-id="restore_button"></div>
+  <div id='status_reload' style="display:none" data-l10n-id="status_reload"></div>
+  <div id='status_none_detected' style="display:none" data-l10n-id="status_none_detected"></div>
+  <div id='detected' style="display:none" data-l10n-id="detected"></div>
+  <div id='trackers' style="display:none" data-l10n-id="trackers"></div>
+  <div id='from_these_sites' style="display:none" data-l10n-id="from_these_sites"></div>
+  <div id='cookie_prefs_warning' style="display:none" data-l10n-id="cookie_prefs_warning"></div>
+  <div id='feed_the_badger_title' style="display:none" data-l10n-id="feed_the_badger_title"></div>
+  <!-- <div id='aaa' style="display:none" data-l10n-id="aaa"></div> -->
 </body>
 </html>
