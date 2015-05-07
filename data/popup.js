@@ -15,7 +15,9 @@ var detected = $( "#detected" ).html();
 var trackers = $( "#trackers" ).html();
 var from_these_sites = $( "#from_these_sites" ).html();
 var feed_the_badger_title = $( "#feed_the_badger_title" ).html();
-//var aaa = $( "#aaa" ).html();
+var unblock_all = $( "#unblock_all" ).html();
+var disable_on_page = $( "#disable_on_page" ).html();
+var report_bug = $( "#report_bug" ).html();
 
 /**
  * Initializes the popup panel UI depending on whether PB is active
@@ -89,9 +91,9 @@ function stuff(){
   $("#badgerImg").click(function () { self.port.emit("deactivateSite"); });
   $('#gearImg').click(function() {
     // Create the settings menu
-    let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Unblock all trackers . . .</div>';
-    let disableHTML = '<div id="disableButtonDiv" class="modalButton">Disable on current page</div>';
-    let reportHTML = '<div id="reportButtonDiv" class="modalButton">Report a bug . . .</div>';
+    let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">'+unblock_all+'</div>';
+    let disableHTML = '<div id="disableButtonDiv" class="modalButton">'+disable_on_page+'</div>';
+    let reportHTML = '<div id="reportButtonDiv" class="modalButton">'+report_bug+'</div>';
     let messageHTML = '<div id="messageDiv" class="vexMessage"></div>';
     let contentHTML = disableHTML + reportHTML + restoreHTML + messageHTML;
     vex.open({
@@ -123,7 +125,7 @@ function stuff(){
       // Button to clear blockers
       $('#restoreButtonDiv').click(function() {
         vex.dialog.confirm({
-          message: "This will set <b>all</b> trackers back to their default state (green if you allow 3rd party cookies by default in Firefox, yellow otherwise). Are you sure you want to continue?",
+          message: restore_button,
           callback: function(value) {
             if (value) {
               self.port.emit("unblockAll");
