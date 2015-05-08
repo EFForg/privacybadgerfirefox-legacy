@@ -1,3 +1,24 @@
+
+var privacy_badger = $( "#privacy_badger" ).html();
+var loading = $( "#loading" ).html();
+var frequently_asked_questions = $( "#frequently_asked_questions" ).html();
+var deactivate_on_site = $( "#deactivate_on_site" ).html();
+var activate_on_site = $( "#activate_on_site" ).html();
+var click_badger_activate_on_site = $( "#click_badger_activate_on_site" ).html();
+var settings_unblock = $( "#settings_unblock" ).html();
+var settings_disable = $( "#settings_disable" ).html();
+var settings_report = $( "#settings_report" ).html();
+var restore_button = $( "#restore_button" ).html();
+var status_reload = $( "#status_reload" ).html();
+var status_none_detected = $( "#status_none_detected" ).html();
+var detected = $( "#detected" ).html();
+var trackers = $( "#trackers" ).html();
+var from_these_sites = $( "#from_these_sites" ).html();
+var feed_the_badger_title = $( "#feed_the_badger_title" ).html();
+var unblock_all = $( "#unblock_all" ).html();
+var disable_on_page = $( "#disable_on_page" ).html();
+var report_bug = $( "#report_bug" ).html();
+
 /**
  * Initializes the popup panel UI depending on whether PB is active
  * for the current page.
@@ -19,7 +40,7 @@ function init(isActive)
   $("#badgerImg2").hide();
   $("#badgerImg").show();
   $("#badgerImg").hover(function () {
-    $("#detected").text("Click to deactivate Privacy Badger on this site.");
+    $("#detected").text(deactivate_on_site);
   }, function () {
     $("#detected").text(trackerStatus);
   });
@@ -35,6 +56,7 @@ function init(isActive)
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
   });
+  stuff();
 }
 
 /**
@@ -44,11 +66,11 @@ function resetHTML() {
   $("#badgerImg").hide();
   $("#badgerImg2").show();
   $("#badgerImg2").hover(function () {
-    $("#detected").text("Click to activate Privacy Badger on this site.");
+    $("#detected").text(activate_on_site);
   }, function () {
-    $("#detected").text("Click the badger icon to activate Privacy Badger on this site.");
+    $("#detected").text(click_badger_activate_on_site);
   });
-  $("#detected").text("Click the badger icon to activate Privacy Badger on this site.");
+  $("#detected").text(click_badger_activate_on_site);
   $("#blockedResources").text("");
   $("#gearImg").hide();
   return;
@@ -64,61 +86,62 @@ function cleanup() {
 /**
  * Listeners for click events in the panel header.
  */
-$("#badgerImg2").click(function() { self.port.emit("activateSite"); });
-$("#badgerImg").click(function () { self.port.emit("deactivateSite"); });
-$('#gearImg').click(function() {
-  // Create the settings menu
-  let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">Unblock all trackers . . .</div>';
-  let disableHTML = '<div id="disableButtonDiv" class="modalButton">Disable on current page</div>';
-  let reportHTML = '<div id="reportButtonDiv" class="modalButton">Report a bug . . .</div>';
-  let messageHTML = '<div id="messageDiv" class="vexMessage"></div>';
-  let contentHTML = disableHTML + reportHTML + restoreHTML + messageHTML;
-  vex.open({
-    content: contentHTML,
-    appendLocation: 'body',
-    css: {'width':'100%',
-          'margin-left':'auto',
-          'margin-right':'auto'
-    },
-    contentCSS: {'background': '#DD4444',
-                 'border-top': '20px solid #333333',
-                 'padding-left': '1em',
-                 'padding-right': '1em',
-                 'padding-top': '0.5em',
-                 'padding-bottom': '0.5em'
-    },
-    showCloseButton: false
-  }).bind('vexOpen', function(options) {
-    $('.modalButton').wrapAll('<div id="buttonsDiv" />');
-    $('#messageDiv').hide();
-    $('.modalButton').hover(function() {
-      $(this).toggleClass('buttonActive');
-    });
-    // Button to disable PB on the current page.
-    $('#disableButtonDiv').click(function() {
-      self.port.emit("deactivateSite");
-      vex.close();
-    });
-    // Button to clear blockers
-    $('#restoreButtonDiv').click(function() {
-      vex.dialog.confirm({
-        message: "This will set <b>all</b> trackers back to their default state (green if you allow 3rd party cookies by default in Firefox, yellow otherwise). Are you sure you want to continue?",
-        callback: function(value) {
-          if (value) {
-            self.port.emit("unblockAll");
-          }
-        }
+function stuff(){
+  $("#badgerImg2").click(function() { self.port.emit("activateSite"); });
+  $("#badgerImg").click(function () { self.port.emit("deactivateSite"); });
+  $('#gearImg').click(function() {
+    // Create the settings menu
+    let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">'+unblock_all+'</div>';
+    let disableHTML = '<div id="disableButtonDiv" class="modalButton">'+disable_on_page+'</div>';
+    let reportHTML = '<div id="reportButtonDiv" class="modalButton">'+report_bug+'</div>';
+    let messageHTML = '<div id="messageDiv" class="vexMessage"></div>';
+    let contentHTML = disableHTML + reportHTML + restoreHTML + messageHTML;
+    vex.open({
+      content: contentHTML,
+      appendLocation: 'body',
+      css: {'width':'100%',
+            'margin-left':'auto',
+            'margin-right':'auto'
+      },
+      contentCSS: {'background': '#DD4444',
+                   'border-top': '20px solid #333333',
+                   'padding-left': '1em',
+                   'padding-right': '1em',
+                   'padding-top': '0.5em',
+                   'padding-bottom': '0.5em'
+      },
+      showCloseButton: false
+    }).bind('vexOpen', function(options) {
+      $('.modalButton').wrapAll('<div id="buttonsDiv" />');
+      $('#messageDiv').hide();
+      $('.modalButton').hover(function() {
+        $(this).toggleClass('buttonActive');
       });
-    });
-    // Button to report bugs
-    $('#reportButtonDiv').click(function() {
-      window.open("https://github.com/EFForg/privacybadgerfirefox/issues?state=open",
-                  "_blank");
-      vex.close();
-    });
-  }).bind('vexClose', function() {});
-});
-
+      // Button to disable PB on the current page.
+      $('#disableButtonDiv').click(function() {
+        self.port.emit("deactivateSite");
+        vex.close();
+      });
+      // Button to clear blockers
+      $('#restoreButtonDiv').click(function() {
+        vex.dialog.confirm({
+          message: restore_button,
+          callback: function(value) {
+            if (value) {
+              self.port.emit("unblockAll");
+            }
+          }
+        });
+      });
+      // Button to report bugs
+      $('#reportButtonDiv').click(function() {
+        window.open("https://github.com/EFForg/privacybadgerfirefox/issues?state=open",
+                    "_blank");
+        vex.close();
+      });
+    }).bind('vexClose', function() {});
+  });
+}
 
 /**
  * Methods to add HTML for showing and controlling blockers. Called after init.
@@ -132,14 +155,14 @@ function changeOriginHTML(setting) {
 }
 function refreshPopup(settings) {
   if (settings.cleared) {
-    trackerStatus = "Reload the page to see active trackers.";
+    trackerStatus = status_reload;
     $("#detected").text(trackerStatus);
     $("#blockedResources").text("");
     return;
   }
   var origins = Object.keys(settings);
   if (!origins || origins.length === 0) {
-    trackerStatus = "Could not detect any tracking cookies.";
+    trackerStatus = status_none_detected;
     $("#detected").text(trackerStatus);
     $("#blockedResources").text("");
     return;
@@ -181,7 +204,7 @@ function refreshPopup(settings) {
   console.log("Done refreshing popup");
 }
 
-var feedTheBadgerTitle = "Click to undo manual settings.";
+var feedTheBadgerTitle = feed_the_badger_title;
 
 /**
  * Build the HTML string for an origin, to be placed in the popup.
