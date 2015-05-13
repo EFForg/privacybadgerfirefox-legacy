@@ -9,7 +9,7 @@
                    "Franziska Roesner", "Jacob Hoffman-Andrews", "Jeremey Gillula"],
   "permissions": { "private-browsing": true },
   "license": "GPL 3",
-  "version": "0.2.6.1",
+  "version": "0.2.7",
   "preferences": [{
     "name": "heuristicEnabled",
     "title": "Automatic blocking enabled",
@@ -36,7 +36,7 @@
     "name": "displayCounter",
     "title": "Display Tracker Counter (experimental)",
     "type": "bool",
-    "value": false
+    "value": true
   }, {
     "name": "blockedDomainRecheckDNT",
     "title": "Recheck blocked domains for DNT policy document",
