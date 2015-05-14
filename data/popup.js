@@ -38,6 +38,8 @@ function init(isActive) {
   vex.defaultOptions.className = 'vex-theme-os';
   $("#badgerImg2").hide();
   $("#badgerImg").show();
+  $("#enableButton").hide();
+  $("#disableButton").show();
   $('#prefs').hover(function() {
     $('#gearImg').attr('src', 'icons/gear-25.png');
   }, function() {
@@ -59,6 +61,8 @@ function init(isActive) {
 function resetHTML() {
   $("#badgerImg").hide();
   $("#badgerImg2").show();
+  $("#disableButton").hide();
+  $("#enableButton").show();
   $("#badgerImg2").hover(function () {
     $("#detected").text(activate_on_site);
   }, function () {
@@ -83,6 +87,8 @@ function cleanup() {
 function stuff(){
   $("#badgerImg2").click(function() { self.port.emit("activateSite"); });
   $("#badgerImg").click(function () { self.port.emit("deactivateSite"); });
+  $("#enableButton").click(function() { self.port.emit("activateSite"); });
+  $("#disableButton").click(function () { self.port.emit("deactivateSite"); });
   $('#gearImg').click(function() {
     // Create the settings menu
     let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">'+unblock_all+'</div>';
@@ -158,6 +164,7 @@ function refreshPopup(settings) {
   if (!origins || origins.length === 0) {
     trackerStatus = status_none_detected;
     $("#detected").text(trackerStatus);
+    $("#detected").addClass('noTracker');
     $("#blockedResources").text("");
     return;
   }
