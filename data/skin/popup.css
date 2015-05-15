@@ -30,7 +30,7 @@ a:hover { color: #bbbbff }
   border-top: 1px solid #aaaaaa;
   padding: 5px;
   padding-bottom: 10px;
-  height: 35px;
+  height: 38px;
 }
 .origin{
   width: 206px;
@@ -215,9 +215,9 @@ width: 230px;
   margin-right: 16px;
 }
 
-.noTracker{
+/*.noTracker{
   text-align: center;
   font-weight: bold;
   margin: 10px;
   color: #222;
-}
+}*/
