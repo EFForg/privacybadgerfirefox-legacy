@@ -29,7 +29,7 @@ a:hover { color: #bbbbff }
 .clicker{
   border-top: 1px solid #aaaaaa;
   padding: 5px;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   height: 38px;
 }
 .origin{
@@ -87,12 +87,12 @@ a:hover { color: #bbbbff }
   height: 14px;
   border-radius: 7px;
   padding: 3px;
-  z-index: 30;
+  z-index: 50;
 }
 .tooltipArrow{
   position: relative;
   top: 8px;
-  right: 212px;
+  right: 200px;
   display: none;
 }
 #prefs {
