@@ -29,17 +29,18 @@ a:hover { color: #bbbbff }
 .clicker{
   border-top: 1px solid #aaaaaa;
   padding: 5px;
-  height: 35px;
+  padding-bottom: 20px;
+  height: 38px;
 }
 .origin{
-  width: 60%;
+  width: 206px;
   color: #555555;
   font-size: 16px;
   float: left;
   display: inline;
 }
 .switch-container{
-  width: 30%;
+  width: 103px;
   float: left;
   display: inline;
   position: relative;
@@ -77,16 +78,21 @@ a:hover { color: #bbbbff }
   cursor: pointer;
 }
 .tooltipContainer{
-  display: block;
+  display: none;
   clear: both;
-  color: #777777;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
+  color: #fcfcfc;
+  background-color: #555;
+  height: 14px;
+  border-radius: 7px;
+  padding: 3px;
+  z-index: 50;
 }
 .tooltipArrow{
   position: relative;
   top: 8px;
-  right: 212px;
+  right: 200px;
   display: none;
 }
 #prefs {
@@ -95,22 +101,22 @@ a:hover { color: #bbbbff }
   margin-top: 3px;
 }
 #detected {
-  text-align: center;
   color: #707070;
   font-size: 16px;
   padding-bottom: 7px;
 }
 #privacyBadgerHeader h2{
   margin-left: 10px;
-  height: 48px;
-  line-height: 48px;
+  float: left;
+  margin-top: 0;
   display: inline;
-  color: #454545;
-  font-size: 20px;
+  color: #707070;
+  font-size: 26px;
+  font-weight: normal;
+  font-family: 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', Arial, sans-serif;;
 }
 #privacyBadgerHeader img{
   display: inline;
-  margin-left: 20%;
   float: left;
 }
 #helplink {
@@ -173,6 +179,45 @@ a:hover { color: #bbbbff }
 }
 
 #blockedResources{
-  max-height: 400px;
+  max-height: 315px;
   overflow-y: auto;
 }
+.key{
+  position: fixed;
+  height: 25px;
+  width: 310px;
+  padding-left: 217px;
+  z-index: 30;
+  background: #fff;
+}
+.keyTipOuter{
+position: absolute;
+top: -25px;
+left: 100px;
+width: 230px;
+}
+#blockedOriginsInner{
+  margin-top: 25px;
+}
+
+.pbButton{
+  border: 1px solid #333;
+  border-radius: 4px;
+  background: linear-gradient(#efefef, #e0e0e0);
+  padding: 5px;
+  cursor: pointer;
+  margin: 5px 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.key img{
+  margin-right: 16px;
+}
+
+/*.noTracker{
+  text-align: center;
+  font-weight: bold;
+  margin: 10px;
+  color: #222;
+}*/

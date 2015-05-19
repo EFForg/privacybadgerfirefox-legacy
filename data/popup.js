@@ -11,7 +11,7 @@ var settings_report = $( "#settings_report" ).html();
 var restore_button = $( "#restore_button" ).html();
 var status_reload = $( "#status_reload" ).html();
 var status_none_detected = $( "#status_none_detected" ).html();
-var detected = $( "#detected" ).html();
+var pb_detected = $( "#pb_detected" ).html();
 var trackers = $( "#trackers" ).html();
 var from_these_sites = $( "#from_these_sites" ).html();
 var feed_the_badger_title = $( "#feed_the_badger_title" ).html();
@@ -23,8 +23,7 @@ var report_bug = $( "#report_bug" ).html();
  * Initializes the popup panel UI depending on whether PB is active
  * for the current page.
  */
-function init(isActive)
-{
+function init(isActive) {
   console.log("Initializing popup.js");
 
   $(".hidePanel").click(function() { self.port.emit("hidePanel"); });
@@ -39,11 +38,8 @@ function init(isActive)
   vex.defaultOptions.className = 'vex-theme-os';
   $("#badgerImg2").hide();
   $("#badgerImg").show();
-  $("#badgerImg").hover(function () {
-    $("#detected").text(deactivate_on_site);
-  }, function () {
-    $("#detected").text(trackerStatus);
-  });
+  $("#enableButton").hide();
+  $("#disableButton").show();
   $('#prefs').hover(function() {
     $('#gearImg').attr('src', 'icons/gear-25.png');
   }, function() {
@@ -65,6 +61,8 @@ function init(isActive)
 function resetHTML() {
   $("#badgerImg").hide();
   $("#badgerImg2").show();
+  $("#disableButton").hide();
+  $("#enableButton").show();
   $("#badgerImg2").hover(function () {
     $("#detected").text(activate_on_site);
   }, function () {
@@ -89,6 +87,8 @@ function cleanup() {
 function stuff(){
   $("#badgerImg2").click(function() { self.port.emit("activateSite"); });
   $("#badgerImg").click(function () { self.port.emit("deactivateSite"); });
+  $("#enableButton").click(function() { self.port.emit("activateSite"); });
+  $("#disableButton").click(function () { self.port.emit("deactivateSite"); });
   $('#gearImg').click(function() {
     // Create the settings menu
     let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">'+unblock_all+'</div>';
@@ -164,19 +164,27 @@ function refreshPopup(settings) {
   if (!origins || origins.length === 0) {
     trackerStatus = status_none_detected;
     $("#detected").text(trackerStatus);
+    $("#detected").addClass('noTracker');
     $("#blockedResources").text("");
     return;
   }
   let sortedOrigins = _reverseSort(origins);
-  trackerStatus = "Detected " + sortedOrigins.length + " <a id='trackerLink' target=_blank tabindex=-1 title='What is a tracker?' href='https://www.eff.org/privacybadger#trackers'>trackers</a> from these sites:";
+  trackerStatus = pb_detected + ' ' + sortedOrigins.length + " <a id='trackerLink' target=_blank tabindex=-1 title='What is a tracker?' href='https://www.eff.org/privacybadger#trackers'>" + trackers + "</a> " + from_these_sites;
   $("#detected").html(trackerStatus);
   var printable = '<div id="associatedTab" data-tab-id="' + 0 + '"></div>';
+  printable += '<div class="key">' +
+    '<div class="keyTipOuter"><div class="tooltipContainer" id="keyTooltip"></div></div>' + 
+    '<img class="tooltip" src="icons/UI-icons-red.png" tooltip="Move the slider left to block a domain.">'+
+    '<img class="tooltip" src="icons/UI-icons-yellow.png" tooltip="Center the slider to block cookies.">'+
+    '<img class="tooltip" src="icons/UI-icons-green.png" tooltip="Move the slider right to allow a domain.">'+
+    '</div><div id="blockedOriginsInner">';
   for (var i=0; i < sortedOrigins.length; i++) {
     var origin = sortedOrigins[i];
     var action = settings[origin];
     // todo: gross hack, use templating framework
     printable = _addOriginHTML(origin, printable, action);
   }
+  printable += "</div>";
   $("#blockedResources").html(printable);
   $('.switch-toggle').each(function(){
     let radios = $(this).children('input');
@@ -229,7 +237,7 @@ function _addOriginHTML(rawOrigin, printable, action) {
   }
   var classText = 'class="' + classes.join(" ") + '"';
 
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + _trimDomains(origin,25) + '</div>' + _addToggleHtml(origin, action) + '<div class="tooltipContainer"></div></div>';
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + _trimDomains(origin,25) + '</div>' + _addToggleHtml(origin, action) + '<img class="tooltipArrow" src="icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
 }
 function _trim(str, max) {
   if (str.length >= max) {
@@ -335,17 +343,20 @@ function resetControl(event) {
 function displayTooltip(event){
   var $elm = $(event.currentTarget);
   var $container = $elm.closest('.clicker').children('.tooltipContainer');
-  $container.text($elm.attr('tooltip'));
-  if ($elm.hasClass("honeybadgerPowered")) {
-    $container.css('text-align', 'right');
-  } else {
-    $container.css('text-align', 'left');
+  if($container.length === 0){
+    $container = $elm.siblings('.keyTipOuter').children('.tooltipContainer');
   }
+  $container.text($elm.attr('tooltip')).show();
+  $container.siblings('.tooltipArrow').show();
 }
 function hideTooltip(event){
   var $elm = $(event.currentTarget);
   var $container = $elm.closest('.clicker').children('.tooltipContainer');
-  $container.text('');
+  if($container.length === 0){
+    $container = $elm.siblings('.keyTipOuter').children('.tooltipContainer');
+  }
+  $container.text('').hide();
+  $container.siblings('.tooltipArrow').hide();
 }
 function getCurrentClass(elt) {
   if ($(elt).hasClass("block"))
