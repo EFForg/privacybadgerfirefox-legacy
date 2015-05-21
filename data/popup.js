@@ -35,7 +35,6 @@ function init(isActive) {
   }
 
   // Initialize more HTML if PB is active
-  vex.defaultOptions.className = 'vex-theme-os';
   $("#badgerImg2").hide();
   $("#badgerImg").show();
   $("#enableButton").hide();
@@ -75,72 +74,15 @@ function resetHTML() {
 }
 
 /**
- * Called from lib/ui.js to clean up UI after the panel is hidden.
- */
-function cleanup() {
-  vex.close();
-}
-
-/**
  * Listeners for click events in the panel header.
+ * ARE YOU SERIOUS WITH THIS FUNCTION NAME?? OMFGWTFBBQ
  */
 function stuff(){
   $("#badgerImg2").click(function() { self.port.emit("activateSite"); });
-  $("#badgerImg").click(function () { self.port.emit("deactivateSite"); });
+  $("#badgerImg").click(function() { self.port.emit("deactivateSite"); });
   $("#enableButton").click(function() { self.port.emit("activateSite"); });
-  $("#disableButton").click(function () { self.port.emit("deactivateSite"); });
-  $('#gearImg').click(function() {
-    // Create the settings menu
-    let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">'+unblock_all+'</div>';
-    let disableHTML = '<div id="disableButtonDiv" class="modalButton">'+disable_on_page+'</div>';
-    let reportHTML = '<div id="reportButtonDiv" class="modalButton">'+report_bug+'</div>';
-    let messageHTML = '<div id="messageDiv" class="vexMessage"></div>';
-    let contentHTML = disableHTML + reportHTML + restoreHTML + messageHTML;
-    vex.open({
-      content: contentHTML,
-      appendLocation: 'body',
-      css: {'width':'100%',
-            'margin-left':'auto',
-            'margin-right':'auto'
-      },
-      contentCSS: {'background': '#DD4444',
-                   'border-top': '20px solid #333333',
-                   'padding-left': '1em',
-                   'padding-right': '1em',
-                   'padding-top': '0.5em',
-                   'padding-bottom': '0.5em'
-      },
-      showCloseButton: false
-    }).bind('vexOpen', function(options) {
-      $('.modalButton').wrapAll('<div id="buttonsDiv" />');
-      $('#messageDiv').hide();
-      $('.modalButton').hover(function() {
-        $(this).toggleClass('buttonActive');
-      });
-      // Button to disable PB on the current page.
-      $('#disableButtonDiv').click(function() {
-        self.port.emit("deactivateSite");
-        vex.close();
-      });
-      // Button to clear blockers
-      $('#restoreButtonDiv').click(function() {
-        vex.dialog.confirm({
-          message: restore_button,
-          callback: function(value) {
-            if (value) {
-              self.port.emit("unblockAll");
-            }
-          }
-        });
-      });
-      // Button to report bugs
-      $('#reportButtonDiv').click(function() {
-        window.open("https://github.com/EFForg/privacybadgerfirefox/issues?state=open",
-                    "_blank");
-        vex.close();
-      });
-    }).bind('vexClose', function() {});
-  });
+  $("#disableButton").click(function() { self.port.emit("deactivateSite"); });
+  $('#gearImg').click(function() { self.port.emit("openOptions"); });
 }
 
 /**
@@ -407,4 +349,3 @@ self.port.on("cookiePrefsChange", function(weirdCookiePrefs) {
 
 // Clean up panel state after the user closes it. This is less janky than
 // cleaning up panel state as soon as the user opens the panel.
-self.port.on("afterClose", cleanup);
