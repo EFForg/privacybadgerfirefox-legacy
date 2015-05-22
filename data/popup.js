@@ -160,6 +160,7 @@ function refreshPopup(settings) {
     $("#blockedResources").text("");
     return;
   }
+  $("#detected").removeClass('noTracker');
   var origins = Object.keys(settings);
   if (!origins || origins.length === 0) {
     trackerStatus = status_none_detected;
