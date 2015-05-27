@@ -106,14 +106,14 @@ a:hover { color: #bbbbff }
   padding-bottom: 7px;
 }
 #privacyBadgerHeader h2{
-  margin-left: 10px;
+  margin: 10px 10px;
   float: left;
-  margin-top: 0;
   display: inline;
   color: #707070;
   font-size: 26px;
   font-weight: normal;
   font-family: 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', Arial, sans-serif;;
+
 }
 #privacyBadgerHeader img{
   display: inline;
