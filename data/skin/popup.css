@@ -174,7 +174,7 @@ a:hover { color: #bbbbff }
   opacity: 0;
   z-index: 20;
 }
-.ui-slider a.ui-slider-handle {
+.ui-slider .ui-slider-handle {
   cursor: move;
 }
 
@@ -215,9 +215,11 @@ width: 230px;
   margin-right: 16px;
 }
 
-.noTracker{
+#notracking{
   text-align: center;
+  color: #f9f9f9;
+  background: #555;
+  height: 20px;
+  font-size: 14px;
   font-weight: bold;
-  margin: 10px;
-  color: #222;
 }
