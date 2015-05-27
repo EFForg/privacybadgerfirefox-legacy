@@ -20,7 +20,7 @@ var feed_the_badger_title = $( "#feed_the_badger_title" ).html();
 var unblock_all = $( "#unblock_all" ).html();
 var disable_on_page = $( "#disable_on_page" ).html();
 var report_bug = $( "#report_bug" ).html();
-
+// jshint moz:true
 /**
  * Initializes the popup panel UI depending on whether PB is active
  * for the current page.
@@ -171,7 +171,7 @@ function refreshPopup(settings) {
     return;
   }
   let sortedOrigins = _reverseSort(origins);
-  trackerStatus = pb_detected + ' ' + sortedOrigins.length + " " + potential + " <a id='trackerLink' target=_blank tabindex=-1 title='What is a tracker?' href='https://www.eff.org/privacybadger#trackers'>" + trackers + "</a> " + from_these_sites;
+  trackerStatus = pb_detected + " <span id='count'>0</span> " + potential + " <a id='trackerLink' target=_blank tabindex=-1 title='What is a tracker?' href='https://www.eff.org/privacybadger#trackers'>" + trackers + "</a> " + from_these_sites;
   $("#detected").html(trackerStatus);
   var printable = '<div id="associatedTab" data-tab-id="' + 0 + '"></div>';
   printable += '<div class="key">' +
@@ -181,19 +181,22 @@ function refreshPopup(settings) {
     '<img class="tooltip" src="icons/UI-icons-green.png" tooltip="Move the slider right to allow a domain.">'+
     '</div><div id="blockedOriginsInner">';
   var notracking = [];
-  for (var i=0; i < sortedOrigins.length; i++) {
+  var count = 0;
+  for (let i=0; i < sortedOrigins.length; i++) {
     var origin = sortedOrigins[i];
     var action = settings[origin];
     if (action == "notracking"){
       notracking.push(origin);
       continue;
     }
+    count++;
     // todo: gross hack, use templating framework
     printable = _addOriginHTML(origin, printable, action);
   }
+  $('#count').text(count);
   printable = printable +
       '<div class="clicker" id="notracking">' + no_tracking + '</div>';
-  for (var i = 0; i < notracking.length; i++){
+  for (let i = 0; i < notracking.length; i++){
     printable = _addOriginHTML(notracking[i], printable, "noaction");
   }
   printable += "</div>";
@@ -212,7 +215,7 @@ function refreshPopup(settings) {
         radios.filter("[value=" + ui.value + "]").click();
       },
       stop: function(event, ui){
-        $(ui.handle).css('margin-left', -16 * ui.value + "px")
+        $(ui.handle).css('margin-left', -16 * ui.value + "px");
       },
     }).appendTo(this);
     radios.change(function(){
