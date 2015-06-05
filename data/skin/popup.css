@@ -30,7 +30,7 @@ a:hover { color: #bbbbff }
   border-top: 1px solid #aaaaaa;
   padding: 5px;
   padding-bottom: 20px;
-  height: 38px;
+  height: 12px;
 }
 .origin{
   width: 206px;
@@ -88,6 +88,9 @@ a:hover { color: #bbbbff }
   border-radius: 7px;
   padding: 3px;
   z-index: 50;
+  top: 0;
+  left: 0;
+  position: relative;
 }
 .tooltipArrow{
   position: relative;
@@ -172,10 +175,13 @@ a:hover { color: #bbbbff }
 }
 .ui-slider {
   opacity: 0;
-  z-index: 20;
+  z-index: 40;
 }
 .ui-slider .ui-slider-handle {
   cursor: move;
+  width: 10px;
+  height: 20px;
+  z-index: 30;
 }
 
 #blockedResources{
