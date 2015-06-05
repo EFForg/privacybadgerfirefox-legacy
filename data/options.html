@@ -140,7 +140,7 @@ button
   <ul>
     <li><a href="#tab-whitelisted"><span data-l10n-id="whitelisted_domains"></span></a></li>
     <li><a href="#tab-pb-status"><span data-l10n-id="options_filter_settings"></span></a></li>
-    <li><a href="#tab-social-widget"><span data-l10n-id="options_social_settings"></span></a></li>
+    <li><a href="#tab-prefs"><span data-l10n-id="options_misc_prefs"></span></a></li>
   </ul>
 
   <div id="tab-whitelisted">
@@ -180,11 +180,14 @@ button
     </div>
   </div>
 
-  <div id="tab-social-widget">
-      <center><button id="deactivate_socialwidget_btn" class="control-button grey-button" style="display:"><span data-l10n-id="options_social_disable"></span></button></center>
-    <center><button id="activate_socialwidget_btn" class="control-button red-button" style="display:none"> <span data-l10n-id="options_social_enable"></span></button></center>
-  </div>
+  <div id="tab-prefs">
 
+    <div class='prefContainer'>
+      <input class="prefToggle" type="checkbox" id="displayCounter"><label id="displayCounter">Display tracker counter on privacy badger icon</label><br>
+      <input class="prefToggle" type="checkbox" id="socialWidgetReplacementEnabled"><label id="socialWidgetReplacementEnabled">Social widget replacement enabled</label><br>
+      <input class="prefToggle" type="checkbox" id="blockedDomainRecheckDNT"><label id="blockedDomainRecheckDNT">Recheck blocked domains for DNT policy document</label><br>
+    </div>
+  </div>
 
 </div>
 

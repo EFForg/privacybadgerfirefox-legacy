@@ -12,6 +12,7 @@ function loadOptions() {
 
     $('.addButton').click(addDomainException);
     $('.removeButton').click(removeDomainExceptions);
+    $('.prefToggle').change(updateUserPref);
   });
 
 
@@ -25,9 +26,13 @@ function loadOptions() {
   // Request settings from addon - defined in lib/ui.js
   self.port.emit('reqSettings');
 
-  self.port.on('recvSettings', function(storage){
+  self.port.on('recvSettings', function(options){
+    // Options contains the following objects
+    // storage: localStorage for the addon, defined in lib/userStorage
+    // prefs: from the simple-prefs sdk
     console.log('got storage');
-    loadDisabledSites(storage.disabledSites);
+    loadDisabledSites(options.storage.disabledSites);
+    loadPrefs(options.prefs);
   });
 }
 $(loadOptions);
@@ -64,4 +69,22 @@ function addDomainException(event){
   var domain = $('#newWhitelistDomain').val();
   $('#newWhitelistDomain').val('');
   self.port.emit('addToDisabledSites', domain);
+}
+
+function loadPrefs(prefs){
+  console.log('prefs', prefs);
+  var prefToggles = $('.prefToggle');
+  $.each(prefToggles, function(idx, toggle){
+    if(!!prefs[toggle.id]){
+      $(toggle).prop('checked', true);
+    }
+  });
+}
+
+function updateUserPref(e){
+  var target = e.target;
+  self.port.emit('updateUserPref', {
+    name: target.id,
+    value: $(target).is(':checked')
+  });
 }
