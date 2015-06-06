@@ -1,4 +1,3 @@
-
 var privacy_badger = $( "#privacy_badger" ).html();
 var loading = $( "#loading" ).html();
 var frequently_asked_questions = $( "#frequently_asked_questions" ).html();
@@ -53,7 +52,7 @@ function init(isActive) {
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
   });
-  stuff();
+  registerListeners();
 }
 
 /**
@@ -79,12 +78,12 @@ function resetHTML() {
  * Listeners for click events in the panel header.
  * ARE YOU SERIOUS WITH THIS FUNCTION NAME?? OMFGWTFBBQ
  */
-function stuff(){
+function registerListeners(){
   $("#badgerImg2").click(function() { self.port.emit("activateSite"); });
   $("#badgerImg").click(function() { self.port.emit("deactivateSite"); });
   $("#enableButton").click(function() { self.port.emit("activateSite"); });
   $("#disableButton").click(function() { self.port.emit("deactivateSite"); });
-  $('#gearImg').click(function() { self.port.emit("openOptions"); });
+  $('#gearImg').click(function() { console.log("CLICK"); self.port.emit("openOptions"); });
 }
 
 /**
@@ -361,6 +360,14 @@ self.port.on("cookiePrefsChange", function(weirdCookiePrefs) {
   } else {
     cookiePrefsWarning.remove();
   }
+});
+
+self.port.on("hide", function(){
+  $("#badgerImg2").off();
+  $("#badgerImg").off();
+  $("#enableButton").off();
+  $("#disableButton").off();
+  $('#gearImg').off();
 });
 
 // Clean up panel state after the user closes it. This is less janky than

@@ -245,7 +245,5 @@ function _checked(name, action){
   }
 }
 
-// TODO: Fix multiple options tabs opening
-// TODO: Fix cookieblock
 // TODO: Styling
 // TODO: Optimization
