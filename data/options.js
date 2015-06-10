@@ -1,9 +1,10 @@
 // Load l10n strigns
-var pb_detected = $('#pb_detected').text();
+var pb_detected = $('#pb_has_detected').text();
 var potential = $('#potential').text();
-var trackers = $('#trackers').text();
-var from_these_sites = $('#from_these_sites').text();
+var trackers = $('#tracking_domains').text();
+var from_these_sites = $('#so_far').text();
 var feed_the_badger_title = $('#feed_the_badger_title').text();
+var delay = 500;
 
 // Loads options from localStorage and sets UI elements accordingly
 function loadOptions() {
@@ -85,7 +86,10 @@ function toggleBlockedStatus(elt,status) {
   console.log('toggle blocked status', elt, status);
   $(elt).removeClass("reset block cookieblock noaction").addClass(status);
   $(elt).addClass("userset");
-  updateSettings(elt, status);
+  setTimeout(function(){
+    // Let the animation finish first, it runs smoother this way
+    updateSettings(elt, status);
+  }, delay);
   return true;
 }
 function updateSettings(elt, status) {

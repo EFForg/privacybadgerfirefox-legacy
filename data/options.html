@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 
 <!--
-  - This file is part of Adblock Plus <http://adblockplus.org/>,
-  - Copyright (C) 2006-2013 Eyeo GmbH
-  -
+  - This file is part of Adblock Plus <http://adblockplus.org/>, - Copyright (C) 2006-2013 Eyeo GmbH -
   - Adblock Plus is free software: you can redistribute it and/or modify
   - it under the terms of the GNU General Public License version 3 as
   - published by the Free Software Foundation.
@@ -21,6 +19,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title data-l10n-id="options_title"></title>
+  <link rel="stylesheet" media="screen" href="skin/popup.css" />
 <style type="text/css" media="screen">
 body
 {
@@ -122,6 +121,17 @@ button
     color: #b0b0b0;
 }
 
+.origin{
+  width: 275px;
+}
+.key{
+  padding-left: 286px;
+  width: 140px;
+}
+#blockedResourcesContainer{
+  width: 440px;
+}
+
 </style>
 </head>
 <body class="options">
@@ -138,14 +148,22 @@ button
 
 <div id="tabs">
   <ul>
-    <li><a href="#tab-whitelisted"><span data-l10n-id="whitelisted_domains"></span></a></li>
     <li><a href="#tab-pb-status"><span data-l10n-id="options_filter_settings"></span></a></li>
+    <li><a href="#tab-whitelisted"><span data-l10n-id="whitelisted_domains"></span></a></li>
     <li><a href="#tab-prefs"><span data-l10n-id="options_misc_prefs"></span></a></li>
   </ul>
 
+  <div id="tab-pb-status">
+    <p class=""></p>
+    <div id="blockedResourcesContainer">
+      <p id="detected"></p>
+      <div class="spacer"></div>
+      <div id="blockedResources"><span data-l10n-id="options_loading"></span></div>
+    </div>
+  </div>
+
   <div id="tab-whitelisted">
     <p data-l10n-id="disabled_for_these_domains"></p>
-
     <form id="whitelistForm" action="#">
     <table>
       <tr>
@@ -156,7 +174,6 @@ button
           <button class="addButton" type="submit"><span data-l10n-id="add_domain_button"></span></button>
         </td>
       </tr>
-
       <tr>
         <td>
           <select id="excludedDomainsBox" size="10" multiple style="width:500px; background: white;"></select>
@@ -169,19 +186,8 @@ button
     </form>
   </div>
 
-  <div id="tab-pb-status">
-    <p class=""></p>
-
-    
-    <div id="blockedResourcesContainer">
-      <p id="detected"></p>
-      <div class="spacer"></div>
-      <div id="blockedResources"><span data-l10n-id="options_loading"></span></div>
-    </div>
-  </div>
 
   <div id="tab-prefs">
-
     <div class='prefContainer'>
       <input class="prefToggle" type="checkbox" id="displayCounter"><label id="displayCounter">Display tracker counter on privacy badger icon</label><br>
       <input class="prefToggle" type="checkbox" id="socialWidgetReplacementEnabled"><label id="socialWidgetReplacementEnabled">Social widget replacement enabled</label><br>
@@ -191,10 +197,10 @@ button
 
 </div>
 
-  <div id='pb_detected' style="display:none" data-l10n-id="pb_detected"></div>
+  <div id='pb_has_detected' style="display:none" data-l10n-id="pb_has_detected"></div>
   <div id='potential' style="display:none" data-l10n-id="potential"></div>
-  <div id='trackers' style="display:none" data-l10n-id="trackers"></div>
-  <div id='from_these_sites' style="display:none" data-l10n-id="from_these_sites"></div>
+  <div id='tracking_domains' style="display:none" data-l10n-id="tracking_domains"></div>
+  <div id='so_far' style="display:none" data-l10n-id="so_far"></div>
   <div id='feed_the_badger_title' style="display:none" data-l10n-id="feed_the_badger_title"></div>
 
 </body>
