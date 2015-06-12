@@ -28,7 +28,8 @@ exports.testNonPrivate = function(assert, done) {
                     "test originFrequency has wptpc.com tracking wordpress.com");
           assert.equal(Object.keys(storage.originFrequencyPrivate).length, 0,
                        "test originFrequencyPrivate is empty");
-          userStorage.addToDisabledSites(tab.url, tab);
+          let host = require("sdk/url").URL(tab.url).host;
+          userStorage.addToDisabledSites(host, tab);
           aWin.close();
         }
       });
@@ -61,7 +62,8 @@ exports.testPrivate = function(assert, done) {
                        "test originFrequency is empty");
           storage.userYellow[TEST_COOKIE_HOST] = true;
           storage.blockedOrigins["example.com"] = true;
-          userStorage.addToDisabledSites(tab.url, tab);
+          let host = require("sdk/url").URL(tab.url).host;
+          userStorage.addToDisabledSites(host, tab);
           assert.ok(storage.disabledSitesPrivate["en.support.wordpress.com"],
                     "test disabledSitesPrivate has en.support.wordpress.com");
           aWin.close();

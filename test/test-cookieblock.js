@@ -88,7 +88,8 @@ exports.test3rdPartyCookieblock = function (assert, done) {
                   // Clobber the cookie again
                   userStorage.add("yellow", origin);
                   // Add the hidden window corresponding to XHRs to disabledSies
-                  userStorage.addToDisabledSites(windowUrl);
+                  let host = require("sdk/url").URL(windowUrl).host;
+                  userStorage.addToDisabledSites(host);
 
                   // Check that blocked cookie is injected when PB is disabled
                   Request({
