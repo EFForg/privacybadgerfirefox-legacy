@@ -276,7 +276,6 @@ function replaceSubsequentTrackerButtonsHelper(trackerDomain) {
  * Actually do the work of replacing the button.
  */
 function replaceIndividualButton(tracker) {
-  console.log("replacing tracker button for " + tracker.name);
 
   // makes a comma separated list of CSS selectors that specify
   // buttons for the current tracker; used for document.querySelectorAll
@@ -287,6 +286,7 @@ function replaceIndividualButton(tracker) {
   for (let i = 0; i < buttonsToReplace.length; i++) {
     let buttonToReplace = buttonsToReplace[i];
 
+    console.log("Replacing social widget for " + tracker.name);
     let button =
       createReplacementButtonImage(tracker);
 

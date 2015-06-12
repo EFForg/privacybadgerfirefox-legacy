@@ -1,4 +1,3 @@
-
 var privacy_badger = $( "#privacy_badger" ).html();
 var loading = $( "#loading" ).html();
 var frequently_asked_questions = $( "#frequently_asked_questions" ).html();
@@ -20,7 +19,7 @@ var feed_the_badger_title = $( "#feed_the_badger_title" ).html();
 var unblock_all = $( "#unblock_all" ).html();
 var disable_on_page = $( "#disable_on_page" ).html();
 var report_bug = $( "#report_bug" ).html();
-
+// jshint moz:true
 /**
  * Initializes the popup panel UI depending on whether PB is active
  * for the current page.
@@ -37,7 +36,6 @@ function init(isActive) {
   }
 
   // Initialize more HTML if PB is active
-  vex.defaultOptions.className = 'vex-theme-os';
   $("#badgerImg2").hide();
   $("#badgerImg").show();
   $("#enableButton").hide();
@@ -54,7 +52,7 @@ function init(isActive) {
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
   });
-  stuff();
+  registerListeners();
 }
 
 /**
@@ -77,72 +75,15 @@ function resetHTML() {
 }
 
 /**
- * Called from lib/ui.js to clean up UI after the panel is hidden.
- */
-function cleanup() {
-  vex.close();
-}
-
-/**
  * Listeners for click events in the panel header.
+ * ARE YOU SERIOUS WITH THIS FUNCTION NAME?? OMFGWTFBBQ
  */
-function stuff(){
+function registerListeners(){
   $("#badgerImg2").click(function() { self.port.emit("activateSite"); });
-  $("#badgerImg").click(function () { self.port.emit("deactivateSite"); });
+  $("#badgerImg").click(function() { self.port.emit("deactivateSite"); });
   $("#enableButton").click(function() { self.port.emit("activateSite"); });
-  $("#disableButton").click(function () { self.port.emit("deactivateSite"); });
-  $('#gearImg').click(function() {
-    // Create the settings menu
-    let restoreHTML = '<div id="restoreButtonDiv" class="modalButton">'+unblock_all+'</div>';
-    let disableHTML = '<div id="disableButtonDiv" class="modalButton">'+disable_on_page+'</div>';
-    let reportHTML = '<div id="reportButtonDiv" class="modalButton">'+report_bug+'</div>';
-    let messageHTML = '<div id="messageDiv" class="vexMessage"></div>';
-    let contentHTML = disableHTML + reportHTML + restoreHTML + messageHTML;
-    vex.open({
-      content: contentHTML,
-      appendLocation: 'body',
-      css: {'width':'100%',
-            'margin-left':'auto',
-            'margin-right':'auto'
-      },
-      contentCSS: {'background': '#DD4444',
-                   'border-top': '20px solid #333333',
-                   'padding-left': '1em',
-                   'padding-right': '1em',
-                   'padding-top': '0.5em',
-                   'padding-bottom': '0.5em'
-      },
-      showCloseButton: false
-    }).bind('vexOpen', function(options) {
-      $('.modalButton').wrapAll('<div id="buttonsDiv" />');
-      $('#messageDiv').hide();
-      $('.modalButton').hover(function() {
-        $(this).toggleClass('buttonActive');
-      });
-      // Button to disable PB on the current page.
-      $('#disableButtonDiv').click(function() {
-        self.port.emit("deactivateSite");
-        vex.close();
-      });
-      // Button to clear blockers
-      $('#restoreButtonDiv').click(function() {
-        vex.dialog.confirm({
-          message: restore_button,
-          callback: function(value) {
-            if (value) {
-              self.port.emit("unblockAll");
-            }
-          }
-        });
-      });
-      // Button to report bugs
-      $('#reportButtonDiv').click(function() {
-        window.open("https://github.com/EFForg/privacybadgerfirefox/issues?state=open",
-                    "_blank");
-        vex.close();
-      });
-    }).bind('vexClose', function() {});
-  });
+  $("#disableButton").click(function() { self.port.emit("deactivateSite"); });
+  $('#gearImg').click(function() { console.log("CLICK"); self.port.emit("openOptions"); });
 }
 
 /**
@@ -172,7 +113,7 @@ function refreshPopup(settings) {
     return;
   }
   let sortedOrigins = _reverseSort(origins);
-  trackerStatus = pb_detected + ' ' + sortedOrigins.length + " " + potential + " <a id='trackerLink' target=_blank tabindex=-1 title='What is a tracker?' href='https://www.eff.org/privacybadger#trackers'>" + trackers + "</a> " + from_these_sites;
+  trackerStatus = pb_detected + " <span id='count'>0</span> " + potential + " <a id='trackerLink' target=_blank tabindex=-1 title='What is a tracker?' href='https://www.eff.org/privacybadger#trackers'>" + trackers + "</a> " + from_these_sites;
   $("#detected").html(trackerStatus);
   var printable = '<div id="associatedTab" data-tab-id="' + 0 + '"></div>';
   printable += '<div class="key">' +
@@ -182,19 +123,22 @@ function refreshPopup(settings) {
     '<img class="tooltip" src="icons/UI-icons-green.png" tooltip="Move the slider right to allow a domain.">'+
     '</div><div id="blockedOriginsInner">';
   var notracking = [];
-  for (var i=0; i < sortedOrigins.length; i++) {
+  var count = 0;
+  for (let i=0; i < sortedOrigins.length; i++) {
     var origin = sortedOrigins[i];
     var action = settings[origin];
     if (action == "notracking"){
       notracking.push(origin);
       continue;
     }
+    count++;
     // todo: gross hack, use templating framework
     printable = _addOriginHTML(origin, printable, action);
   }
+  $('#count').text(count);
   printable = printable +
       '<div class="clicker" id="notracking">' + no_tracking + '</div>';
-  for (var i = 0; i < notracking.length; i++){
+  for (let i = 0; i < notracking.length; i++){
     printable = _addOriginHTML(notracking[i], printable, "noaction");
   }
   printable += "</div>";
@@ -213,7 +157,7 @@ function refreshPopup(settings) {
         radios.filter("[value=" + ui.value + "]").click();
       },
       stop: function(event, ui){
-        $(ui.handle).css('margin-left', -16 * ui.value + "px")
+        $(ui.handle).css('margin-left', -16 * ui.value + "px");
       },
     }).appendTo(this);
     radios.change(function(){
@@ -418,6 +362,13 @@ self.port.on("cookiePrefsChange", function(weirdCookiePrefs) {
   }
 });
 
+self.port.on("hide", function(){
+  $("#badgerImg2").off();
+  $("#badgerImg").off();
+  $("#enableButton").off();
+  $("#disableButton").off();
+  $('#gearImg').off();
+});
+
 // Clean up panel state after the user closes it. This is less janky than
 // cleaning up panel state as soon as the user opens the panel.
-self.port.on("afterClose", cleanup);
