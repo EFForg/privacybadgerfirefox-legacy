@@ -19,14 +19,17 @@ var feed_the_badger_title = $( "#feed_the_badger_title" ).html();
 var unblock_all = $( "#unblock_all" ).html();
 var disable_on_page = $( "#disable_on_page" ).html();
 var report_bug = $( "#report_bug" ).html();
+var report_field = $( "#report_field" ).html();
+var cur_settings;
 // jshint moz:true
 /**
  * Initializes the popup panel UI depending on whether PB is active
  * for the current page.
  */
-function init(isActive) {
+function init(isActive, settings) {
   console.log("Initializing popup.js");
-
+  
+  cur_settings = settings;
   $(".hidePanel").click(function() { self.port.emit("hidePanel"); });
 
   // If not active, just show an activation button
@@ -51,8 +54,30 @@ function init(isActive) {
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', resetControl);
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
+    $("#error_input").attr("placeholder", report_field );
+    var overlay = $('#overlay');
+    $("#error").click(function(){
+      overlay.toggleClass('active');
+    });
+    $("#report_cancel").click(function(){
+      overlay.toggleClass('active');
+    });
+    $("#report_button").click(function(){
+      send_error($("#error_input").val());
+      overlay.toggleClass('active');
+    });
   });
   registerListeners();
+}
+
+/**
+ * sends error report data
+ */
+function send_error(message) {
+  var to_send = cur_settings;
+  to_send["browser"] =  window.navigator.userAgent;
+  to_send["message"] = message;
+  self.port.emit("report", to_send);
 }
 
 /**
@@ -339,7 +364,7 @@ function updateSettings(elt, status) {
 
 // Called when PB is active
 self.port.on("show-trackers", function(settings) {
-  init(true);
+  init(true, settings);
   refreshPopup(settings);
 });
 
