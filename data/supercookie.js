@@ -41,7 +41,6 @@ function getScScript() {
   // return a string
   return "(" + function () {
 
-    console.log("running script!");
     var event_id = document.currentScript.getAttribute('data-event-id-super-cookie');
 
     // send message to the content script
@@ -66,6 +65,7 @@ function getScScript() {
        * performance is not uncommon. We wouldn't want to estimate entropy
        * for 5M chars.
        */
+       // TODO: Refactor this, move it into utils.js
       var MAX_LS_LEN_FOR_ENTROPY_EST = 256;
 
       if (str.length > MAX_LS_LEN_FOR_ENTROPY_EST){
@@ -139,12 +139,10 @@ var event_id_super_cookie = Math.random();
 
 // listen for messages from the script we are about to insert
 document.addEventListener(event_id_super_cookie, function (e) {
-  console.log('SENDING REPORT', e.detail);
   // pass these on to the background page
   self.port.emit('superCookieReport', e.detail);
 });
 
-console.log("Will search for supercookies at", document.location.href);
 insertScript(getScScript(), {
   event_id_super_cookie: event_id_super_cookie
 });
