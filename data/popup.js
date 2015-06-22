@@ -55,17 +55,6 @@ function init(isActive, settings) {
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
     $("#error_input").attr("placeholder", report_field );
-    var overlay = $('#overlay');
-    $("#error").click(function(){
-      overlay.toggleClass('active');
-    });
-    $("#report_cancel").click(function(){
-      overlay.toggleClass('active');
-    });
-    $("#report_button").click(function(){
-      send_error($("#error_input").val());
-      overlay.toggleClass('active');
-    });
   });
   registerListeners();
 }
@@ -101,7 +90,6 @@ function resetHTML() {
 
 /**
  * Listeners for click events in the panel header.
- * ARE YOU SERIOUS WITH THIS FUNCTION NAME?? OMFGWTFBBQ
  */
 function registerListeners(){
   $("#badgerImg2").click(function() { self.port.emit("activateSite"); });
@@ -109,6 +97,13 @@ function registerListeners(){
   $("#enableButton").click(function() { self.port.emit("activateSite"); });
   $("#disableButton").click(function() { self.port.emit("deactivateSite"); });
   $('#gearImg').click(function() { console.log("CLICK"); self.port.emit("openOptions"); });
+  var overlay = $('#overlay');
+  $("#error").click(function(){ console.log('CLICK'); overlay.toggleClass('active'); });
+  $("#report_cancel").click(function(){ overlay.toggleClass('active'); });
+  $("#report_button").click(function(){
+    send_error($("#error_input").val());
+    overlay.toggleClass('active');
+  });
 }
 
 /**
@@ -161,10 +156,12 @@ function refreshPopup(settings) {
     printable = _addOriginHTML(origin, printable, action);
   }
   $('#count').text(count);
-  printable = printable +
-      '<div class="clicker" id="notracking">' + no_tracking + '</div>';
-  for (let i = 0; i < notracking.length; i++){
-    printable = _addOriginHTML(notracking[i], printable, "noaction");
+  if(notracking.length > 0){
+    printable = printable +
+        '<div class="clicker" id="notracking">' + no_tracking + '</div>';
+    for (let i = 0; i < notracking.length; i++){
+      printable = _addOriginHTML(notracking[i], printable, "noaction");
+    }
   }
   printable += "</div>";
   $("#blockedResources").html(printable);
@@ -393,6 +390,9 @@ self.port.on("hide", function(){
   $("#enableButton").off();
   $("#disableButton").off();
   $('#gearImg').off();
+  $("#error").off();
+  $("#report_cancel").off();
+  $("#report_button").off();
 });
 
 // Clean up panel state after the user closes it. This is less janky than
