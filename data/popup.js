@@ -63,7 +63,16 @@ function init(isActive, settings) {
  * sends error report data
  */
 function send_error(message) {
-  var to_send = cur_settings;
+  var to_send = {};
+  for (var key in cur_settings){
+    var action = cur_settings[key];
+    if (to_send[action]){
+      to_send[action] += ","+key;
+    }
+    else {
+      to_send[action] = key;
+    }
+  }
   to_send["browser"] =  window.navigator.userAgent;
   to_send["message"] = message;
   self.port.emit("report", to_send);
