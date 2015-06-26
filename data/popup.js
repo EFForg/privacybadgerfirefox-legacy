@@ -19,14 +19,17 @@ var feed_the_badger_title = $( "#feed_the_badger_title" ).html();
 var unblock_all = $( "#unblock_all" ).html();
 var disable_on_page = $( "#disable_on_page" ).html();
 var report_bug = $( "#report_bug" ).html();
+var report_field = $( "#report_field" ).html();
+var cur_settings;
 // jshint moz:true
 /**
  * Initializes the popup panel UI depending on whether PB is active
  * for the current page.
  */
-function init(isActive) {
+function init(isActive, settings) {
   console.log("Initializing popup.js");
-
+  
+  cur_settings = settings;
   $(".hidePanel").click(function() { self.port.emit("hidePanel"); });
 
   // If not active, just show an activation button
@@ -51,8 +54,29 @@ function init(isActive) {
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', resetControl);
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
     $('#blockedResourcesContainer').on('mouseleave', '.tooltip', hideTooltip);
+    $("#error_input").attr("placeholder", report_field );
   });
   registerListeners();
+}
+
+/**
+ * sends error report data
+ */
+function send_error(message) {
+  var to_send = {};
+  for (var key in cur_settings){
+    var action = cur_settings[key];
+    if (to_send[action]){
+      to_send[action] += ","+key;
+    }
+    else {
+      to_send[action] = key;
+    }
+  }
+  to_send["browser"] =  window.navigator.userAgent;
+  to_send["message"] = message;
+  to_send["date"] = Date.now();
+  self.port.emit("report", to_send);
 }
 
 /**
@@ -76,7 +100,6 @@ function resetHTML() {
 
 /**
  * Listeners for click events in the panel header.
- * ARE YOU SERIOUS WITH THIS FUNCTION NAME?? OMFGWTFBBQ
  */
 function registerListeners(){
   $("#badgerImg2").click(function() { self.port.emit("activateSite"); });
@@ -84,6 +107,13 @@ function registerListeners(){
   $("#enableButton").click(function() { self.port.emit("activateSite"); });
   $("#disableButton").click(function() { self.port.emit("deactivateSite"); });
   $('#gearImg').click(function() { console.log("CLICK"); self.port.emit("openOptions"); });
+  var overlay = $('#overlay');
+  $("#error").click(function(){ console.log('CLICK'); overlay.toggleClass('active'); });
+  $("#report_cancel").click(function(){ overlay.toggleClass('active'); });
+  $("#report_button").click(function(){
+    send_error($("#error_input").val());
+    overlay.toggleClass('active');
+  });
 }
 
 /**
@@ -136,10 +166,12 @@ function refreshPopup(settings) {
     printable = _addOriginHTML(origin, printable, action);
   }
   $('#count').text(count);
-  printable = printable +
-      '<div class="clicker" id="notracking">' + no_tracking + '</div>';
-  for (let i = 0; i < notracking.length; i++){
-    printable = _addOriginHTML(notracking[i], printable, "noaction");
+  if(notracking.length > 0){
+    printable = printable +
+        '<div class="clicker" id="notracking">' + no_tracking + '</div>';
+    for (let i = 0; i < notracking.length; i++){
+      printable = _addOriginHTML(notracking[i], printable, "noaction");
+    }
   }
   printable += "</div>";
   $("#blockedResources").html(printable);
@@ -339,7 +371,7 @@ function updateSettings(elt, status) {
 
 // Called when PB is active
 self.port.on("show-trackers", function(settings) {
-  init(true);
+  init(true, settings);
   refreshPopup(settings);
 });
 
@@ -368,6 +400,9 @@ self.port.on("hide", function(){
   $("#enableButton").off();
   $("#disableButton").off();
   $('#gearImg').off();
+  $("#error").off();
+  $("#report_cancel").off();
+  $("#report_button").off();
 });
 
 // Clean up panel state after the user closes it. This is less janky than
