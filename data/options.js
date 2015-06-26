@@ -5,6 +5,24 @@ var trackers = $('#tracking_domains').text();
 var from_these_sites = $('#so_far').text();
 var feed_the_badger_title = $('#feed_the_badger_title').text();
 var delay = 500;
+// Returns a function, that, as long as it continues to be invoked, will not
+// be triggered. The function will be called after it stops being called for
+// N milliseconds. If `immediate` is passed, trigger the function on the
+// leading edge, instead of the trailing.
+function debounce(func, wait, immediate) {
+  var timeout;
+  return function() {
+    var context = this, args = arguments;
+    var later = function() {
+      timeout = null;
+      if (!immediate){ func.apply(context, args); }
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow){ func.apply(context, args); }
+  };
+}
 
 // Loads options from localStorage and sets UI elements accordingly
 function loadOptions() {
@@ -12,6 +30,12 @@ function loadOptions() {
 
   // load resources for filter sliders
   $(function () {
+    $(window).on('focus', debounce(handleVisibilityChange, 1000, true));
+    function handleVisibilityChange(){
+      console.log('update settings');
+      self.port.emit('reqSettings');
+    }
+
     $("#blockedResourcesContainer").on("change", "input:radio", updateOrigin);
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', resetControl);
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
