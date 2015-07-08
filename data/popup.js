@@ -95,6 +95,7 @@ function resetHTML() {
   $("#detected").text(click_badger_activate_on_site);
   $("#blockedResources").text("");
   $("#gearImg").hide();
+  registerListeners();
   return;
 }
 
