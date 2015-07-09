@@ -103,13 +103,14 @@ function resetHTML() {
  * Listeners for click events in the panel header.
  */
 function registerListeners(){
+  var overlay = $('#overlay');
   $("#badgerImg2").click(function() { self.port.emit("activateSite"); });
   $("#badgerImg").click(function() { self.port.emit("deactivateSite"); });
   $("#enableButton").click(function() { self.port.emit("activateSite"); });
   $("#disableButton").click(function() { self.port.emit("deactivateSite"); });
-  $('#gearImg').click(function() { console.log("CLICK"); self.port.emit("openOptions"); });
-  var overlay = $('#overlay');
-  $("#error").click(function(){ console.log('CLICK'); overlay.toggleClass('active'); });
+  $('#helpImg').click(function() { self.port.emit("openHelp"); });
+  $('#gearImg').click(function() { self.port.emit("openOptions"); });
+  $("#error").click(function(){ overlay.toggleClass('active'); });
   $("#report_cancel").click(function(){ overlay.toggleClass('active'); });
   $("#report_button").click(function(){
     send_error($("#error_input").val());
@@ -401,6 +402,7 @@ self.port.on("hide", function(){
   $("#enableButton").off();
   $("#disableButton").off();
   $('#gearImg').off();
+  $('#helpImg').off();
   $("#error").off();
   $("#report_cancel").off();
   $("#report_button").off();

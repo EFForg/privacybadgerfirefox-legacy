@@ -103,6 +103,11 @@ a:hover { color: #bbbbff }
   margin-left: 3px;
   margin-top: 3px;
 }
+#help {
+  float: right;
+  margin-right: 5px;
+  margin-top: 3px;
+}
 #detected {
   color: #707070;
   font-size: 16px;
