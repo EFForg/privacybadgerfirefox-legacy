@@ -255,3 +255,7 @@ div#overlay.active {
   margin-top: 10px;
   margin-right: 5px;
 }
+#dnt-compliant {
+  display: inline;
+  float: left;
+}
