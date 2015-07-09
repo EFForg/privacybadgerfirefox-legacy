@@ -47,10 +47,13 @@ a:hover { color: #bbbbff }
   cursor: pointer;
 }
 .actionToggle {
-  cursor: pointer;
+  cursor: move;
 }
 .clear{
   clear: both;
+}
+.switch-candy a{
+  cursor: move;
 }
 .switch-candy a img{
   width: 16px;
