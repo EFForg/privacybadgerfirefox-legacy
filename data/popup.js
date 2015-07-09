@@ -75,7 +75,6 @@ function send_error(message) {
   }
   to_send["browser"] =  window.navigator.userAgent;
   to_send["message"] = message;
-  to_send["date"] = Date.now();
   self.port.emit("report", to_send);
 }
 
@@ -124,7 +123,7 @@ function registerListeners(){
  */
 var trackerStatus;
 function changeOriginHTML(setting) {
-  let printable = _addOriginHTML(setting.origin, '', setting.action);
+  let printable = _addOriginHTML(setting.origin, '', setting.action, setting.flag);
   $("div[data-origin='"+setting.origin+"']").replaceWith(printable);
 }
 function refreshPopup(settings) {
@@ -162,16 +161,17 @@ function refreshPopup(settings) {
       notracking.push(origin);
       continue;
     }
+    var flag = local_storage.policyWhitelist[origin];
     count++;
     // todo: gross hack, use templating framework
-    printable = _addOriginHTML(origin, printable, action);
+    printable = _addOriginHTML(origin, printable, action, flag);
   }
   $('#count').text(count);
   if(notracking.length > 0){
     printable = printable +
         '<div class="clicker" id="notracking">' + no_tracking + '</div>';
     for (let i = 0; i < notracking.length; i++){
-      printable = _addOriginHTML(notracking[i], printable, "noaction");
+      printable = _addOriginHTML(notracking[i], printable, "noaction", false);
     }
   }
   printable += "</div>";
@@ -211,7 +211,7 @@ var feedTheBadgerTitle = feed_the_badger_title;
  * @param String action the action that is taken on this origin, one of ['noaction', 'block', 'cookieblock', 'usernoaction', 'userblock', 'usercookieblock']
  * @return String the html string to be printed
  */
-function _addOriginHTML(rawOrigin, printable, action) {
+function _addOriginHTML(rawOrigin, printable, action, flag) {
   // Sanitize origin string, strip out any HTML tags.
   var origin = rawOrigin.replace(/</g, '').replace(/>/g, '');
   var classes = ["clicker", "tooltip"];
@@ -226,7 +226,7 @@ function _addOriginHTML(rawOrigin, printable, action) {
     classes.push(action);
   }
   var classText = 'class="' + classes.join(" ") + '"';
-
+  //TODO do something with the flag here to show off opt-out sites
   return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + _trimDomains(origin,25) + '</div>' + _addToggleHtml(origin, action) + '<img class="tooltipArrow" src="icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
 }
 function _trim(str, max) {
@@ -376,7 +376,13 @@ self.port.on("show-trackers", function(settings) {
   refreshPopup(settings);
 });
 
+// share the storage obj from ui.js
+self.port.on("give-storage", function(storage) {
+  local_storage = storage;
+});
+
 // Called when a tracker is reset
+// which never seems to happen?
 self.port.on("change-setting", changeOriginHTML);
 
 // Called when PB is inactive
