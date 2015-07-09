@@ -161,7 +161,7 @@ function refreshPopup(settings) {
       notracking.push(origin);
       continue;
     }
-    var flag = local_storage.policyWhitelist[origin];
+    var flag = window.local_storage && local_storage.policyWhitelist[origin];
     count++;
     // todo: gross hack, use templating framework
     printable = _addOriginHTML(origin, printable, action, flag);
@@ -209,6 +209,7 @@ var feedTheBadgerTitle = feed_the_badger_title;
  * @param String rawOrigin the name of the origin.
  * @param String printable a string to append the output too.
  * @param String action the action that is taken on this origin, one of ['noaction', 'block', 'cookieblock', 'usernoaction', 'userblock', 'usercookieblock']
+ * @param bool flag flag wether the domain respects DNT
  * @return String the html string to be printed
  */
 function _addOriginHTML(rawOrigin, printable, action, flag) {
@@ -225,9 +226,15 @@ function _addOriginHTML(rawOrigin, printable, action, flag) {
   if (action == "block" || action == "cookieblock") {
     classes.push(action);
   }
+  var flagText = "";
+  if(flag){
+    flagText = "<div id='dnt-compliant'>" + 
+      "<a target=_blank href='https://www.eff.org/privacybadger#faq--I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me?'>" +
+      "<img src='icons/dnt-16.png' title='This domain promises not to track you.'></a></div>";
+  }
   var classText = 'class="' + classes.join(" ") + '"';
   //TODO do something with the flag here to show off opt-out sites
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + _trimDomains(origin,25) + '</div>' + _addToggleHtml(origin, action) + '<img class="tooltipArrow" src="icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div> <div class="origin">'+ flagText + _trimDomains(origin,25) + '</div>' + _addToggleHtml(origin, action) + '<img class="tooltipArrow" src="icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
 }
 function _trim(str, max) {
   if (str.length >= max) {
