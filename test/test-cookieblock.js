@@ -1,7 +1,7 @@
 const { Request } = require("sdk/request");
 const testUtils = require("./testUtils");
 const { startServerAsync } = require('./httpd');
-const { Ci, Cc, Cu, Cr } = require("chrome");
+const { Cu /*,Cc, Ci, Cr*/}  = require("chrome");
 const cookieUtils = require("./cookieUtils");
 const main = require("./main");
 const utils = require("./utils");
@@ -27,7 +27,7 @@ exports.test3rdPartyCookieblock = function (assert, done) {
   let basename = "test-request-3rd-party-cookieblock.sjs";
   let url = "http://localhost:" + testUtils.port + "/" + basename;
   let windowUrl = "resource://gre-resources/hiddenWindow.html";
-  let origin = utils.getBaseDomain(utils.makeURI(url));
+  let origin = 'localhost';
 
   function handleRequest(request, response) {
     var cookiePresent = request.hasHeader("Cookie");
@@ -53,38 +53,35 @@ exports.test3rdPartyCookieblock = function (assert, done) {
   // clobberCookie that treats "localhost" as if it were a third party
   // for the purpose of this test.
   Request({
-    url: url,
+    url: url + '?1',
     onComplete: function(response) {
-      // Check that the server tries to set a cookie
-      assert.equal(response.headers['Set-Cookie'], 'cookie=monster;');
-
       // Check it wasn't there before
-      assert.equal(response.headers['x-jetpack-3rd-party'], 'false');
+      assert.equal(response.headers['x-jetpack-3rd-party'], 'false', 'test header wasnt there before');
 
       // Make a second request, and check that the server this time
       // doesn't get the cookie
       Request({
-        url: url,
+        url: url + '?2',
         onComplete: function(response) {
-          assert.equal(response.headers['x-jetpack-3rd-party'], 'false');
+          assert.equal(response.headers['x-jetpack-3rd-party'], 'false',  'has no third party cookie');
 
           // Now unclobber the cookie and repeat the test
           userStorage.add("green", origin);
           Request({
-            url: url,
+            url: url + '?3',
             onComplete: function(response) {
               // Check that the server tries to set a cookie
-              assert.equal(response.headers['Set-Cookie'], 'cookie=monster;');
+              assert.equal(response.headers['Set-Cookie'], 'cookie=monster;', 'green test header exists');
 
               // Check it wasn't there before
-              assert.equal(response.headers['x-jetpack-3rd-party'], 'false');
+              assert.equal(response.headers['x-jetpack-3rd-party'], 'false', 'green test not third party');
 
               // Now the next request should include the cookie we just set
               Request({
-                url: url,
+                url: url + '?4',
                 onComplete: function(response) {
                   // Note that the semicolon should be gone
-                  assert.equal(response.headers['x-jetpack-3rd-party'], 'cookie=monster');
+                  assert.equal(response.headers['x-jetpack-3rd-party'], 'cookie=monster', 'test cookie exists after request');
                   // Clobber the cookie again
                   userStorage.add("yellow", origin);
                   // Add the hidden window corresponding to XHRs to disabledSies
@@ -93,7 +90,7 @@ exports.test3rdPartyCookieblock = function (assert, done) {
 
                   // Check that blocked cookie is injected when PB is disabled
                   Request({
-                    url: url,
+                    url: url + '?5',
                     onComplete: function(response) {
                       assert.equal(response.headers['x-jetpack-3rd-party'],
                                    'cookie=monster',
