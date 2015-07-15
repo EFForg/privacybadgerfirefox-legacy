@@ -7,12 +7,16 @@
   <link rel="stylesheet" media="screen" href="skin/toggle-switch.css" />
 </head>
 <body id="main">
-    <div id="overlay">
-        <p id="report_text" data-l10n-id="report_text"></p>
-        <input type="text" id="error_input" maxlength="300"><br>
-        <button id="report_button" data-l10n-id="report_button"></button><button id="report_cancel" data-l10n-id="report_cancel"></button>
+  <div id="overlay">
+    <h1 id="report_title" data-l10n-id="report_title"></h1>
+      <span id="report_close" data-l10n-id="report_close"></span>
+      <p id="report_text" data-l10n-id="report_text"></p>
+        <label id="report_label" for="error_input" data-l10n-id="report_input_label"></label>
+        <textarea id="error_input" name="error_input" maxlength="300"></textarea>
+        <button id="report_button" data-l10n-id="report_button"></button>
+        <button id="report_cancel" data-l10n-id="report_cancel"></button>
         <p id="report_terms" data-l10n-id="report_terms"></p>
-    </div>
+  </div>
   <div id='privacyBadgerHeader'>
     <span id='title'><img id="badgerImg" src='icons/badger-48.png' class="clickable"><img id="badgerImg2" src='icons/badger-grey-48.png' class="clickable"><h2 data-l10n-id="privacy_badger"></h2></span>
     <span id='prefs'><img id="gearImg" src='icons/gear-light-25.png' title="Settings" class="clickable hidepanel"></span>

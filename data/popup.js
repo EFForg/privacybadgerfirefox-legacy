@@ -110,10 +110,16 @@ function registerListeners(){
   $('#helpImg').click(function() { self.port.emit("openHelp"); });
   $('#gearImg').click(function() { self.port.emit("openOptions"); });
   $("#error").click(function(){ overlay.toggleClass('active'); });
-  $("#report_cancel").click(function(){ overlay.toggleClass('active'); });
+  $("#report_cancel").click(function(){
+    overlay.toggleClass("active");
+    $("#error_input").val("");
+  });
   $("#report_button").click(function(){
     send_error($("#error_input").val());
-    overlay.toggleClass('active');
+  });
+  $("#report_close").click(function(){
+    overlay.toggleClass("active");
+    $("#error_input").val("");
   });
 }
 
