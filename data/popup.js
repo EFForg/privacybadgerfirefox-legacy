@@ -94,6 +94,7 @@ function resetHTML() {
   $("#detected").text(click_badger_activate_on_site);
   $("#blockedResources").text("");
   $("#gearImg").hide();
+  registerListeners();
   return;
 }
 
@@ -101,17 +102,24 @@ function resetHTML() {
  * Listeners for click events in the panel header.
  */
 function registerListeners(){
+  var overlay = $('#overlay');
   $("#badgerImg2").click(function() { self.port.emit("activateSite"); });
   $("#badgerImg").click(function() { self.port.emit("deactivateSite"); });
   $("#enableButton").click(function() { self.port.emit("activateSite"); });
   $("#disableButton").click(function() { self.port.emit("deactivateSite"); });
-  $('#gearImg').click(function() { console.log("CLICK"); self.port.emit("openOptions"); });
-  var overlay = $('#overlay');
-  $("#error").click(function(){ console.log('CLICK'); overlay.toggleClass('active'); });
-  $("#report_cancel").click(function(){ overlay.toggleClass('active'); });
+  $('#helpImg').click(function() { self.port.emit("openHelp"); });
+  $('#gearImg').click(function() { self.port.emit("openOptions"); });
+  $("#error").click(function(){ overlay.toggleClass('active'); });
+  $("#report_cancel").click(function(){
+    overlay.toggleClass("active");
+    $("#error_input").val("");
+  });
   $("#report_button").click(function(){
     send_error($("#error_input").val());
-    overlay.toggleClass('active');
+  });
+  $("#report_close").click(function(){
+    overlay.toggleClass("active");
+    $("#error_input").val("");
   });
 }
 
@@ -160,7 +168,7 @@ function refreshPopup(settings) {
       notracking.push(origin);
       continue;
     }
-    var flag = local_storage.policyWhitelist[origin];
+    var flag = window.local_storage && local_storage.policyWhitelist[origin];
     count++;
     // todo: gross hack, use templating framework
     printable = _addOriginHTML(origin, printable, action, flag);
@@ -208,6 +216,7 @@ var feedTheBadgerTitle = feed_the_badger_title;
  * @param String rawOrigin the name of the origin.
  * @param String printable a string to append the output too.
  * @param String action the action that is taken on this origin, one of ['noaction', 'block', 'cookieblock', 'usernoaction', 'userblock', 'usercookieblock']
+ * @param bool flag flag wether the domain respects DNT
  * @return String the html string to be printed
  */
 function _addOriginHTML(rawOrigin, printable, action, flag) {
@@ -224,9 +233,15 @@ function _addOriginHTML(rawOrigin, printable, action, flag) {
   if (action == "block" || action == "cookieblock") {
     classes.push(action);
   }
+  var flagText = "";
+  if(flag){
+    flagText = "<div id='dnt-compliant'>" + 
+      "<a target=_blank href='https://www.eff.org/privacybadger#faq--I-am-an-online-advertising-/-tracking-company.--How-do-I-stop-Privacy-Badger-from-blocking-me?'>" +
+      "<img src='icons/dnt-16.png' title='This domain promises not to track you.'></a></div>";
+  }
   var classText = 'class="' + classes.join(" ") + '"';
   //TODO do something with the flag here to show off opt-out sites
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + _trimDomains(origin,25) + '</div>' + _addToggleHtml(origin, action) + '<img class="tooltipArrow" src="icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div> <div class="origin">'+ flagText + _trimDomains(origin,25) + '</div>' + _addToggleHtml(origin, action) + '<img class="tooltipArrow" src="icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
 }
 function _trim(str, max) {
   if (str.length >= max) {
@@ -406,6 +421,7 @@ self.port.on("hide", function(){
   $("#enableButton").off();
   $("#disableButton").off();
   $('#gearImg').off();
+  $('#helpImg').off();
   $("#error").off();
   $("#report_cancel").off();
   $("#report_button").off();
