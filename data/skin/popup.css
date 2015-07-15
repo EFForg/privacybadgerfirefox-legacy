@@ -240,10 +240,10 @@ width: 230px;
 }
 #overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 96%;
-  height: 100%;
+  top: 5;
+  left: 5;
+  width: 92%;
+  height: 94%;
   display: block;
   font-size: 0.8em;
   z-index: -1;
@@ -291,6 +291,12 @@ div#overlay.active {
 }
 #report_close:hover {
   text-decoration: underline;
+}
+#report_success {
+  color: green;
+}
+#report_fail {
+  color: red;
 }
 .hidden {
   display: none;

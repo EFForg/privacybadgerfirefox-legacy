@@ -98,6 +98,13 @@ function resetHTML() {
   return;
 }
 
+function reportClose(overlay){
+  overlay.toggleClass("active");
+  $("#error_input").val("");
+  $("#report_fail").toggleClass("hidden", true);
+  $("#report_success").toggleClass("hidden", true);
+}
+
 /**
  * Listeners for click events in the panel header.
  */
@@ -111,17 +118,16 @@ function registerListeners(){
   $('#gearImg').click(function() { self.port.emit("openOptions"); });
   $("#error").click(function(){ overlay.toggleClass('active'); });
   $("#report_cancel").click(function(){
-    overlay.toggleClass("active");
-    $("#error_input").val("");
+    reportClose(overlay);
   });
   $("#report_button").click(function(){
     send_error($("#error_input").val());
   });
   $("#report_close").click(function(){
-    overlay.toggleClass("active");
-    $("#error_input").val("");
+    reportClose(overlay);
   });
 }
+
 
 /**
  * Methods to add HTML for showing and controlling blockers. Called after init.
@@ -427,5 +433,19 @@ self.port.on("hide", function(){
   $("#report_button").off();
 });
 
+self.port.on("report-success", function(){
+  var overlay = $('#overlay');
+  $("#report_success").toggleClass("hidden");
+  setTimeout(function(){
+    reportClose(overlay);
+  }, 3000);
+});
+
+self.port.on("report-fail", function(){
+  $("#report_fail").toggleClass("hidden");
+  setTimeout(function(){
+    $("#report_fail").toggleClass("hidden", true);
+  }, 3000);
+});
 // Clean up panel state after the user closes it. This is less janky than
 // cleaning up panel state as soon as the user opens the panel.
