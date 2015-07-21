@@ -16,33 +16,19 @@
  */
 
 /**
- * Runs in page content context. Injects a script that deletes cookies.
- * Communicates to webrequest.js to get orders if to delete cookies.
+ * Runs in page context. Clobbers the document.cookie object, should only be 
+ * injected for third party iframes that are on the cookie block list. 
  */
-self.port.emit("isCookieBlocked", document.location);
-self.port.on("cookieBlockStatus", function(blocked) {
-  console.log("NOT JS clobber cookies for", document.location.host);
-  if (blocked) {
-    console.log("JS clobbering cookies for", document.location.host);
+ (function() {
+  console.log("JS clobbering cookies for", document.location.host);
+  var dummyCookie = "foo=bar";
+  document.__defineSetter__("cookie", function(value) { console.log("clobbering cookie:", value); return dummyCookie; });
+  document.__defineGetter__("cookie", function() { console.log("clobbering cookie getter"); return dummyCookie; });
+})();
 
-    var code =
-      'console.log("JS clobbering cookies for", document.location.host);' + 
-      'var dummyCookie = "x=y";' +
-      'document.__defineSetter__("cookie", function(value) { console.log("clobbering cookie:", value); return dummyCookie; });' +
-      'document.__defineGetter__("cookie", function() { console.log("clobbering cookie getter"); return dummyCookie; });';
-
-    var script = document.createElement('script');
-
-    script.appendChild(document.createTextNode(code));
-    (document.head || document.documentElement).appendChild(script);
-    script.parentNode.removeChild(script);
-
-    for (var prop in script) { delete script[prop]; }
-  }
-
-  return true;
-});
-// Clobber local storage, using a function closure to keep the dummy private
+/**
+ * Clobber local storage, using a function closure to keep the dummy private
+ */
 /*(function() {
   var dummyLocalStorage = { };
   Object.defineProperty(window, "localStorage", {
