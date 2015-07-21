@@ -3,6 +3,8 @@ const testUtils = require("./testUtils");
 const { startServerAsync } = require('./httpd');
 const { Ci, Cc, Cr } = require("chrome");
 const main = require("./main");
+const userStorage = require("./userStorage");
+userStorage.init();
 
 // Test that PB sets the DNT header to "1"
 exports.testDNT = function(assert, done) {

@@ -6,6 +6,8 @@ const { Ci, Cc, Cu, Cr } = require("chrome");
 const main = require("./main");
 const utils = require("./utils");
 const { SHA1 } = require("./sha1");
+const userStorage = require("./userStorage");
+userStorage.init();
 
 function teardown() {
   main.clearData(true, true);

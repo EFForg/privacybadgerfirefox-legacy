@@ -1,5 +1,6 @@
-const userStorage = require("./userStorage");
 const { storage } = require("sdk/simple-storage");
+const userStorage = require("./userStorage");
+userStorage.init();
 
 exports["test domain exceptions"] = function(assert) {
 

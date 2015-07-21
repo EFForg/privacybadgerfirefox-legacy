@@ -5,9 +5,10 @@ const { Cu /*,Cc, Ci, Cr*/}  = require("chrome");
 const cookieUtils = require("./cookieUtils");
 const main = require("./main");
 const utils = require("./utils");
-const userStorage = require("./userStorage");
 const { Services } = Cu.import("resource://gre/modules/Services.jsm");
 const prefsService = require("sdk/preferences/service");
+const userStorage = require("./userStorage");
+userStorage.init();
 
 function teardown() {
   main.clearData(true, true);
