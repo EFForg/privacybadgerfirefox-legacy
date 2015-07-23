@@ -6,6 +6,8 @@ const { Ci, Cc, Cu, Cr } = require("chrome");
 const main = require("./main");
 const utils = require("./utils");
 const { SHA1 } = require("./sha1");
+const userStorage = require("./userStorage");
+userStorage.init();
 
 function teardown() {
   main.clearData(true, true);
@@ -78,6 +80,16 @@ exports.testRepeatAtRandom = function(assert, done){
     assert.equal(calls,2);
     done();
   });
+}
+
+exports.testIsSubdomain = function(assert){
+  let tld = 'privacybadger.org';
+  assert.equal(utils.isSubdomain('foo.privacybadger.org', tld), true);
+  assert.equal(utils.isSubdomain('foo.bar.baz.bat.privacybadger.org', tld), true);
+  assert.equal(utils.isSubdomain('fakeprivacybadger.org', tld), false);
+  assert.equal(utils.isSubdomain('tracker.org', tld), false);
+  assert.equal(utils.isSubdomain('privacybadger.org.blah', tld), false);
+  assert.equal(utils.isSubdomain('', tld), false);
 }
 
 

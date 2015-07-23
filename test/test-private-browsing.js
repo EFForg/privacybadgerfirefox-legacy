@@ -3,7 +3,7 @@ const { storage } = require("sdk/simple-storage");
 var windows = require("sdk/windows").browserWindows;
 const main = require("./main");
 const userStorage = require("./userStorage");
-const { isPrivate } = require("sdk/private-browsing");
+userStorage.init();
 
 // Site that sets a third party cookie
 const TEST_URL = "https://en.support.wordpress.com/third-party-cookies/";

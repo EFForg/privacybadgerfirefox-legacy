@@ -3,6 +3,8 @@ const { newURI } = require('sdk/url/utils');
 const { storage } = require("sdk/simple-storage");
 const testUtils = require("./testUtils");
 const heuristicBlocker = require("./heuristicBlocker");
+const userStorage = require("./userStorage");
+userStorage.init();
 
 exports.testBlockOrigin = function(assert) {
   let origin = "localhost";
