@@ -82,6 +82,16 @@ exports.testRepeatAtRandom = function(assert, done){
   });
 }
 
+exports.testIsSubdomain = function(assert){
+  let tld = 'privacybadger.org';
+  assert.equal(utils.isSubdomain('foo.privacybadger.org', tld), true);
+  assert.equal(utils.isSubdomain('foo.bar.baz.bat.privacybadger.org', tld), true);
+  assert.equal(utils.isSubdomain('fakeprivacybadger.org', tld), false);
+  assert.equal(utils.isSubdomain('tracker.org', tld), false);
+  assert.equal(utils.isSubdomain('privacybadger.org.blah', tld), false);
+  assert.equal(utils.isSubdomain('', tld), false);
+}
+
 
 // Test util for parsing a cookie string into name-value pairs
 exports["test parseCookieString"] = function(assert) {

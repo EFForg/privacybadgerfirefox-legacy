@@ -20,7 +20,6 @@
  * injected for third party iframes that are on the cookie block list. 
  */
  (function() {
-  console.log("JS clobbering cookies for", document.location.host);
   var dummyCookie = "foo=bar";
   document.__defineSetter__("cookie", function(value) { console.log("clobbering cookie:", value); return dummyCookie; });
   document.__defineGetter__("cookie", function() { console.log("clobbering cookie getter"); return dummyCookie; });
