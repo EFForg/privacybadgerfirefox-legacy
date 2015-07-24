@@ -1,3 +1,13 @@
+0.99				  (2015-07-24)
+  * Release Candidate for 1.0
+  * Detects Canvas Fingerprinting
+  * Detect Local Storage Supercookies
+  * Improved UI
+  * Options page for overriding privacy badger settings
+  * Report Broken Site button 
+  * Many Bugfixes (see github)
+  * Translations into swedish, french and german
+
 0.2.6.1				  (2015-04-02)
   * Minor version bump to appease AMO, no other changes
 
