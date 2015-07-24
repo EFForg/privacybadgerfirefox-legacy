@@ -137,16 +137,34 @@ function getTopLevel(action, origin){
   if (action == "usercookieblock"){
     //console.log(local_storage.userYellow.hasOwnProperty(origin));
     //console.log(local_storage.userYellow.hasOwnProperty(utils.getBaseDomain(origin)));
-    return local_storage.userYellow && local_storage.userYellow.hasOwnProperty(origin) ||
-                                 local_storage.userYellow.hasOwnProperty(utils.getBaseDomain(origin));
+    let baseDomain = tldjs.getDomain(origin);
+    if(local_storage.userYellow && 
+        !local_storage.userYellow.hasOwnProperty(origin) &&
+        local_storage.userYellow.hasOwnProperty(baseDomain)) {
+      return baseDomain;
+    } else {
+      return origin;
+    }
   }
   if (action == "userblock"){
-    return local_storage.userRed && local_storage.userRed.hasOwnProperty(origin) ||
-                                 local_storage.userRed.hasOwnProperty(utils.getBaseDomain(origin));
+    let baseDomain = tldjs.getDomain(origin);
+    if(local_storage.userRed && 
+        !local_storage.userRed.hasOwnProperty(origin) &&
+        local_storage.userRed.hasOwnProperty(baseDomain)) {
+      return baseDomain;
+    } else {
+      return origin;
+    }
   }
   if (action == "usernoaction"){
-    return local_storage.userGreen && local_storage.userGreen.hasOwnProperty(origin) ||
-                                local_storage.userGreen.hasOwnProperty(utils.getBaseDomain(origin));
+    let baseDomain = tldjs.getDomain(origin);
+    if(local_storage.userGreen && 
+        !local_storage.userGreen.hasOwnProperty(origin) &&
+        local_storage.userGreen.hasOwnProperty(baseDomain)) {
+      return baseDomain;
+    } else {
+      return origin;
+    }
   }
 }
 
@@ -196,8 +214,7 @@ function refreshPopup(settings) {
     if (action == "notracking"){
       notracking.push(origin);
       continue;
-    }
-    else {
+    } else {
       if (action.contains("user")){
         var prevOrigin = origin;
         origin = getTopLevel(action, origin);
