@@ -1,7 +1,7 @@
 Privacy Badger Firefox:
 Copyright © 2014 Electronic Frontier Foundation and other contributors
 See the CREDITS file for authorship
-Licensed GPL v3+
+Licensed GPL v3
 
 Incorporating code from Vex,
 https://github.com/hubspot/vex
@@ -43,8 +43,11 @@ Licensed MIT
 Incorporating code from Chameleon,
 https://github.com/ghostwords/chameleon
 Copyright © 2015 ghostwords
-Licensed MPL 2.0
-
+This Source Code Form is subject to the terms of the Mozilla Public
+License, v. 2.0. If a copy of the MPL was not distributed with this
+file, You can obtain one at http://mozilla.org/MPL/2.0/.
+Alternatively, this code may be distributed or
+otherwise used under the terms of GPL v3
 
 Text of MIT License:
 ====================
