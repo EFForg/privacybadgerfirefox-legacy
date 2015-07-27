@@ -99,7 +99,7 @@ function resetHTML() {
 }
 
 function reportClose(overlay){
-  overlay.toggleClass("active");
+  overlay.toggleClass("active", false);
   $("#error_input").val("");
   $("#report_fail").toggleClass("hidden", true);
   $("#report_success").toggleClass("hidden", true);
