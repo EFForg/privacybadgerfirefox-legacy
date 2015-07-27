@@ -171,6 +171,14 @@ function updateUserPref(e){
   });
 }
 
+// Partial-reverses each domain name in a list and sorts alphabetically
+function _reverseSort(list){
+  function reverseString(str) {
+    return str.split('.').reverse().join('.');
+  }
+  return list.map(reverseString).sort().map(reverseString);
+}
+
 function loadOrigins(origins){
   var trackerStatus = pb_detected + " <span id='count'>0</span> " + potential + " <a id='trackerLink' target=_blank tabindex=-1 title='What is a tracker?' href='https://www.eff.org/privacybadger#trackers'>" + trackers + "</a> " + from_these_sites;
   $("#detected").html(trackerStatus);
@@ -182,7 +190,7 @@ function loadOrigins(origins){
     '<img class="tooltip" src="icons/UI-icons-green.png" tooltip="Move the slider right to allow a domain.">'+
     '</div><div id="blockedOriginsInner">';
   var count = 0;
-  var sorted = Object.keys(origins).sort();
+  var sorted = _reverseSort(Object.keys(origins));
   for (var i=0; i<sorted.length; i++){
     var origin = sorted[i];
     var action = origins[origin];
