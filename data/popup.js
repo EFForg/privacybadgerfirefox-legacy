@@ -180,6 +180,9 @@ function changeOriginHTML(setting) {
   $("div[data-origin='"+setting.origin+"']").replaceWith(printable);
 }
 function refreshPopup(settings) {
+  $("#loader").fadeOut();
+  $("#detected").fadeIn();
+  $("#blockedResources").fadeIn();
   if (settings.cleared) {
     trackerStatus = status_reload;
     $("#detected").text(trackerStatus);
@@ -231,18 +234,18 @@ function refreshPopup(settings) {
     var flag = window.local_storage && local_storage.policyWhitelist[origin];
     count++;
     // todo: gross hack, use templating framework
-    printable = _addOriginHTML(origin, printable, action, flag);
+    printable += _addOriginHTML(origin, action, flag);
   }
   for (key in compressedOrigins){
     var flag2 = window.local_storage && local_storage.policyWhitelist[origin];
-    printable = _addOriginHTML( key, printable, compressedOrigins[key]['action'], flag2, compressedOrigins[key]['subs'].length);
+    printable += _addOriginHTML( key, compressedOrigins[key]['action'], flag2, compressedOrigins[key]['subs'].length);
   }
   $('#count').text(count);
   if(notracking.length > 0){
     printable = printable +
         '<div class="clicker" id="notracking">' + no_tracking + '</div>';
     for (let i = 0; i < notracking.length; i++){
-      printable = _addOriginHTML(notracking[i], printable, "noaction", false);
+      printable += _addOriginHTML(notracking[i], "noaction", false);
     }
   }
   printable += "</div>";
@@ -278,12 +281,11 @@ var feedTheBadgerTitle = feed_the_badger_title;
 /**
  * Build the HTML string for an origin, to be placed in the popup.
  * @param String rawOrigin the name of the origin.
- * @param String printable a string to append the output too.
  * @param String action the action that is taken on this origin, one of ['noaction', 'block', 'cookieblock', 'usernoaction', 'userblock', 'usercookieblock']
  * @param bool flag flag wether the domain respects DNT
  * @return String the html string to be printed
  */
-function _addOriginHTML(rawOrigin, printable, action, flag, multiTLD) {
+function _addOriginHTML(rawOrigin, action, flag, multiTLD) {
   // Sanitize origin string, strip out any HTML tags.
   var origin = rawOrigin.replace(/</g, '').replace(/>/g, '');
   var classes = ["clicker", "tooltip"];
@@ -309,7 +311,7 @@ function _addOriginHTML(rawOrigin, printable, action, flag, multiTLD) {
   }
   var classText = 'class="' + classes.join(" ") + '"';
   //TODO do something with the flag here to show off opt-out sites
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div> <div class="origin">'+ flagText + _trimDomains(origin + multiText,25) + '</div>' + _addToggleHtml(origin, action) + '<img class="tooltipArrow" src="icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
+  return '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div> <div class="origin">'+ flagText + _trimDomains(origin + multiText,25) + '</div>' + _addToggleHtml(origin, action) + '<img class="tooltipArrow" src="icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
 }
 function _trim(str, max) {
   if (str.length >= max) {
@@ -493,6 +495,9 @@ self.port.on("hide", function(){
   $("#error").off();
   $("#report_cancel").off();
   $("#report_button").off();
+  $("#loader").show();
+  $("#detected").hide();
+  $("#blockedResources").hide();
 });
 
 self.port.on("report-success", function(){

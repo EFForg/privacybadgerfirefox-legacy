@@ -304,3 +304,9 @@ div#overlay.active {
   display: inline;
   float: left;
 }
+#loader{
+  margin-left: 20px; 
+  margin-top: 10px;
+  font-size: 16px;
+  color: #555;
+}
