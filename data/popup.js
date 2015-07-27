@@ -121,6 +121,8 @@ function registerListeners(){
     reportClose(overlay);
   });
   $("#report_button").click(function(){
+    $(this).prop("disabled", true);
+    $("#report_cancel").prop("disabled", true);
     send_error($("#error_input").val());
   });
   $("#report_close").click(function(){
@@ -499,6 +501,8 @@ self.port.on("report-success", function(){
   var overlay = $('#overlay');
   $("#report_success").toggleClass("hidden");
   setTimeout(function(){
+    $("#report_button").prop("disabled", false);
+    $("#report_cancel").prop("disabled", false);
     reportClose(overlay);
   }, 3000);
 });
@@ -506,6 +510,8 @@ self.port.on("report-success", function(){
 self.port.on("report-fail", function(){
   $("#report_fail").toggleClass("hidden");
   setTimeout(function(){
+    $("#report_button").prop("disabled", false);
+    $("#report_cancel").prop("disabled", false);
     $("#report_fail").toggleClass("hidden", true);
   }, 3000);
 });
