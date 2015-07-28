@@ -30,6 +30,7 @@ function loadOptions() {
 
   // load resources for filter sliders
   $(function () {
+    $('#blockedResources').css('max-height',$(window).height() - 300);
     $(window).on('focus', debounce(handleVisibilityChange, 1000, true));
     function handleVisibilityChange(){
       console.log('update settings');
