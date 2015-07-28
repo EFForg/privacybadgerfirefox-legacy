@@ -38,6 +38,13 @@ function init(isActive, settings) {
     return;
   }
 
+  $("#firstRun").hide();
+  var seenPopup = JSON.parse(this.localStorage.getItem("seenPopup")) || false;
+  if (!seenPopup) {
+    $("#firstRun").show();
+  }
+  this.localStorage.setItem("seenPopup", "true");
+  
   // Initialize more HTML if PB is active
   $("#badgerImg2").hide();
   $("#badgerImg").show();
@@ -110,6 +117,8 @@ function reportClose(overlay){
  */
 function registerListeners(){
   var overlay = $('#overlay');
+  $("#firstRun").click(function() { 
+    self.port.emit("openSlideshow"); });
   $("#badgerImg2").click(function() { self.port.emit("activateSite"); });
   $("#badgerImg").click(function() { self.port.emit("deactivateSite"); });
   $("#enableButton").click(function() { self.port.emit("activateSite"); });
