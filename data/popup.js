@@ -20,6 +20,7 @@ var unblock_all = $( "#unblock_all" ).html();
 var disable_on_page = $( "#disable_on_page" ).html();
 var report_bug = $( "#report_bug" ).html();
 var report_field = $( "#report_field" ).html();
+var local_storage;
 var cur_settings;
 // jshint moz:true
 /**
@@ -135,10 +136,7 @@ function registerListeners(){
  * when getting the action for the eTLD+1
  */
 function getTopLevel(action, origin){
-  console.log(action+"  "+origin);
   if (action == "usercookieblock"){
-    //console.log(local_storage.userYellow.hasOwnProperty(origin));
-    //console.log(local_storage.userYellow.hasOwnProperty(utils.getBaseDomain(origin)));
     let baseDomain = tldjs.getDomain(origin);
     if(local_storage.userYellow && 
         !local_storage.userYellow.hasOwnProperty(origin) &&
@@ -178,10 +176,14 @@ function getTopLevel(action, origin){
  */
 var trackerStatus;
 function changeOriginHTML(setting) {
-  let printable = _addOriginHTML(setting.origin, '', setting.action, setting.flag);
+  let printable = _addOriginHTML(setting.origin, setting.action, setting.flag);
   $("div[data-origin='"+setting.origin+"']").replaceWith(printable);
 }
 function refreshPopup(settings) {
+  while(!local_storage){
+    console.log("no local_storage yet");
+    sleep(500);
+  }
   $("#loader").fadeOut();
   $("#detected").fadeIn();
   $("#blockedResources").fadeIn();
