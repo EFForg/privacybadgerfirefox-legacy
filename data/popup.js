@@ -189,10 +189,6 @@ function changeOriginHTML(setting) {
   $("div[data-origin='"+setting.origin+"']").replaceWith(printable);
 }
 function refreshPopup(settings) {
-  while(!local_storage){
-    console.log("no local_storage yet");
-    sleep(500);
-  }
   $("#loader").fadeOut();
   $("#detected").fadeIn();
   $("#blockedResources").fadeIn();
@@ -468,14 +464,10 @@ function updateSettings(elt, status) {
  */
 
 // Called when PB is active
-self.port.on("show-trackers", function(settings) {
+self.port.on("show-trackers", function(settings, storage) {
   init(true, settings);
-  refreshPopup(settings);
-});
-
-// share the storage obj from ui.js
-self.port.on("give-storage", function(storage) {
   local_storage = storage;
+  refreshPopup(settings);
 });
 
 // Called when a tracker is reset
