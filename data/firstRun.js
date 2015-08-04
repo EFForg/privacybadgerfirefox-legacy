@@ -41,5 +41,18 @@
           $('.jcarousel').jcarousel('scroll', '+=1');
         }
       });
+
+      var comic = $("#slideshow");
+      $(window).scroll(function() {
+        if (comic.length) {
+          var seenComic = $(window).scrollTop() > comic.offset().top;
+        }
+
+        if (seenComic) {
+          this.localStorage.setItem("seenComic", "true");
+        }
+      });
   });
 })(jQuery);
+
+
