@@ -40,11 +40,10 @@ function init(isActive, settings) {
   }
 
   $("#firstRun").hide();
-  var seenPopup = JSON.parse(this.localStorage.getItem("seenPopup")) || false;
-  if (!seenPopup) {
+  var seenComic = JSON.parse(this.localStorage.getItem("seenComic")) || false;
+  if (!seenComic) {
     $("#firstRun").show();
   }
-  this.localStorage.setItem("seenPopup", "true");
   
   // Initialize more HTML if PB is active
   $("#badgerImg2").hide();
