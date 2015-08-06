@@ -2,7 +2,7 @@
 set -e
 cd "`dirname $0`"
 
-APP_NAME=privacybadgerfirefox
+APP_NAME=privacybadger
 # Auto-generated XPI name from 'cfx xpi'
 PRE_XPI_NAME="$APP_NAME.xpi"
 LATEST_SDK_VERSION=1.17

@@ -20,6 +20,7 @@ var unblock_all = $( "#unblock_all" ).html();
 var disable_on_page = $( "#disable_on_page" ).html();
 var report_bug = $( "#report_bug" ).html();
 var report_field = $( "#report_field" ).html();
+var local_storage;
 var cur_settings;
 // jshint moz:true
 /**
@@ -38,6 +39,12 @@ function init(isActive, settings) {
     return;
   }
 
+  $("#firstRun").hide();
+  var seenComic = JSON.parse(this.localStorage.getItem("seenComic")) || false;
+  if (!seenComic) {
+    $("#firstRun").show();
+  }
+  
   // Initialize more HTML if PB is active
   $("#badgerImg2").hide();
   $("#badgerImg").show();
@@ -94,12 +101,13 @@ function resetHTML() {
   $("#detected").text(click_badger_activate_on_site);
   $("#blockedResources").text("");
   $("#gearImg").hide();
+  $("#firstRun").hide();
   registerListeners();
   return;
 }
 
 function reportClose(overlay){
-  overlay.toggleClass("active");
+  overlay.toggleClass("active", false);
   $("#error_input").val("");
   $("#report_fail").toggleClass("hidden", true);
   $("#report_success").toggleClass("hidden", true);
@@ -110,6 +118,8 @@ function reportClose(overlay){
  */
 function registerListeners(){
   var overlay = $('#overlay');
+  $("#firstRun").click(function() { 
+    self.port.emit("openSlideshow"); });
   $("#badgerImg2").click(function() { self.port.emit("activateSite"); });
   $("#badgerImg").click(function() { self.port.emit("deactivateSite"); });
   $("#enableButton").click(function() { self.port.emit("activateSite"); });
@@ -121,6 +131,8 @@ function registerListeners(){
     reportClose(overlay);
   });
   $("#report_button").click(function(){
+    $(this).prop("disabled", true);
+    $("#report_cancel").prop("disabled", true);
     send_error($("#error_input").val());
   });
   $("#report_close").click(function(){
@@ -133,10 +145,7 @@ function registerListeners(){
  * when getting the action for the eTLD+1
  */
 function getTopLevel(action, origin){
-  console.log(action+"  "+origin);
   if (action == "usercookieblock"){
-    //console.log(local_storage.userYellow.hasOwnProperty(origin));
-    //console.log(local_storage.userYellow.hasOwnProperty(utils.getBaseDomain(origin)));
     let baseDomain = tldjs.getDomain(origin);
     if(local_storage.userYellow && 
         !local_storage.userYellow.hasOwnProperty(origin) &&
@@ -176,10 +185,13 @@ function getTopLevel(action, origin){
  */
 var trackerStatus;
 function changeOriginHTML(setting) {
-  let printable = _addOriginHTML(setting.origin, '', setting.action, setting.flag);
+  let printable = _addOriginHTML(setting.origin, setting.action, setting.flag);
   $("div[data-origin='"+setting.origin+"']").replaceWith(printable);
 }
 function refreshPopup(settings) {
+  $("#loader").fadeOut();
+  $("#detected").fadeIn();
+  $("#blockedResources").fadeIn();
   if (settings.cleared) {
     trackerStatus = status_reload;
     $("#detected").text(trackerStatus);
@@ -231,18 +243,18 @@ function refreshPopup(settings) {
     var flag = window.local_storage && local_storage.policyWhitelist[origin];
     count++;
     // todo: gross hack, use templating framework
-    printable = _addOriginHTML(origin, printable, action, flag);
+    printable += _addOriginHTML(origin, action, flag);
   }
   for (key in compressedOrigins){
     var flag2 = window.local_storage && local_storage.policyWhitelist[origin];
-    printable = _addOriginHTML( key, printable, compressedOrigins[key]['action'], flag2, compressedOrigins[key]['subs'].length);
+    printable += _addOriginHTML( key, compressedOrigins[key]['action'], flag2, compressedOrigins[key]['subs'].length);
   }
   $('#count').text(count);
   if(notracking.length > 0){
     printable = printable +
         '<div class="clicker" id="notracking">' + no_tracking + '</div>';
     for (let i = 0; i < notracking.length; i++){
-      printable = _addOriginHTML(notracking[i], printable, "noaction", false);
+      printable += _addOriginHTML(notracking[i], "noaction", false);
     }
   }
   printable += "</div>";
@@ -278,12 +290,11 @@ var feedTheBadgerTitle = feed_the_badger_title;
 /**
  * Build the HTML string for an origin, to be placed in the popup.
  * @param String rawOrigin the name of the origin.
- * @param String printable a string to append the output too.
  * @param String action the action that is taken on this origin, one of ['noaction', 'block', 'cookieblock', 'usernoaction', 'userblock', 'usercookieblock']
  * @param bool flag flag wether the domain respects DNT
  * @return String the html string to be printed
  */
-function _addOriginHTML(rawOrigin, printable, action, flag, multiTLD) {
+function _addOriginHTML(rawOrigin, action, flag, multiTLD) {
   // Sanitize origin string, strip out any HTML tags.
   var origin = rawOrigin.replace(/</g, '').replace(/>/g, '');
   var classes = ["clicker", "tooltip"];
@@ -309,7 +320,7 @@ function _addOriginHTML(rawOrigin, printable, action, flag, multiTLD) {
   }
   var classText = 'class="' + classes.join(" ") + '"';
   //TODO do something with the flag here to show off opt-out sites
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div> <div class="origin">'+ flagText + _trimDomains(origin + multiText,25) + '</div>' + _addToggleHtml(origin, action) + '<img class="tooltipArrow" src="icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
+  return '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div> <div class="origin">'+ flagText + _trimDomains(origin + multiText,25) + '</div>' + _addToggleHtml(origin, action) + '<img class="tooltipArrow" src="icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
 }
 function _trim(str, max) {
   if (str.length >= max) {
@@ -453,14 +464,10 @@ function updateSettings(elt, status) {
  */
 
 // Called when PB is active
-self.port.on("show-trackers", function(settings) {
+self.port.on("show-trackers", function(settings, storage) {
   init(true, settings);
-  refreshPopup(settings);
-});
-
-// share the storage obj from ui.js
-self.port.on("give-storage", function(storage) {
   local_storage = storage;
+  refreshPopup(settings);
 });
 
 // Called when a tracker is reset
@@ -493,12 +500,18 @@ self.port.on("hide", function(){
   $("#error").off();
   $("#report_cancel").off();
   $("#report_button").off();
+  $("#loader").show();
+  $("#detected").hide();
+  $("#blockedResources").hide();
+  $("#firstRun").off();
 });
 
 self.port.on("report-success", function(){
   var overlay = $('#overlay');
   $("#report_success").toggleClass("hidden");
   setTimeout(function(){
+    $("#report_button").prop("disabled", false);
+    $("#report_cancel").prop("disabled", false);
     reportClose(overlay);
   }, 3000);
 });
@@ -506,6 +519,8 @@ self.port.on("report-success", function(){
 self.port.on("report-fail", function(){
   $("#report_fail").toggleClass("hidden");
   setTimeout(function(){
+    $("#report_button").prop("disabled", false);
+    $("#report_cancel").prop("disabled", false);
     $("#report_fail").toggleClass("hidden", true);
   }, 3000);
 });
