@@ -39,9 +39,10 @@ function init(isActive, settings, seenComic) {
     return;
   }
 
+  $("#blockedResources").css('max-height', 315);
   $("#firstRun").hide();
-  var seenComic = JSON.parse(this.localStorage.getItem("seenComic")) || false;
   if (!seenComic) {
+    $("#blockedResources").css('max-height', 245);
     $("#firstRun").show();
   }
   
