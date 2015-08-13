@@ -1,5 +1,12 @@
-0.99				  (2015-07-24)
-  * Release Candidate for 1.0
+1.0.1				  (2015-08-13)
+  * Fixes bug where local storage being turned off causes privacy badger to
+  fail
+  * Fixes UI bug where two sliders are displayed in the popup
+  * Fixes bug where, tutorial nagging box never goes away. 
+
+1.0.0				  (2015-08-05)
+
+  * Bugfixes from 0.99 
   * Detects Canvas Fingerprinting
   * Detect Local Storage Supercookies
   * Improved UI
@@ -7,6 +14,9 @@
   * Report Broken Site button 
   * Many Bugfixes (see github)
   * Translations into swedish, french and german
+
+0.99				  (2015-07-24)
+  * Release Candidate for 1.0
 
 0.2.6.1				  (2015-04-02)
   * Minor version bump to appease AMO, no other changes
