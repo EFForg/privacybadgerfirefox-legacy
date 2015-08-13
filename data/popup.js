@@ -27,7 +27,7 @@ var cur_settings;
  * Initializes the popup panel UI depending on whether PB is active
  * for the current page.
  */
-function init(isActive, settings) {
+function init(isActive, settings, seenComic) {
   console.log("Initializing popup.js");
   
   cur_settings = settings;
@@ -464,8 +464,8 @@ function updateSettings(elt, status) {
  */
 
 // Called when PB is active
-self.port.on("show-trackers", function(settings, storage) {
-  init(true, settings);
+self.port.on("show-trackers", function(settings, storage, seenComic) {
+  init(true, settings, seenComic);
   local_storage = storage;
   refreshPopup(settings);
 });
