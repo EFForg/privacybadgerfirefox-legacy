@@ -4,6 +4,7 @@ body {
   color: #333;
   font-family: helvetica, arial, sans-serif;
   cursor: default;
+  overflow: hidden;
 }
 
 a { color: #3333cc; }
