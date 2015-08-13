@@ -64,10 +64,7 @@ function loadOptions() {
     // prefs: from the simple-prefs sdk
     loadDisabledSites(settings.disabledSites);
     loadPrefs(settings.prefs);
-    // Force loadOrigins to run async 
-    setTimeout( function(){
-      loadOrigins(settings.origins);
-    }, 10);
+    loadOrigins(settings.origins);
   });
 }
 $(loadOptions);
