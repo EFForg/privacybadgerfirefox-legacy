@@ -23,7 +23,7 @@ if [ $# -ne 1 ] ; then
 fi
 
 # Final XPI name
-XPI_NAME="privacy-badger-$1.xpi"
+XPI_NAME="privacy-badger-eff-$1.xpi"
 
 rm -rf xpi/
 mkdir xpi

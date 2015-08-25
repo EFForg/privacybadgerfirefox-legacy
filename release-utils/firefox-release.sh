@@ -28,9 +28,9 @@ if ! [ -x `which festival` ] ; then
   echo "festival is not installed, cannot speak hashes aloud..."
 fi
 
-PKG=$RDFDIR/privacy-badger-$TARGET.xpi
-ALT=$RDFDIR/privacy-badger-latest.xpi
-RDFFILE=$RDFDIR/privacy-badger-update-2048.rdf
+PKG=$RDFDIR/privacy-badger-eff-$TARGET.xpi
+ALT=$RDFDIR/privacy-badger-eff-latest.xpi
+RDFFILE=$RDFDIR/privacy-badger-eff-update-2048.rdf
 
 LZMARDF=$RDFFILE.lzma
 B_LZMARDF=$LZMARDF.b64
