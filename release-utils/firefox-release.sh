@@ -61,7 +61,7 @@ while read -p "Please enter a pastebin ID once the .rdf has been signed, or pres
               echo '")' ) | festival
 done
 
-if ! wget "http://pastebin.com/download.php?i=$INP" --output-document="$B_LZMARDF" ; then
+if ! wget "http://pastebin.com/raw.php?i=$INP" --output-document="$B_LZMARDF" ; then
   echo "Failed to wget http://pastebin.com/download.php?i=$INP"
   exit 1
 fi
