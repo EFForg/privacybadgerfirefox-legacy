@@ -107,6 +107,11 @@ exports["test parseCookieString"] = function(assert) {
   }
 };
 
+exports["test makeURI"] = function(assert){
+  assert.equal(utils.makeURI("foo"), null);
+  assert.equal(utils.makeURI("https://eff.org/").host, "eff.org");
+}
+
 // Test util for parsing stored nsICookie2 objects into HTTP response/request
 // header strings
 exports["test toString"] = function(assert, done) {
