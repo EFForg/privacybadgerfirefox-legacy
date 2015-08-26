@@ -1,0 +1,762 @@
+Manifest-Version: 1.0
+
+Name: install.rdf
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: Qpfmne853joW2CjFs6DNig==
+SHA1-Digest: y+RMaE/T/RgZLEWLYUVbrVrkzEI=
+
+Name: icon.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: wPEgjnj01ZymOK1XOvrGcg==
+SHA1-Digest: 6f+w6Smfox69rLe4/hukc3yrCzw=
+
+Name: icon64.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: AeySsXzZczv9CJ+hTgSz7w==
+SHA1-Digest: CQP8xUOuNH6GKxGj0d4BCDlPo7g=
+
+Name: bootstrap.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 7e6z9LJUzPhqfgyfhRMzhA==
+SHA1-Digest: TWD0b5BkAoKXr56l0Tt3AkKBy8s=
+
+Name: harness-options.json
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 7Oq8zXKME/wMFwgR7yK4VA==
+SHA1-Digest: Kc8jM9i5Pqv2qJlIsiJlNG5mCNM=
+
+Name: locales.json
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: rV/K+qf8oG+Ew1SZPAhiFw==
+SHA1-Digest: yRIn5Nk4LGVuJEqkI/LrPFhlWe4=
+
+Name: options.xul
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: Nj2QeTGEPWl7wT6kS+Qu4A==
+SHA1-Digest: T0DFYor3JB13OKmyIZgTXDSfKYw=
+
+Name: defaults/preferences/prefs.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: qQLg9EHkbG0cmLrG7j72bQ==
+SHA1-Digest: geluF3oMvwpI7K0G6jndoDg9ehI=
+
+Name: locale/en-US.json
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: z/Ryk7rsxnhoKDQUAO89Yw==
+SHA1-Digest: UYWDNDUjZs85roP3QSqGHkpEzB8=
+
+Name: locale/fr.json
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: SactHBenQtqrI/UGLWfAug==
+SHA1-Digest: WLZfXw3NpTK2kpji5gNqgEnuahU=
+
+Name: locale/nl.json
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: FYzfyOBcfjeHjtus3k7RMg==
+SHA1-Digest: aueZhaBGgubtkcwRJEpG1TL2kEk=
+
+Name: locale/sv.json
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: jpZVZcVZoLcBKtkw1+J13A==
+SHA1-Digest: /6WGhhBJ9qxKmBYJqIxj7IkHrBM=
+
+Name: resources/privacybadger/data/blocked.html
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: tGvJrthoCZNj8VCAxdnbbA==
+SHA1-Digest: 1WeMfNCIvlMvSimWPSM20wrqTx4=
+
+Name: resources/privacybadger/data/clobbercookie.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 0HRc7vZIBYW04Y2udvVIdg==
+SHA1-Digest: 5EF5Dgh6cOd4Cq57dGG+kBFpKPc=
+
+Name: resources/privacybadger/data/cookieblocklist.txt
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: RYr0nmYo+o5N/MqzzLvaOg==
+SHA1-Digest: YGnFVqBVs0m7vE6sUBPdNkaBZ80=
+
+Name: resources/privacybadger/data/domain_exception_list.json
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: ynqaPZAevE3/4kfYO3raFw==
+SHA1-Digest: sNHvUuD/X2wUEwYx/K7BUvWIx0Y=
+
+Name: resources/privacybadger/data/domainExceptionPopup.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 3nngPOfgRDJ5IZbD6begTg==
+SHA1-Digest: JsSPi8ZUQa62DY05k1ryAJCTKvc=
+
+Name: resources/privacybadger/data/fingerprinting.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: HCs5VDqxDLqXAigcX//dJg==
+SHA1-Digest: deotrMVi+S8AQxelemMcDst0KwU=
+
+Name: resources/privacybadger/data/firstRun.html
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: OOvWZ0BfYN1sIyirkdbP/g==
+SHA1-Digest: xKCPadDgaOSVqPG5jCxojbq75nA=
+
+Name: resources/privacybadger/data/firstRun.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 3jKSsiNz5mBxFr0MsVGGKQ==
+SHA1-Digest: ON5kptfiC5rldZ2mhjZinQqv1FI=
+
+Name: resources/privacybadger/data/firstRunCS.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: tt5aXxM0sCbupLOifxwxNQ==
+SHA1-Digest: 0K+koCl6/iJs7wmhQRjlbZNmtXI=
+
+Name: resources/privacybadger/data/jquery.jcarousel-core.min.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: db+EB5lqBQe4CGkNQWX4Og==
+SHA1-Digest: xyNAFb9yNJ569Vz1wgqGiq3C2/U=
+
+Name: resources/privacybadger/data/options.html
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: EI6Okg13HiHHAdvOSNYhHg==
+SHA1-Digest: cZYxAfuGnMAI9vRGf/C3tbM/pOE=
+
+Name: resources/privacybadger/data/options.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 67HjMtoCptuByu7GqZXTqA==
+SHA1-Digest: dDjFIUQpc4eoRb1kXL5oQMCsx4g=
+
+Name: resources/privacybadger/data/pbbutton.html
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: SpiE+tg3JEV8dPsgfNzahA==
+SHA1-Digest: 32/N4cbkm7KKpXv8uqIm6xRWAvI=
+
+Name: resources/privacybadger/data/popup.html
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: cgTUNAKt9nYCs5dLf5rzhQ==
+SHA1-Digest: 7PWO5Wn5PtNFN99+RoiCx6tUAIs=
+
+Name: resources/privacybadger/data/popup.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: ElRTyx7Z2EN81rzzXmzg+w==
+SHA1-Digest: pXdD3Bm593etwxx0HXxF7wWt7o4=
+
+Name: resources/privacybadger/data/socialwidgets.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: pu5NDDG0S9qfBKN9aUXBGA==
+SHA1-Digest: m26yLe/1C8+IOfqv87XBncDFlYY=
+
+Name: resources/privacybadger/data/socialwidgets.json
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: JjTBOD3gnEibxX3EWmpgng==
+SHA1-Digest: 9p/1huFmvWlV0UCAHs7fppgpSzE=
+
+Name: resources/privacybadger/data/supercookie.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: hcm1hY3bM6L6WPZ/SvcO2A==
+SHA1-Digest: 37SiIDy/YiVY3kvAxj+lY6+Uu70=
+
+Name: resources/privacybadger/data/tld.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 7Z8Voz9q4TCzs7oUga5QXQ==
+SHA1-Digest: nsoPJZKEvf6B0/5sJXYvdc/IgHo=
+
+Name: resources/privacybadger/data/icons/badger-128.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: Mr8hMgYZR3i7MQYEgNRANA==
+SHA1-Digest: xXkG9O69cNJ24J7mZKx0w/1wq+8=
+
+Name: resources/privacybadger/data/icons/badger-16.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: ubRHRYyNDYsUF3FEHLwCEQ==
+SHA1-Digest: OcHhQmlbJWmrlHHhf6xdnplEaxM=
+
+Name: resources/privacybadger/data/icons/badger-170.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 5qrN2FGoKBVn0qfFGMjCUw==
+SHA1-Digest: TdXHSofH0u7GJJI8KLf1J7NxaF8=
+
+Name: resources/privacybadger/data/icons/badger-19-disabled.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: Jey/jZn+LPCno382e/uegg==
+SHA1-Digest: DWqA75P2zjq/eWSXoliE74IrmmU=
+
+Name: resources/privacybadger/data/icons/badger-19.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: oo1406JQCkoenhr0LtiFlw==
+SHA1-Digest: EH9/cBqjqpHE3cpdTC6kq8H0Zms=
+
+Name: resources/privacybadger/data/icons/badger-24.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 1HfpxaSRLE5bK+ZokiTAGg==
+SHA1-Digest: pme85B559iCWOcyxowOEDw7jZ+U=
+
+Name: resources/privacybadger/data/icons/badger-32.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: QpKGgXs2WIua0Cnoq5F7Pg==
+SHA1-Digest: nRdr+Wz3J9ngBKwLYrStg1C3Kc8=
+
+Name: resources/privacybadger/data/icons/badger-48.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: wPEgjnj01ZymOK1XOvrGcg==
+SHA1-Digest: 6f+w6Smfox69rLe4/hukc3yrCzw=
+
+Name: resources/privacybadger/data/icons/badger-48.txt
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: Ppu1lnAHx2oUznsoA2Z0zw==
+SHA1-Digest: DM9eS5smccIsbqdibh/N/WkmbI8=
+
+Name: resources/privacybadger/data/icons/badger-64.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: AeySsXzZczv9CJ+hTgSz7w==
+SHA1-Digest: CQP8xUOuNH6GKxGj0d4BCDlPo7g=
+
+Name: resources/privacybadger/data/icons/badger-grey-16.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: D5vYvShz3WiU9V5WAlDLdQ==
+SHA1-Digest: HJjJ5ewHSY2GIxqJ3WjNaCVD24k=
+
+Name: resources/privacybadger/data/icons/badger-grey-32.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: im7qhgelo24UIwCq9nD1sA==
+SHA1-Digest: xxRnVwe30snRdzxj8qzERsXxr2o=
+
+Name: resources/privacybadger/data/icons/badger-grey-48.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: QIsnQbI8Tvd6JfzNX45IOQ==
+SHA1-Digest: bA6nrPsJMQRI5cKr8dMbqfJ14gM=
+
+Name: resources/privacybadger/data/icons/badger-grey-64.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 7GFd8KyJy3Gx9+3lLWuPzQ==
+SHA1-Digest: yHMMmVy4RJ/5tOUtVFKcpLipr+E=
+
+Name: resources/privacybadger/data/icons/badger-pin.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: cY4YA1yD09aPyrY0PiVAFQ==
+SHA1-Digest: QaDDrJv7N8Rt+1uztwDLU6g3CXQ=
+
+Name: resources/privacybadger/data/icons/badger-slider-handle.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: rQ9lslasBys7JG8s7mOwFQ==
+SHA1-Digest: 90V4ZteWLkBmbOZiviGQrQAl9yY=
+
+Name: resources/privacybadger/data/icons/badger-tb-arrow.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: foLNd1ox2UNQ6w/8Lo0+oQ==
+SHA1-Digest: D3nPwt1XxpQRbFZ+liPAMusoEUI=
+
+Name: resources/privacybadger/data/icons/badger-undo.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: d+Ox+zWWPgqkVwc0L6Rklw==
+SHA1-Digest: KpqpKFpeKjR4QbyY6njZL/Si+Zg=
+
+Name: resources/privacybadger/data/icons/badger.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: kSmdk3xNc3tUig2Ks44Ogw==
+SHA1-Digest: aSIHBQkbEIPatYsM8NC0XXg2Bug=
+
+Name: resources/privacybadger/data/icons/dnt-16.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: J+O0C6ayKS3LHdyEgUdcgQ==
+SHA1-Digest: qL8wsuDIu9BsFi1nPbQKgYlV11s=
+
+Name: resources/privacybadger/data/icons/dnt-24.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: dhzCHDGuQTf1pz/Iut4yyg==
+SHA1-Digest: Eba27u2I8PabKEuzsd9XgPPiq2M=
+
+Name: resources/privacybadger/data/icons/eff-logo.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: vAUKkY5Qc4NxA135QkpnGw==
+SHA1-Digest: f9qPeFVnUH9Xpv0o7Mcouh5Zro0=
+
+Name: resources/privacybadger/data/icons/gear-25.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: p9UNPsJR1BvU7BggC5oUSA==
+SHA1-Digest: rzuRC3x/VbSEpzp1lTY4LlMI700=
+
+Name: resources/privacybadger/data/icons/gear-light-25.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: HDxDkYKloDBJGeqVqNSXtA==
+SHA1-Digest: OZC5h0r2jg66r4UqkMYP+fDjYaA=
+
+Name: resources/privacybadger/data/icons/help.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: iKlYqhx/+oq/vBm5I+ticA==
+SHA1-Digest: QGhFwBQBmXm1EoXhIskQOngY7k8=
+
+Name: resources/privacybadger/data/icons/PB-logo.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: aC14Z7dsbt0yR0vM+X1G/g==
+SHA1-Digest: 8kSJqlrvGSPBD+Ex2143vuLLieE=
+
+Name: resources/privacybadger/data/icons/test-19-whitelisted.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: D3K2aSFZjHWxpiNqdYzcEw==
+SHA1-Digest: tCC8v46KbSkgHrtFjw5I3pqfPRE=
+
+Name: resources/privacybadger/data/icons/UI-icons-green.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: bwKB7s6UXfBuF6d7cdDAdg==
+SHA1-Digest: zhKRC3qe+0tDhJeSnUo5pBt9d9E=
+
+Name: resources/privacybadger/data/icons/UI-icons-red.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: fi7oWRwXo+xOJoFJ+2eoRw==
+SHA1-Digest: jTCb4+q7laiWOzTNIwZxHPS4ahs=
+
+Name: resources/privacybadger/data/icons/UI-icons-yellow.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: I74eUbk1DzRg05pWf65B6A==
+SHA1-Digest: SfQHgdMQu4acTq8qUPFjdY9v9jk=
+
+Name: resources/privacybadger/data/icons/slideshow/PB-layouts-01.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: hxsxEoKs9hgT1v03RRiEHw==
+SHA1-Digest: +IllQk5OSNTR1YCUVgL3rSFJ6+0=
+
+Name: resources/privacybadger/data/icons/slideshow/PB-layouts-02.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: vXyh0Tvml2a19a7xEGUCfA==
+SHA1-Digest: 0QHldwOjn5GDHJlSFPACpf3s+DM=
+
+Name: resources/privacybadger/data/icons/slideshow/PB-layouts-03.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: YYMrc2pQXZntEitoEfujpA==
+SHA1-Digest: EGLmfCPVgdCWEY2B7+8aSLhHBTE=
+
+Name: resources/privacybadger/data/icons/slideshow/PB-layouts-04.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: Mj4ZLJ6ksQcUSqLwNpWNoA==
+SHA1-Digest: IwpdEJ0BPD2lB3uht4HsmVYnIzU=
+
+Name: resources/privacybadger/data/icons/slideshow/PB-layouts-05.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: CXIBWq7V5K995etJ1gaecA==
+SHA1-Digest: K7XgDv47WjXX1N4I3j9LnjR1hi4=
+
+Name: resources/privacybadger/data/icons/slideshow/PB-layouts-06.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: YOGDro6xKz9bvl0dTjnkMQ==
+SHA1-Digest: wMTLvDaU1Yf63GcGgmZIvMG0+WI=
+
+Name: resources/privacybadger/data/icons/slideshow/PB-layouts-07.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: z3VS5EEVZNQWaD4yLm7R1Q==
+SHA1-Digest: dLJ0bsSzuvm5Uuq2CZZc14lLmJc=
+
+Name: resources/privacybadger/data/icons/slideshow/PB-layouts-08.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: ZQ2uSFhonDvQTeF1Z60M0Q==
+SHA1-Digest: 0bvU9lGtvIs7z1NvVHAbnm2nPLI=
+
+Name: resources/privacybadger/data/icons/slideshow/PB-layouts-09.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: i3u3WBiUEc4xsIpz8GvzJQ==
+SHA1-Digest: oWVOTGoMQnGwzVBIksQK2499qDU=
+
+Name: resources/privacybadger/data/icons/slideshow/PB-layouts-10.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: QoqyXwdGgNcy9SswrmXgzg==
+SHA1-Digest: 4QQuZcaTtWVljLo3a6ByDuwfB7A=
+
+Name: resources/privacybadger/data/icons/slideshow/PB-layouts-11.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: OG3sJWS+Okj8+S6t3XvMkQ==
+SHA1-Digest: u6bzEWrSkrckFiFrRLAzWYE7k7I=
+
+Name: resources/privacybadger/data/icons/slideshow/PB-layouts-12.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: Qi2aJuSeNRpPC2jRQmsktw==
+SHA1-Digest: fL0lu+3sdVx16RQtvtYkMhnExqI=
+
+Name: resources/privacybadger/data/icons/slideshow/PB-layouts-12a.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: NpVHYmZpWQnLIN4ihNMrzQ==
+SHA1-Digest: erF7k+POt5GyaCW8nbHDxRDN1OA=
+
+Name: resources/privacybadger/data/icons/slideshow/PB-layouts-13.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: nZmLwJPcqIaNDUiM4L0+9Q==
+SHA1-Digest: dOXymshj66lwiWAlK14qLilp1OA=
+
+Name: resources/privacybadger/data/icons/slideshow/PB-layouts-14.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: mRQzAubSw+S0Dod1L+Jv3A==
+SHA1-Digest: 5z9obs9Kyyk0JVOkf8vq8CuIK50=
+
+Name: resources/privacybadger/data/icons/slideshow/PB-layouts-15.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: TWBTv2p5tkF38wX90EjEvw==
+SHA1-Digest: 3sK2+rXeU1b0QlZ4Ct9RDvmiM60=
+
+Name: resources/privacybadger/data/jquery-ui/css/smoothness/jquery-ui.th
+ eme.css
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: VYjhmHG8jvCG7SB3Popybw==
+SHA1-Digest: WgKolnG2dZEtaTp6yJ4EwicVUY8=
+
+Name: resources/privacybadger/data/jquery-ui/css/smoothness/images/ui-bg
+ _diagonals-thick_18_b81900_40x40.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: TU5jiWChopsNa2k7RFCH2g==
+SHA1-Digest: At5Y4F+HnTb6nzhNs0YOLeV5TSg=
+
+Name: resources/privacybadger/data/jquery-ui/css/smoothness/images/ui-bg
+ _diagonals-thick_20_666666_40x40.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 0Mw//D3ITTp8SIZ8deJIXw==
+SHA1-Digest: W48bvtHv/ffo1bIAhmpPsz58gJc=
+
+Name: resources/privacybadger/data/jquery-ui/css/smoothness/images/ui-bg
+ _flat_10_000000_40x100.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: wx1fw+t9gsYoqC47hwJM0Q==
+SHA1-Digest: 4piZ84G99Xxxr5Gdu5RjqVJWmLs=
+
+Name: resources/privacybadger/data/jquery-ui/css/smoothness/images/ui-bg
+ _glass_100_f6f6f6_1x400.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: wX9VLo9Gl9dgjFdlOvNt8A==
+SHA1-Digest: /bljtBsDvSpwVGEL8m9JRjq49l0=
+
+Name: resources/privacybadger/data/jquery-ui/css/smoothness/images/ui-bg
+ _glass_100_fdf5ce_1x400.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: /ljDU5ER0wIXduaDMWnF4Q==
+SHA1-Digest: 4OVbTRBVvKpfzqO3k0zvF6acVOs=
+
+Name: resources/privacybadger/data/jquery-ui/css/smoothness/images/ui-bg
+ _glass_65_ffffff_1x400.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: tiT3Agdc1xmjj0KOFDAl6g==
+SHA1-Digest: E0Gsn6bPVxr7ohY2Qut4+Y6P+x8=
+
+Name: resources/privacybadger/data/jquery-ui/css/smoothness/images/ui-bg
+ _gloss-wave_35_f6a828_500x100.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: I5Mt58I1sDGHuKXePQJEkA==
+SHA1-Digest: wtZzrWaj9mPiU902j3GUYfm8/dM=
+
+Name: resources/privacybadger/data/jquery-ui/css/smoothness/images/ui-bg
+ _highlight-soft_100_eeeeee_1x100.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: C3CBhc6JJ/GMezuCp+fCRw==
+SHA1-Digest: ZiYlscL78GGvafgfkiJdIIS+Ys0=
+
+Name: resources/privacybadger/data/jquery-ui/css/smoothness/images/ui-bg
+ _highlight-soft_75_ffe45c_1x100.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: U6zGmq7m4stzsgITF+JK8w==
+SHA1-Digest: Fidspp4EDrDO4CyKTByy1cDSxCs=
+
+Name: resources/privacybadger/data/jquery-ui/css/smoothness/images/ui-ic
+ ons_222222_256x240.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: TCezQVa3o3dvMcxFbKAcEA==
+SHA1-Digest: qEfiyZitw12RjiySUlGxnGYDCP8=
+
+Name: resources/privacybadger/data/jquery-ui/css/smoothness/images/ui-ic
+ ons_228ef1_256x240.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: LyV0idlgDd9W0ZWheevJ3w==
+SHA1-Digest: UMnQMJRYm6I3LfcuYEQU+QyAa+8=
+
+Name: resources/privacybadger/data/jquery-ui/css/smoothness/images/ui-ic
+ ons_ef8c08_256x240.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: dypk1t9Lk9Iw6bOOGrdSKg==
+SHA1-Digest: dA0uDa5i3ZZXNsWVFFOQJYU9ypk=
+
+Name: resources/privacybadger/data/jquery-ui/css/smoothness/images/ui-ic
+ ons_ffd27a_256x240.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: ZobSG5BOGLEAIQFpuxwErQ==
+SHA1-Digest: Z+m0pCN2NZxWcPcNVO00hpeRqSc=
+
+Name: resources/privacybadger/data/jquery-ui/css/smoothness/images/ui-ic
+ ons_ffffff_256x240.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: oZ/hstcm6SDBLkOmXfkDmg==
+SHA1-Digest: /jEwLk+udEIDdyFfWHVxZ+CibFk=
+
+Name: resources/privacybadger/data/jquery-ui/js/jquery-1.10.2.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: kVFXcM6MVd4jswZETY6pmA==
+SHA1-Digest: HYXw80ZOXkmwUidEv3MU4Xasdtk=
+
+Name: resources/privacybadger/data/jquery-ui/js/jquery-ui.min.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: pjGHPg9L5vR2Rlt8KtNXRQ==
+SHA1-Digest: DHxdUIngPqtAGZ4gNPzuE1F+rZ8=
+
+Name: resources/privacybadger/data/skin/ajax-loader.gif
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 2aUZwqDmXzv0FJ42zPm4hQ==
+SHA1-Digest: LhFlDZNljT8EQS9hJEST5aPhigc=
+
+Name: resources/privacybadger/data/skin/background.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: r8zafLkeU9Pon+5JQczGgQ==
+SHA1-Digest: s6SO45Kre+D4dZg5zN2uY0ug590=
+
+Name: resources/privacybadger/data/skin/badger-faq-3.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: /oKmuz4Kv2zxZdjHPWn0YA==
+SHA1-Digest: OKvJkL2GQmNEaCwEGHGxztHO8UY=
+
+Name: resources/privacybadger/data/skin/badger-logo-revise-wide.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: wOVtrArJKwRtzxGG2iySTg==
+SHA1-Digest: /dti7L7YWCTto8itG/+avjxo5jc=
+
+Name: resources/privacybadger/data/skin/badger-logo-TRANS-1A.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: zozuaYhKVcVbhcqg2vydfA==
+SHA1-Digest: QYO6ojemzpPLg45IKM0zxJaCun4=
+
+Name: resources/privacybadger/data/skin/badger.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: kSmdk3xNc3tUig2Ks44Ogw==
+SHA1-Digest: aSIHBQkbEIPatYsM8NC0XXg2Bug=
+
+Name: resources/privacybadger/data/skin/firstRun.css
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: McmlKeRvt8w/kXCYXU0QEQ==
+SHA1-Digest: eF07bSuvaBSlW/koY/AKsBO+rfk=
+
+Name: resources/privacybadger/data/skin/jquery-ui.css
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: GrqgW74kzZDCI9D4K/1ZEA==
+SHA1-Digest: k57Ds3tyxo5MZZvZ1+7zSSgwbTU=
+
+Name: resources/privacybadger/data/skin/lock.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: yxgUguYU72U5eY9irdMGig==
+SHA1-Digest: CB/1uLDZ4uphUON/HzQ4BgLMYCI=
+
+Name: resources/privacybadger/data/skin/popup.css
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 9QAVfmREX0iA3dFpHqSvdA==
+SHA1-Digest: NHGe4HT1PaXzCGbmxkjK4pUAHuw=
+
+Name: resources/privacybadger/data/skin/socialwidgets.css
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: JcPaSDVMupHygmgiDRHJAw==
+SHA1-Digest: jRlykqPtxX2ofll7Pqeq5kwRj3w=
+
+Name: resources/privacybadger/data/skin/toggle-switch.css
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: KHcrSKqk5RWnvD7i5ImL8A==
+SHA1-Digest: HLL/KfpSjbwjatlcTPjzeV4dZ+k=
+
+Name: resources/privacybadger/data/skin/features/malware.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: RnAtOr1Diy18fcsud6yC6g==
+SHA1-Digest: ijiXBiK8xOIk7NkcZtrAa+/H9kg=
+
+Name: resources/privacybadger/data/skin/features/social.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: wReWRLyOiZ8wEwewx2zeLA==
+SHA1-Digest: zciETipL8YO82U7Af5QlX4yb6TA=
+
+Name: resources/privacybadger/data/skin/features/tracking.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 17r8M9f/UYdwXkAER6xNdA==
+SHA1-Digest: LDPPsm6j0RZ0tmk0OpYBUz0vxDM=
+
+Name: resources/privacybadger/data/skin/social/facebook.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: RDgYygwt8yY7IGesyw9tUQ==
+SHA1-Digest: DI/X2GFr5rZsrinAQS828jGSrsM=
+
+Name: resources/privacybadger/data/skin/social/facebook48.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: KIF2JArTjXe1d8TnVa4WNg==
+SHA1-Digest: Vr4uaAa0PXp2gtw5VskFIAiwhP0=
+
+Name: resources/privacybadger/data/skin/social/gplus.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 1Vug5HmH12+c1N2wXxApuQ==
+SHA1-Digest: UTCR+EVT3W007rLgpPlnKqFmOqQ=
+
+Name: resources/privacybadger/data/skin/social/gplus48.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: D/3s5Um/7dSfxjXWqOLtBw==
+SHA1-Digest: m6QvlL+Vhtdbu02AjKVPRxruYFY=
+
+Name: resources/privacybadger/data/skin/social/twitter.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: ATqLA6oQ5wFI6KcsgGdmJg==
+SHA1-Digest: iMy1jx/AWzErU80vv9qI7LVfw1Q=
+
+Name: resources/privacybadger/data/skin/social/twitter48.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: bhxXKKy2yXv8uEWyv3WeaQ==
+SHA1-Digest: ftlkVgGQPWVWoRDvlkNG+ws0Mis=
+
+Name: resources/privacybadger/data/skin/socialwidgets/AddThis.svg
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: cOfy2QQSJh5GG/jEkVBR8A==
+SHA1-Digest: dtNP5hii4LSSwnFnU+Xu3Kpswiw=
+
+Name: resources/privacybadger/data/skin/socialwidgets/Digg.svg
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: KSYwpAqaQCAnv4t/3ttclw==
+SHA1-Digest: p6bZwV0kRUl/6/Of3EZqqSrJrn4=
+
+Name: resources/privacybadger/data/skin/socialwidgets/FacebookLike.svg
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: Ya/CTChS50JCNeRk322mEg==
+SHA1-Digest: 3Bz7gLG7dHI815iY1y3ezy3JtMQ=
+
+Name: resources/privacybadger/data/skin/socialwidgets/FacebookShare.svg
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: Ya/CTChS50JCNeRk322mEg==
+SHA1-Digest: 3Bz7gLG7dHI815iY1y3ezy3JtMQ=
+
+Name: resources/privacybadger/data/skin/socialwidgets/GooglePlus.svg
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: MF9FFnHT3rAKrbzZm+SD1g==
+SHA1-Digest: KNuR0jGXKh+H+7VcMDiGODUpuUQ=
+
+Name: resources/privacybadger/data/skin/socialwidgets/LinkedIn.svg
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: itKzXYZJCWGDSiVBn/fpHg==
+SHA1-Digest: pQ1i0wx/wC3wtD6qlMUJyexyb4A=
+
+Name: resources/privacybadger/data/skin/socialwidgets/Pinterest.svg
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: OFjVcMw7VbPMLJ296UyIUg==
+SHA1-Digest: k5HVUhuHqfcb52N+NJK8vZdN9Gw=
+
+Name: resources/privacybadger/data/skin/socialwidgets/StumbleUpon.svg
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: ZV0UFgwhhE6tIZ5MHYw/TQ==
+SHA1-Digest: cJx/bpiahShpGq5ZjyYkmuZUsXA=
+
+Name: resources/privacybadger/data/skin/socialwidgets/Twitter.svg
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: vvSH8NIQSN0867OMt+XjRw==
+SHA1-Digest: nl3FhxrJNHsBeggAgix4ztkWWa0=
+
+Name: resources/privacybadger/data/vex/vex-theme-os.css
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: VQlJ9hlBubuftSQVAUMBxQ==
+SHA1-Digest: OyUJr9eEWeZ++FWgOVhFDu52gXk=
+
+Name: resources/privacybadger/data/vex/vex.combined.min.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: fjUu4ivm23KK/yESFEyCrA==
+SHA1-Digest: 11qaPAdMCLMXKLa/6tWEnoUiEMM=
+
+Name: resources/privacybadger/data/vex/vex.css
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: ORg3OIbS3UMwngnvmReERQ==
+SHA1-Digest: XaYvk3RJOsQ9nMxGIHhsdx+h2B8=
+
+Name: resources/privacybadger/data/vex/vex.dialog.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: plugmlBxavMoMjjf1cwzNA==
+SHA1-Digest: WJG5XiUPJ5kHKsunSCl+xCkbfWk=
+
+Name: resources/privacybadger/data/vex/vex.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: MmyurshG9FmMcovkxg13mQ==
+SHA1-Digest: oc+JeeVdVbw7UKGDEDssmMzTh6A=
+
+Name: resources/privacybadger/lib/contentPolicy.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: xEatxWeXzQtPGR88HFGg8A==
+SHA1-Digest: ha3Z2TEHjzp1grkC3Y2DlpHPBL4=
+
+Name: resources/privacybadger/lib/cookieUtils.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: xmd1Yew0S83Evkks2C/LZA==
+SHA1-Digest: eBX1xFtM/5RqXSVp9G6u11DGVEo=
+
+Name: resources/privacybadger/lib/domainExceptions.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: XpaqDUCexAflFpm0YQOePg==
+SHA1-Digest: YJ6enPsulj5di7kvgjm58zlueZE=
+
+Name: resources/privacybadger/lib/heuristicBlocker.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: jrIfSztJqt/qRaXMOtB97A==
+SHA1-Digest: oPjy9veOYTWkv3RRhxkPCsRAobw=
+
+Name: resources/privacybadger/lib/info.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: Q/lVkwcq31FOErlWHE8AmA==
+SHA1-Digest: 4fPzULxqDwl0tqmJp0UXGJlyMsg=
+
+Name: resources/privacybadger/lib/main.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 0p2BVR0Q0uAQv66RpvUBiA==
+SHA1-Digest: +HhN389yBGNIZyOwwzfv3K7Z15s=
+
+Name: resources/privacybadger/lib/package.json
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: pPb7t1VMCtbslpUy3Gfk+g==
+SHA1-Digest: jhaRCiNOqYC6YuoK7FkewJIifm8=
+
+Name: resources/privacybadger/lib/policyCheck.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: FMKha/cUkWWumsJVMdJnQA==
+SHA1-Digest: CYVqLG/EwijckSYl02RyefVui04=
+
+Name: resources/privacybadger/lib/prefsListener.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: QgPaFjBGWeRoBJRnl2n7VQ==
+SHA1-Digest: EWsh/BahdfJ/9euT5TLBwYlcp7U=
+
+Name: resources/privacybadger/lib/privateBrowsing.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: lYbuL7bxdtkUQqF2hmCSeA==
+SHA1-Digest: JqJNK7/6f87+OKAYuGRfMAizZak=
+
+Name: resources/privacybadger/lib/progressListener.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 8OxlDr19MK26gjzb2HK6/w==
+SHA1-Digest: aSYe8vR0CJejQwJwUE8/DU2HeVY=
+
+Name: resources/privacybadger/lib/sha1.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: +YhmVZUDiAV+hM9Ca8hkiA==
+SHA1-Digest: hUjB1IrBG17FRxJt51R2PBfKhrU=
+
+Name: resources/privacybadger/lib/socialWidgetHandler.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: CZuCYiTCMKM2S98uQNTGIQ==
+SHA1-Digest: W0srVYaO38SCQDlkLurA6nqTOsI=
+
+Name: resources/privacybadger/lib/socialWidgetLoader.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: jxV6XbbB9vD4th8LF6Qa3w==
+SHA1-Digest: xklOAfktIxnw6cvUIQwFGpkFVYk=
+
+Name: resources/privacybadger/lib/ui.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: RlwWPyiQptBIvBsVS6QpUA==
+SHA1-Digest: CVaLjUB9HLB4UMk0Vq+iAzKG9L4=
+
+Name: resources/privacybadger/lib/userStorage.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: 8uIt6wrARudy2qqamq78hQ==
+SHA1-Digest: p95RHxvcZWQNQwBWZ/OKigt0wo4=
+
+Name: resources/privacybadger/lib/utils.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: xslG/4LivX1zJGCEM1leew==
+SHA1-Digest: Phvslauy7AD2NWAAAigd58q9AQU=
+
+Name: resources/privacybadger/lib/WorkerQueue.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: MLC9hvHiCQwjPW2Xdi+L8A==
+SHA1-Digest: AocK6C22r/TAlaiIv+fHGS/vRuA=
+
+Name: resources/privacybadger/lib/abp/prefs.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: K5wwmCabNN3SLBHqsCZpJA==
+SHA1-Digest: p6lKTHorS1SgQTE8srtiOARBesU=
+
+Name: resources/privacybadger/lib/abp/utils.js
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: TKSUBxn5r+P2GPshmAQuVw==
+SHA1-Digest: dr3F8NsaKlMGNEllhBEioyFNtMs=
+
