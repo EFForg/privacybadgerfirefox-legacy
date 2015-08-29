@@ -244,7 +244,7 @@ function _addOriginHTML(rawOrigin, printable, action) {
   }
   var classText = 'class="' + classes.join(" ") + '"';
 
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + origin + '</div>' + _addToggleHtml(origin, action) + '<img class="tooltipArrow" src="icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
+  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin"> <a href="http://' + tldjs.getDomain(origin) + '"target="_blank"> + origin + '</a></div>' + _addToggleHtml(origin, action) + '<img class="tooltipArrow" src="icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
 }
 function _badgerStatusTitle(action, origin){
   let postfix;
