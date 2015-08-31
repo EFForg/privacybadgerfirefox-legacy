@@ -39,6 +39,7 @@ rm "$PRE_XPI_NAME"
 sed -i 's,<em:id>jid1-MnnxcxisBPnSXQ@jetpack</em:id>,<em:id>jid1-MnnxcxisBPnSXQ-eff@jetpack</em:id>,' $RDF_NAME
 sed -i ':a;N;$!ba;s@</Description>\n</RDF>@\n@g' $RDF_NAME
 cat install-template.rdf >> $RDF_NAME
+cp -r ../META-INF xpi
 
 # Rezip the XPI
 rm -f "$XPI_NAME"
