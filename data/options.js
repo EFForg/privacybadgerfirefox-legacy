@@ -5,6 +5,8 @@ var trackers = $('#tracking_domains').text();
 var from_these_sites = $('#so_far').text();
 var feed_the_badger_title = $('#feed_the_badger_title').text();
 var delay = 500;
+var originCache = null;
+
 // Returns a function, that, as long as it continues to be invoked, will not
 // be triggered. The function will be called after it stops being called for
 // N milliseconds. If `immediate` is passed, trigger the function on the
@@ -33,8 +35,7 @@ function loadOptions() {
     $('#blockedResources').css('max-height',$(window).height() - 300);
     $(window).on('focus', debounce(handleVisibilityChange, 1000, true));
     function handleVisibilityChange(){
-      console.log('update settings');
-      self.port.emit('reqSettings');
+      location.reload();
     }
 
     $("#blockedResourcesContainer").on("change", "input:radio", updateOrigin);
@@ -64,7 +65,12 @@ function loadOptions() {
     // prefs: from the simple-prefs sdk
     loadDisabledSites(settings.disabledSites);
     loadPrefs(settings.prefs);
-    loadOrigins(settings.origins);
+    if(!originCache){
+      originCache = origins;
+      loadOrigins(settings.origins);
+    } else {
+      reloadOrigins(settings.origins);
+    }
   });
 }
 $(loadOptions);
@@ -202,30 +208,45 @@ function loadOrigins(origins){
   $('#count').text(count);
   printable += "</div>";
   $("#blockedResources").html(printable);
-  $('.switch-toggle').each(function(){
-    let radios = $(this).children('input');
-    let value = $(this).children('input:checked').val();
-    let slider = $("<div></div>").slider({
-      min: 0,
-      max: 2,
-      value: parseInt(value, 10),
-      create: function(){
-        $(this).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
-      },
-      slide: function(event, ui) {
-        radios.filter("[value=" + ui.value + "]").click();
-      },
-      stop: function(event, ui){
-        $(ui.handle).css('margin-left', -16 * ui.value + "px");
-      },
-    }).appendTo(this);
-    radios.change(function(){
-      slider.slider("value", parseInt(radios.filter(':checked').val(), 10));
-    });
-  });
+  $('.switch-toggle').each(function(){ registerSliderHandlers(this); });
 
   console.log("Done refreshing origins");
 
+}
+
+function reloadOrigins(origins){
+  var count = Object.keys(origins).length;
+  $('#count').text(count);
+
+  for(origin in origins){
+    if( origins[origin] !== originCache[origin] ) {
+      let printable = _addOriginHTML(origin, '', origins[origin]);
+      $("div[data-origin='"+origin+"']").replaceWith(printable);
+      originCache[origin] = origins[origin];
+    }
+  }
+}
+
+function registerSliderHandlers(elem){
+  let radios = $(elem).children('input');
+  let value = $(elem).children('input:checked').val();
+  let slider = $("<div></div>").slider({
+    min: 0,
+    max: 2,
+    value: parseInt(value, 10),
+    create: function(){
+      $(elem).children('.ui-slider-handle').css('margin-left', -16 * value + 'px');
+    },
+    slide: function(event, ui) {
+      radios.filter("[value=" + ui.value + "]").click();
+    },
+    stop: function(event, ui){
+      $(ui.handle).css('margin-left', -16 * ui.value + "px");
+    },
+  }).appendTo(elem);
+  radios.change(function(){
+    slider.slider("value", parseInt(radios.filter(':checked').val(), 10));
+  });
 }
 
 function _addOriginHTML(rawOrigin, printable, action) {
