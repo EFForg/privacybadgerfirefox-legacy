@@ -2,10 +2,9 @@ language: node_js
 before_script:
   - sh -e /etc/init.d/xvfb start
   - npm install -g jpm
+  - echo $TRAVIS_BUILD_DIR
 env:
   - DISPLAY=':99.0'
 script: 
-  - jpm test
-addons:
-  firefox: latest
+  - jpm -b $TRAVIS_BUILD_DIR/../firefox/firefox test
 sudo: false
