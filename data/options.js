@@ -66,7 +66,7 @@ function loadOptions() {
     loadDisabledSites(settings.disabledSites);
     loadPrefs(settings.prefs);
     if(!originCache){
-      originCache = origins;
+      originCache = settings.origins;
       loadOrigins(settings.origins);
     } else {
       reloadOrigins(settings.origins);
