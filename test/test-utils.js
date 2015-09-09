@@ -1,12 +1,12 @@
-const cookieUtils = require("./cookieUtils");
+const cookieUtils = require("../lib/cookieUtils");
 const { Request } = require("sdk/request");
-const testUtils = require("./testUtils");
+const testUtils = require("../lib/testUtils");
 const { startServerAsync } = require('./httpd');
 const { Ci, Cc, Cu, Cr } = require("chrome");
-const main = require("./main");
-const utils = require("./utils");
-const { SHA1 } = require("./sha1");
-const userStorage = require("./userStorage");
+const main = require("../lib/main");
+const utils = require("../lib/utils");
+const { SHA1 } = require("../lib/sha1");
+const userStorage = require("../lib/userStorage");
 userStorage.init();
 
 function teardown() {

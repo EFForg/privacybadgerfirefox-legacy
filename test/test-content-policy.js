@@ -1,5 +1,5 @@
-const { Policy } = require("./contentPolicy.js");
-const ABPUtils = require("./abp/utils.js").Utils;
+const { Policy } = require("../lib/contentPolicy.js");
+const ABPUtils = require("../lib/abp/utils.js").Utils;
 
 exports["test Policy hasWhitelistedScheme"] = function(assert) {
   let urls = {

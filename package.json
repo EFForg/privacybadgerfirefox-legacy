@@ -1,7 +1,7 @@
 {
   "name": "privacybadger",
   "title": "Privacy Badger",
-  "id": "jid1-MnnxcxisBPnSXQ",
+  "id": "jid1-MnnxcxisBPnSXQ@jetpack",
   "description": "Protects privacy by blocking spying ads and invisible trackers.",
   "author": "Electronic Frontier Foundation",
   "contributors": ["Yan Zhu", "Garrett Robinson", "Monica Chew", "Cooper Quintin", "Noah Swartz",
@@ -11,6 +11,7 @@
   "permissions": { "private-browsing": true },
   "license": "GPL 3",
   "version": "1.0.2",
+  "main": "lib/main.js",
   "preferences": [{
     "name": "heuristicEnabled",
     "title": "Automatic blocking enabled",

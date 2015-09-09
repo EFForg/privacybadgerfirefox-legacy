@@ -1,9 +1,9 @@
 const { Request } = require("sdk/request");
-const testUtils = require("./testUtils");
+const testUtils = require("../lib/testUtils");
 const { startServerAsync } = require('./httpd');
 const { Ci, Cc, Cr } = require("chrome");
-const main = require("./main");
-const userStorage = require("./userStorage");
+const main = require("../lib/main");
+const userStorage = require("../lib/userStorage");
 userStorage.init();
 
 // Test that PB sets the DNT header to "1"

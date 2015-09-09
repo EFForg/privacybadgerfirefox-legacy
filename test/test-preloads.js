@@ -1,12 +1,12 @@
 const { Cc, Ci } = require("chrome");
 const { storage } = require("sdk/simple-storage");
-const userStorage = require("./userStorage");
+const userStorage = require("../lib/userStorage");
 userStorage.init();
 
 // Hack: import main first to trigger correct order of dependency resolution
-const main = require("./main");
-const utils = require('./utils');
-const { Policy } = require("./contentPolicy");
+const main = require("../lib/main");
+const utils = require('../lib/utils');
+const { Policy } = require("../lib/contentPolicy");
 
 let preloadText = "@@||sgizmo.co^$third-party\n"+
                   "@@||www.logos.co.uk^$third-party\n"+
