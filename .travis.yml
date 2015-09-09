@@ -5,6 +5,7 @@ before_script:
 env:
   - DISPLAY=':99.0'
 script: 
-  - export JPM_FIREFOX_BINARY=$TRAVIS_BUILD_DIR/../firefox/firefox
   - jpm test
+addons:
+  firefox: latest
 sudo: false
