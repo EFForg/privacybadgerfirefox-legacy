@@ -2,8 +2,9 @@ language: node_js
 before_script:
   - sh -e /etc/init.d/xvfb start
   - npm install -g jpm
+addons:
+  firefox: latest
 env:
   - DISPLAY=':99.0'
 script: 
-  - jpm -b /usr/local/bin/firefox test
-sudo: false
+  - jpm -b `which firefox` test
