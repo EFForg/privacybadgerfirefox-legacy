@@ -4,5 +4,7 @@ before_script:
   - npm install -g jpm
 env:
   - DISPLAY=':99.0'
-script: jpm -b `which firefox` test
+script: 
+  - export JPM_FIREFOX_BINARY=$TRAVIS_BUILD_DIR/../firefox/firefox
+  - jpm test
 sudo: false
