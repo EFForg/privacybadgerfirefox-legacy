@@ -1,3 +1,6 @@
+1.0.2				  (2015-08-25)
+  * Change id of self hosted addon for AMO signing, no other updates
+
 1.0.1				  (2015-08-13)
   * Fixes bug where local storage being turned off causes privacy badger to
   fail

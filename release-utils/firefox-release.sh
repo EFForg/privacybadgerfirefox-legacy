@@ -28,9 +28,9 @@ if ! [ -x `which festival` ] ; then
   echo "festival is not installed, cannot speak hashes aloud..."
 fi
 
-PKG=$RDFDIR/privacy-badger-$TARGET.xpi
-ALT=$RDFDIR/privacy-badger-latest.xpi
-RDFFILE=$RDFDIR/privacy-badger-update-2048.rdf
+PKG=$RDFDIR/privacy-badger-eff-$TARGET.xpi
+ALT=$RDFDIR/privacy-badger-eff-latest.xpi
+RDFFILE=$RDFDIR/privacy-badger-eff-update-2048.rdf
 
 LZMARDF=$RDFFILE.lzma
 B_LZMARDF=$LZMARDF.b64
@@ -61,7 +61,7 @@ while read -p "Please enter a pastebin ID once the .rdf has been signed, or pres
               echo '")' ) | festival
 done
 
-if ! wget "http://pastebin.com/download.php?i=$INP" --output-document="$B_LZMARDF" ; then
+if ! wget "http://pastebin.com/raw.php?i=$INP" --output-document="$B_LZMARDF" ; then
   echo "Failed to wget http://pastebin.com/download.php?i=$INP"
   exit 1
 fi

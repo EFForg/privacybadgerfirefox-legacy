@@ -1,5 +1,5 @@
-const { Policy } = require("./contentPolicy.js");
-const utils = require("./utils.js");
+const utils = require("../lib/utils.js");
+const { Policy } = require("../lib/contentPolicy.js");
 
 exports["test Policy hasWhitelistedScheme"] = function(assert) {
   let urls = {

@@ -1,13 +1,13 @@
 const { Request } = require("sdk/request");
-const testUtils = require("./testUtils");
+const testUtils = require("../lib/testUtils");
 const { startServerAsync } = require('./httpd');
 const { Cu /*,Cc, Ci, Cr*/}  = require("chrome");
-const cookieUtils = require("./cookieUtils");
-const main = require("./main");
-const utils = require("./utils");
+const cookieUtils = require("../lib/cookieUtils");
+const main = require("../lib/main");
+const utils = require("../lib/utils");
 const { Services } = Cu.import("resource://gre/modules/Services.jsm");
 const prefsService = require("sdk/preferences/service");
-const userStorage = require("./userStorage");
+const userStorage = require("../lib/userStorage");
 userStorage.init();
 
 function teardown() {
