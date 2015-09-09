@@ -1,8 +1,8 @@
 const events = require("sdk/system/events");
 const { storage } = require("sdk/simple-storage");
 var windows = require("sdk/windows").browserWindows;
-const main = require("./main");
-const userStorage = require("./userStorage");
+const main = require("../lib/main");
+const userStorage = require("../lib/userStorage");
 userStorage.init();
 
 // Site that sets a third party cookie

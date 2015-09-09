@@ -1,9 +1,9 @@
 const { Cc, Ci } = require("chrome");
 const { newURI } = require('sdk/url/utils');
 const { storage } = require("sdk/simple-storage");
-const testUtils = require("./testUtils");
-const heuristicBlocker = require("./heuristicBlocker");
-const userStorage = require("./userStorage");
+const testUtils = require("../lib/testUtils");
+const heuristicBlocker = require("../lib/heuristicBlocker");
+const userStorage = require("../lib/userStorage");
 userStorage.init();
 
 exports.testBlockOrigin = function(assert) {

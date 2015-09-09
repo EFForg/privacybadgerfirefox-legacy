@@ -1,10 +1,8 @@
 language: node_js
 before_script:
   - sh -e /etc/init.d/xvfb start
-  - git submodule update --init
-  - cd addon-sdk
-  - . bin/activate
-  - cd ..
+  - npm install -g jpm
 env:
   - DISPLAY=':99.0'
-script: cfx test   
+script: jpm -b `which firefox` test
+sudo: false
