@@ -1,5 +1,5 @@
+const utils = require("../lib/utils.js");
 const { Policy } = require("../lib/contentPolicy.js");
-const ABPUtils = require("../lib/abp/utils.js").Utils;
 
 exports["test Policy hasWhitelistedScheme"] = function(assert) {
   let urls = {
@@ -11,7 +11,7 @@ exports["test Policy hasWhitelistedScheme"] = function(assert) {
 
   for (let url in urls) {
     let expected = urls[url];
-    assert.equal(Policy._hasWhitelistedScheme(ABPUtils.makeURI(url)),
+    assert.equal(Policy._hasWhitelistedScheme(utils.makeURI(url)),
                  expected,
                  url + " " + (expected ? "should be" : "should not be") + " whitelisted");
   }
