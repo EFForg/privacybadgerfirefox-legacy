@@ -8,3 +8,5 @@ release-utils/xpi
 release-utils/disconnect-content.txt
 release-utils/post-release.sh
 **packages
+bootstrap.js
+install.rdf
