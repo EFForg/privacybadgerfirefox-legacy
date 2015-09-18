@@ -57,7 +57,7 @@ exports.testGetAction = function(assert){
 
   channelCookies = { dnt:"1" };
   assert.ok(
-    hb.getAction(channel, channelInfo, channelCookies) === "no-tracking"
+    hb.getAction(channel, channelInfo, channelCookies) === "notracking"
   );
 
   channelCookies = { test:"1", test2:"2", test3:"3" };
@@ -76,13 +76,13 @@ exports.testGetAction = function(assert){
   // Set cookie preferences to "block all cookies"
   prefsService.set("network.cookie.cookieBehavior", 2);
   assert.ok(
-    hb.getAction(channel, channelInfo, channelCookies) === "no-tracking"
+    hb.getAction(channel, channelInfo, channelCookies) === "notracking"
   );
   
   // Set cookie preferences to "block third party cookies"
   prefsService.set("network.cookie.cookieBehavior", 1);
   assert.ok(
-    hb.getAction(channel, channelInfo, channelCookies) === "no-tracking"
+    hb.getAction(channel, channelInfo, channelCookies) === "notracking"
   );
 
 };
