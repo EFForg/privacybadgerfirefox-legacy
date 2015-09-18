@@ -362,7 +362,6 @@
 @@||cursecdn.com^$third-party
 @@||mt0.google.com^$third-party
 @@||mw1.google.com^$third-party
-@@||getpocket.com^$third-party
 @@||hootsuite.com^$third-party
 @@||mozilla.net^$third-party
 @@||mozilla.org^$third-party
@@ -398,7 +397,6 @@
 @@||nationbuilder.com^$third-party
 @@||kataweb.it^$third-party
 @@||mediaworks.co.nz^$third-party
-@@||cursecdn.com^$third-party
 @@||redditmedia.com^$third-party
 @@||redditstatic.com^$third-party
 @@||shopify.com^$third-party
