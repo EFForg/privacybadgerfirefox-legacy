@@ -1,7 +1,33 @@
 Privacy Badger Firefox:
-Copyright © 2014 Electronic Frontier Foundation and other contributors
+Copyright © 2015 Electronic Frontier Foundation and other contributors
 See the CREDITS file for authorship
-Licensed GPL v3
+Licensed GPL v3 though many portions of the code are dual-licensed under other 
+free/open source licenses.  
+
+CONTRIBUTORS AGREE TO FREE/OPEN SOURCE DUAL-LICENSING
+=====================================================
+
+By contributing code or other works of authorship to this project ("Your
+Contributions"), you grant to the Electronic Frontier Foundation (EFF) a
+perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+license to reproduce, prepare derivative works of, publicly display, publicly
+perform, sublicense, and distribute Your Contributions and such derivative
+works under the terms of any free software or open source license or licenses,
+such license(s) to be selected by EFF at its sole discretion (such licenses
+will always be consistent with EFF's mission).
+
+By contributing code or other works of authorship to this project, you
+represent that you have the legal right and ability to grant this license.
+
+Except for the license granted herein to EFF and recipients of software
+distributed by EFF, You reserve all right, title, and interest in and to Your
+Contributions.
+
+If you do not agree to these terms, please do not send patches or pull
+requests, or commit any material to this repository.
+
+LICENSES FOR INCORPORATED CODEBASES
+===================================
 
 Incorporating code from Vex,
 https://github.com/hubspot/vex
