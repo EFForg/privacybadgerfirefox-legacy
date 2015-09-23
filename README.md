@@ -50,4 +50,4 @@ By default, Privacy Badger sends the Do Not Track header on all requests. It als
 
 ## Contact
 
-The current maintainer of this project is Cooper Quintin (cjq at eff dot org). There is also a [mailing list](https://lists.eff.org/mailman/listinfo/privacybadger) to discuss Privacy Badger development for both Firefox and Chrome.
+The current maintainers of this project are  Cooper Quintin (cjq at eff dot org) and Noah Swartz (noah at eff dot org). There is also a [mailing list](https://lists.eff.org/mailman/listinfo/privacybadger) to discuss Privacy Badger development for both Firefox and Chrome.
