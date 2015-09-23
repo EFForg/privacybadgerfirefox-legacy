@@ -1,12 +1,10 @@
-const { Cc, Ci } = require("chrome");
 const { storage } = require("sdk/simple-storage");
 const userStorage = require("../lib/userStorage");
+const utils = require("../lib/utils");
 userStorage.init();
 
 // Hack: import main first to trigger correct order of dependency resolution
 const main = require("../lib/main");
-const utils = require('../lib/utils');
-const { Policy } = require("../lib/contentPolicy");
 
 let preloadText = "@@||sgizmo.co^$third-party\n"+
                   "@@||www.logos.co.uk^$third-party\n"+
@@ -32,13 +30,13 @@ exports.testPreloads = function(assert) {
                      "https://sgizmo.co.uk",
                      "https://lens.co.uk/abcdef" ];
 
-  goodDomains.forEach(function(element, index, array) {
-    assert.ok(Policy._isPreloadedWhitelistRequest(utils.makeURI(element)),
+  goodDomains.forEach(function(element/*, index, array*/) {
+    assert.ok(utils.isPreloadedWhitelistRequest(utils.makeURI(element)),
               "test that " + element + " is whitelisted");
   });
 
-  badDomains.forEach(function(element, index, array) {
-    assert.ok(!Policy._isPreloadedWhitelistRequest(utils.makeURI(element)),
+  badDomains.forEach(function(element/*, index, array*/) {
+    assert.ok(!utils.isPreloadedWhitelistRequest(utils.makeURI(element)),
               "test that " + element + " is NOT whitelisted");
   });
   main.clearData(true, true);
