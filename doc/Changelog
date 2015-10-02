@@ -1,3 +1,11 @@
+1.0.3				  (2015-10-01)
+  * Fix slow options page bug
+  * Fix bug where privacy badger was blocking things it shouldn't when 
+  cookies were disabled in firefox
+  * Remove ABP code dependencies
+  * Ukranian Localization
+  * Improvements to the first run page 
+
 1.0.2				  (2015-08-25)
   * Change id of self hosted addon for AMO signing, no other updates
 
