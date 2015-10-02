@@ -5,15 +5,15 @@ cd "`dirname $0`"
 APP_NAME=privacybadger
 # Auto-generated XPI name from 'cfx xpi'
 PRE_XPI_NAME="$APP_NAME.xpi"
-LATEST_SDK_VERSION=1.17
+LATEST_SDK_VERSION=1.0.1
 RDF_NAME=xpi/install.rdf
 
-if ! type cfx > /dev/null; then
-  echo "Please activate the Firefox Addon SDK before running this script."
+if ! type jpm > /dev/null; then
+  echo "Please install jpm before running this script."
   exit 1
 fi
 
-if ! cfx --version | grep -q "$LATEST_SDK_VERSION"; then
+if ! jpm --version | grep -q "$LATEST_SDK_VERSION"; then
     echo "Please use the latest stable SDK version or edit this script to the current version."
     exit 1
 fi
@@ -30,8 +30,8 @@ rm -rf xpi/
 mkdir xpi
 
 # Build the unsigned XPI and unzip it
-echo "Running cfx xpi"
-cfx xpi
+echo "Running jpm xpi"
+jpm -b `which firefox` xpi
 unzip -q -d xpi "$PRE_XPI_NAME"
 rm "$PRE_XPI_NAME"
 
