@@ -1,0 +1,325 @@
+body {
+  font-size: 90%;
+  background: #fefefe;
+  color: #333;
+  font-family: helvetica, arial, sans-serif;
+  cursor: default;
+  overflow: hidden;
+}
+
+a { color: #3333cc; }
+
+a:hover { color: #bbbbff }
+
+#filtersList {
+  border: 1px dotted gray;
+  padding: 1px;
+  font-size: 75%;
+  display: none;
+}
+
+#firstRun {
+  display: none;
+  color: #EC9329;
+  text-align: center;
+  border-radius: 3px;
+  margin: 5px 0;
+  border: 2px solid #EC9329;
+}
+#firstRun:hover {
+  text-decoration: underline;
+}
+
+.ui-button {
+  padding: 3px;
+}
+
+.spacer {
+  height: 7px;
+  width: 5px;
+  display: block;
+}
+.clicker{
+  border-top: 1px solid #aaaaaa;
+  padding: 5px;
+  padding-bottom: 20px;
+  height: 12px;
+}
+.origin{
+  width: 206px;
+  color: #555555;
+  font-size: 16px;
+  float: left;
+  display: inline;
+}
+.switch-container{
+  width: 103px;
+  float: left;
+  display: inline;
+  position: relative;
+  cursor: pointer;
+}
+.clear{
+  clear: both;
+}
+.switch-candy a{
+  cursor: move;
+}
+.switch-candy a img{
+  width: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.block .switch-candy a {
+  background-color: #c61223;
+}
+.cookieblock .switch-candy a{
+  background-color: #ffcc00;
+}
+.noaction .switch-candy a{
+  background-color: #339900;
+}
+.honeybadgerPowered{
+  width: 20px;
+  height: 20px;
+  display: inline;
+  float: right;
+  position: relative;
+}
+.userset .honeybadgerPowered{
+  background: url('../icons/badger-undo.png') no-repeat;
+  cursor: pointer;
+}
+.tooltipContainer{
+  display: none;
+  clear: both;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fcfcfc;
+  background-color: #555;
+  height: 14px;
+  border-radius: 7px;
+  padding: 3px;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  position: relative;
+}
+.tooltipArrow{
+  position: relative;
+  top: 8px;
+  right: 200px;
+  display: none;
+}
+#prefs {
+  float: right;
+  margin-left: 3px;
+  margin-top: 3px;
+}
+#help {
+  float: right;
+  margin-right: 5px;
+  margin-top: 3px;
+}
+#detected {
+  color: #707070;
+  font-size: 16px;
+  padding-bottom: 7px;
+}
+#privacyBadgerHeader h2{
+  margin: 10px 10px;
+  float: left;
+  display: inline;
+  color: #707070;
+  font-size: 26px;
+  font-weight: normal;
+  font-family: 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', Arial, sans-serif;;
+
+}
+#privacyBadgerHeader img{
+  display: inline;
+  float: left;
+}
+#helplink {
+  padding-top: 5px;
+  text-decoration: none;
+  color: #4183c4;
+}
+#helplink:hover {
+  color: #aaaaff;
+}
+#trackerLink {
+  color: #4183c4;
+}
+#trackerLink:hover {
+  color: #aaaaff;
+}
+#thirdPartyCookiesError {
+  background-color: #f00;
+  color: #f0f0f0;
+}
+#cookiePrefsWarning {
+  background-color:#FF5757;
+  color:white;
+  font-size:1em;
+  padding:0.75em;
+}
+.modalButton {
+  height: 70px;
+  line-height: 70px;
+  background: #E8E8E8;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 7px;
+  margin-top: 7px;
+  cursor: pointer;
+}
+.clickable {
+  cursor: pointer;
+}
+.buttonActive {
+  background: #FFFFFF;
+}
+#buttonsDiv {
+  font-family: helvetica, arial, sans-serif;
+}
+.vexMessage {
+  height: 50px;
+  line-height: 50px;
+  font-weight: bold;
+  color:black;
+  font-size: 20px;
+  text-align: center;
+}
+.ui-slider {
+  opacity: 1;
+  z-index: 20;
+  border: none;
+}
+.ui-slider .ui-slider-handle {
+  cursor: move;
+  width: 10px;
+  height: 20px;
+  z-index: 30;
+  opacity: 0;
+}
+
+#blockedResources{
+  max-height: 315px;
+  overflow-y: auto;
+}
+.key{
+  position: fixed;
+  height: 25px;
+  width: 310px;
+  padding-left: 217px;
+  z-index: 30;
+  background: #fff;
+}
+.keyTipOuter{
+position: absolute;
+top: -25px;
+left: 100px;
+width: 230px;
+}
+#blockedOriginsInner{
+  margin-top: 25px;
+  padding-bottom: 10px;
+}
+
+.pbButton{
+  border: 1px solid #333;
+  border-radius: 4px;
+  background: linear-gradient(#efefef, #e0e0e0);
+  padding: 5px;
+  cursor: pointer;
+  margin: 5px 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.key img{
+  margin-right: 16px;
+}
+
+#notracking{
+  text-align: center;
+  color: #f9f9f9;
+  background: #555;
+  height: 20px;
+  font-size: 14px;
+  font-weight: bold;
+}
+#overlay {
+  position: absolute;
+  top: 5;
+  left: 5;
+  width: 92%;
+  height: 94%;
+  display: block;
+  font-size: 0.8em;
+  z-index: -1;
+  opacity: 0;
+  padding: 3%;
+  color: #ccc;
+  background: url("background.png");
+  transition: opacity .1s ease;
+}
+div#overlay.active {
+  z-index: 31;
+  opacity: 1;
+}
+#error_input {
+  display: block;
+  width: 70%;
+}
+#report_title {
+  display: inline-block;
+  padding: 0;
+  margin: 0; 
+}
+#report_label {
+  display: block;
+  margin: 1% 0;
+  font-weight: bold;
+}
+#report_button, #report_cancel {
+  cursor: pointer;
+  margin: 2% 2% 0 0;
+}
+#report_close {
+  display: inline-block;
+  float: right;
+  background: none;
+  border: 0;
+  font-size: 1.2em;
+  margin: 0 25;
+  color: #ccc;
+  cursor: pointer;
+}
+#report_close:before {
+  content: '[X]';
+  margin: 5px;
+}
+#report_close:hover {
+  text-decoration: underline;
+}
+#report_success {
+  color: green;
+}
+#report_fail {
+  color: red;
+}
+.hidden {
+  display: none;
+}
+#dnt-compliant {
+  display: inline;
+  float: left;
+}
+#loader{
+  margin-left: 20px; 
+  margin-top: 10px;
+  font-size: 16px;
+  color: #555;
+}

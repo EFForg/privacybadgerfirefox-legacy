@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.py[cod]
 
 # C extensions
@@ -37,3 +38,17 @@ buildtools/jshydra/mozilla/js
 *.DS_Store
 
 node_modules
+=======
+*.swp
+.DS_Store
+addon-sdk-*
+*.xpi
+*~
+release-utils/pkg
+release-utils/xpi
+release-utils/disconnect-content.txt
+release-utils/post-release.sh
+**packages
+bootstrap.js
+install.rdf
+>>>>>>> 062ef5088890cfa5967254a9732f81c4d9dcac00

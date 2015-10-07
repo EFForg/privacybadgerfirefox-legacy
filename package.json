@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "privacy_badger-chrome",
   "version": "1.0.0",
   "description": "Privacy Badger [![Build Status](https://travis-ci.org/EFForg/privacybadgerchrome.svg)](https://travis-ci.org/EFForg/privacybadgerchrome)\r ===================\r Privacy Badger blocks spying ads and invisible trackers. It's there to ensure that companies can't track your browsing without your consent.",
@@ -26,4 +27,54 @@
     "grunt-zip-to-crx": "^0.1.3",
     "qunitjs": "1.15.0"
   }
+=======
+  "name": "privacybadger",
+  "title": "Privacy Badger",
+  "id": "jid1-MnnxcxisBPnSXQ@jetpack",
+  "description": "Protects privacy by blocking spying ads and invisible trackers.",
+  "author": "Electronic Frontier Foundation",
+  "contributors": ["Yan Zhu", "Garrett Robinson", "Monica Chew", "Cooper Quintin", "Noah Swartz",
+                   "Dan Auerbach", "Peter Eckersley", "Jonathan Mayer", "Hugh D'Andrade",
+                   "Franziska Roesner", "Jacob Hoffman-Andrews", "Jeremey Gillula",
+                   "ghostwords"],
+  "permissions": { "private-browsing": true },
+  "license": "GPL 3",
+  "version": "1.0.2",
+  "main": "lib/main.js",
+  "preferences": [{
+    "name": "heuristicEnabled",
+    "title": "Automatic blocking enabled",
+    "type": "bool",
+    "value": true
+  }, {
+    "name": "doNotTrackDefaultEnabled",
+    "title": "Default value of privacy.donottrackheader.enabled",
+    "type": "bool",
+    "value": false,
+    "hidden": true
+  }, {
+    "name": "doNotTrackDefaultValue",
+    "title": "Default value of privacy.donottrackheader.value",
+    "type": "integer",
+    "value": 1,
+    "hidden": true
+  }, {
+    "name": "socialWidgetReplacementEnabled",
+    "title": "Social widget replacement enabled",
+    "type": "bool",
+    "value": true
+  }, {
+    "name": "displayCounter",
+    "title": "Display Tracker Counter (experimental)",
+    "type": "bool",
+    "value": true
+  }, {
+    "name": "blockedDomainRecheckDNT",
+    "title": "Recheck blocked domains for DNT policy document",
+    "type": "bool",
+    "value": true
+  }],
+  "icon": "data/icons/badger-48.png",
+  "icon64": "data/icons/badger-64.png"
+>>>>>>> 062ef5088890cfa5967254a9732f81c4d9dcac00
 }

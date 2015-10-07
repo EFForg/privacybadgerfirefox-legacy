@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 language: python
 python:
   - "2.7"
@@ -8,3 +9,15 @@ before_script:
   - ./setup_travis.sh
   - cd tests
 script:  ./run_selenium_tests.sh
+=======
+language: node_js
+before_script:
+  - sh -e /etc/init.d/xvfb start
+  - npm install -g jpm
+addons:
+  firefox: latest
+env:
+  - DISPLAY=':99.0'
+script: 
+  - jpm -b `which firefox` test
+>>>>>>> 062ef5088890cfa5967254a9732f81c4d9dcac00

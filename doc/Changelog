@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Changes for Privacy Badger 
 ====================================
 ## 2015.8.14 (1.0.1)
@@ -34,3 +35,92 @@ Changes for Privacy Badger
 * Added lots of domains to cookie block list.
 * do not show domains that do not appear to be trackers in the popup
 * added missing google+ button override
+=======
+1.0.2				  (2015-08-25)
+  * Change id of self hosted addon for AMO signing, no other updates
+
+1.0.1				  (2015-08-13)
+  * Fixes bug where local storage being turned off causes privacy badger to
+  fail
+  * Fixes UI bug where two sliders are displayed in the popup
+  * Fixes bug where, tutorial nagging box never goes away. 
+
+1.0.0				  (2015-08-05)
+
+  * Bugfixes from 0.99 
+  * Detects Canvas Fingerprinting
+  * Detect Local Storage Supercookies
+  * Improved UI
+  * Options page for overriding privacy badger settings
+  * Report Broken Site button 
+  * Many Bugfixes (see github)
+  * Translations into swedish, french and german
+
+0.99				  (2015-07-24)
+  * Release Candidate for 1.0
+
+0.2.6.1				  (2015-04-02)
+  * Minor version bump to appease AMO, no other changes
+
+0.2.6				  (2015-04-01)
+  * Various security tweaks and bugfixes for AMO
+  * Make tracker counting badger optional
+
+0.2.5					  (2014-12-18)
+  * Fixes issue with disqus 'allow domain' dialog infinite loop
+  * Adds counter of potential trackers on a site for FF >= 36.0
+
+0.2.4					  (2014-12-17)
+  * Dialog to allow user to whitelist certain trackers to improve functionality.  
+  * Fixes to icon display code to make Privacy Badger work in nightly.
+  * Revamped icon that should look better on dark backgrounds.
+  * Misc other bug fixes
+
+0.2.3					  (2014-10-16)
+  * Strip cookies from DNT policy recheck
+  * Don't recheck DNT policy each time the browser is started
+  * User preference to turn off DNT policy check
+
+0.2.2					  (2014-09-16)
+  * Fixes tests
+  * Fixes console deprecation warning about widget library
+  * Rechecks blocked sites for DNT Policy
+
+0.2.1                                     (2014-07-21)
+  * Migrate ShareMeNot icons to native icons with badger badge (#174)
+  * Fix console errors due to empty object lookups in WeakMaps
+
+0.2                                       (2014-07-17)
+  * Incorporate ShareMeNot functionality.
+  * Smoother UI for "reset to original state" panel button
+  * Sort origins in UI by string-reversed alphabetical order
+  * Show eTLD+1 of very long host names in the panel.
+  * Attempt to not clear user-persistent cookies.
+  * Inject cookies for requests in disabled windows.
+
+0.1.4                                     (2014-06-05)
+  * Support per-window private browsing (#11).
+  * Fix bug caused by missing nsIProgressListener in additional windows.
+  * Set DNT via prefs instead of directly modifying headers (#91).
+
+0.1.3                                     (2014-05-12)
+  * Make "unblock trackers" functionality clearer and add confirmation dialog
+  (#80).
+  * Duplicate "disable this site only" button in settings menu.
+  * Check each parent domain for red/yellow in deciding whether to cookieblock
+  (#81).
+  * Operate consistently w/ 3rd party cookies blocked by default (#64).
+  * Delete exempted cookies when browser closes if user has chosen "delete all
+  cookies on browser close" in Firefox (#85).
+
+0.1.2                                     (2014-05-05)
+  * Fix button icon issues (#72).
+  * Make third-party cookies warning clearer.
+
+0.1.1                                     (2014-05-02)
+  * Whitelists a domain if any of its parent domains are whitelisted (#58)
+  * Update README.md.
+
+0.1                                       (2014-05-01)
+  * hard alpha release of privacy badger firefox.
+>>>>>>> 062ef5088890cfa5967254a9732f81c4d9dcac00
