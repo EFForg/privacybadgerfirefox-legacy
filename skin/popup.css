@@ -1,0 +1,291 @@
+/*
+ * This file is part of Privacy Badger <https://www.eff.org/privacybadger>
+ * Copyright (C) 2014 Electronic Frontier Foundation
+ *
+ * Privacy Badger is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * Privacy Badger is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Privacy Badger.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ /*adjoining-classes:ignore*/
+ /*csslint ids:ignore*/
+body {
+  min-width: 390px;
+  font-size: 14px;
+  background: #fefefe;
+  color: #333;
+  font-family: helvetica, arial, sans-serif;
+}
+
+a { text-decoration: none }
+a:hover { color: #eeeeff }
+
+#filtersList {
+  border: 1px dotted gray;
+  padding: 1px;
+  display: none;
+}
+
+.ui-button {
+    padding: 3px;
+}
+
+.spacer {
+  height: 7px;
+  width: 5px;
+  display: block;
+  clear: both;
+}
+
+.click-nav ul {position:relative;font-weight:900;list-style-type:none;}
+.click-nav ul li {position:relative;list-style:none;cursor:pointer;}
+.click-nav ul li ul {position:relative;}
+.click-nav ul .clicker {position:relative;background:#2284B5;color:#FFF;}
+.click-nav ul .clicker:hover,.click-nav ul .active {background:#196F9A;}
+.click-nav .imglink img {position:absolute;top:9px;left:12px;}
+.click-nav ul li a {transition:background-color 0.2s ease-in-out;-webkit-transition:background-color 0.2s ease-in-out;
+-o-transition:background-color 0.2s ease-in-out;
+-moz-transition:background-color 0.2s ease-in-out;display:block;padding:8px 10px 8px 40px;background:#FFF;color:#333;text-decoration:none;}
+.click-nav ul li a:hover {background:#F2F2F2;}
+.click-nav ul .userset {background-image:url('/skin/lock.png');background-repeat:no-repeat;background-position: right center;} 
+.clicker{
+  border-top: 1px solid #aaaaaa;
+  padding: 5px;
+  height: 40px;
+  overflow: hidden;
+}
+.clicker.greyed { background: #aaa; }
+.origin{
+  width: 60%;
+  color: #555555;
+  float: left;
+  display: inline;
+}
+.switch-container{
+  width: 115px;
+  display: block;
+  margin-left: 220px;
+}
+.options .switch-container{
+  max-width: 114px;
+}
+.clear{
+  clear: both;
+}
+.switch-candy a img{
+  width: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.block .switch-candy a {
+  background-color: #c61223;
+}
+.cookieblock .switch-candy a{
+  background-color: #ffcc00;
+}
+.noaction .switch-candy a{
+  background-color: #339900;
+}
+.honeybadgerPowered{
+  width: 20px;
+  height: 20px;
+  position: relative;
+  left: 345px;
+  bottom: 15px;
+  cursor: pointer;
+}
+.userset .honeybadgerPowered{
+  background: url('/icons/badger-pin.png') no-repeat;
+}
+.tooltipContainer{
+display: none;
+clear: both;
+color: #fcfcfc;
+font-size: 12px;
+background-color: #555;
+height: 12px;
+border-radius: 7px;
+padding: 3px;
+position: relative;
+bottom: 30px;
+left: 0;
+}
+.tooltipArrow{
+  position: relative;
+  bottom: 30px;
+  left: 5px;
+  display: none;
+}
+#privacyBadgerHeader{
+color: #505050;
+font-size: 16px;
+}
+#privacyBadgerHeader h2{
+  margin: 10px;
+  float: left;
+  color: #707070;
+  font-size: 26px;
+  font-weight: normal;
+  font-family: 'Lucida Grande', 'Segoe UI', Tahoma, 'DejaVu Sans', Arial, sans-serif;;
+}
+#privacyBadgerHeader img{
+  float: left;
+}
+#helplink {
+  padding-top: 5px;
+  color: #4183c4;
+}
+#thirdPartyCookiesError {
+  background-color: #f00;
+  color: #f0f0f0;
+}
+.ui-slider {
+  opacity: 0;
+  z-index: 20;
+}
+.ui-slider .ui-slider-handle {
+  cursor: move;
+}
+#siteControls {
+  margin-bottom: 5px;
+}
+
+#firstRun {
+  display: none;
+  color: #EC9329;
+  text-align: center;
+  border-radius: 3px;
+  margin: 5px 0;
+  border: 2px solid #EC9329;
+}
+
+#firstRun:hover {
+  text-decoration: underline;
+}
+#noBlockingLink{
+  text-align: center;
+  z-index: 20;
+  margin: auto;
+}
+#noBlockingLink a {
+  color:#4183c4;
+}
+#blockedResources{
+  max-height: 320px;
+  overflow-y: auto;
+}
+.key{
+  position: fixed;
+  height: 25px;
+  width: 160px;
+  padding-left: 215px;
+  z-index: 30;
+  background: #fff;
+}
+.key img{
+  margin-left: 19px;
+}
+.key .tooltipContainer{
+  position: absolute;
+  left: 3px;
+  top:-1;
+}
+#options{
+  float: right;
+}
+#help{
+  float: right;
+  padding-right: 5px;
+}
+.clickerContainer{
+  margin-top: 25px;
+}
+#pbInstructions{
+  color: #707070;
+  font-size: 16px;
+  margin: 0;
+}
+
+.pbButton{
+  border: 1px solid #333;
+  border-radius: 4px;
+  background: linear-gradient(#efefef, #e0e0e0);
+  padding: 5px;
+  cursor: pointer;
+  margin: 5px 0;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+}
+#nonTrackers {
+  text-align: center;
+  color: #f9f9f9;
+  background: #555;
+  height: auto;
+  font-size: 14px;
+  font-weight: bold;
+}
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  font-size: 0.8em;
+  z-index: -1;
+  opacity: 0;
+  padding: 3%;
+  color: #ccc;
+  background: url("/skin/background.png");
+  transition: opacity .1s ease;
+}
+  div#overlay.active {
+    z-index: 31;
+    opacity: 1;}
+#error_input {
+  display: block;
+  width: 70%;}
+#report_title {
+  display: inline-block;
+  padding: 0;
+  margin: 0; }
+#report_label {
+  display: block;
+  margin: 1% 0;
+  font-weight: bold;}
+#report_button, #report_cancel {
+  cursor: pointer;
+  margin: 2% 2% 0 0;}
+#report_success {
+  color: green;}
+#report_fail {
+  color: red;}
+#report_close {
+  display: inline-block;
+  float: right;
+  background: none;
+  border: 0;
+  font-size: 1.2em;
+  margin: 0 25;
+  cursor: pointer;
+  color: #ccc;}
+#report_close:before {
+  content: '[X]';
+  margin: 5px;}
+#report_close:hover {
+  text-decoration: underline;}
+#dnt-compliant {
+  float: left;
+  display: inline;
+}
+.hidden {
+  display: none;
+}

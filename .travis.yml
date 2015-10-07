@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+language: python
+python:
+  - "2.7"
+install:
+  - sudo apt-get -qq install xvfb python-virtualenv
+  - npm install
+before_script:
+  - ./setup_travis.sh
+  - cd tests
+script:  ./run_selenium_tests.sh
+=======
 language: node_js
 before_script:
   - sh -e /etc/init.d/xvfb start
@@ -8,3 +20,4 @@ env:
   - DISPLAY=':99.0'
 script: 
   - jpm -b `which firefox` test
+>>>>>>> 062ef5088890cfa5967254a9732f81c4d9dcac00

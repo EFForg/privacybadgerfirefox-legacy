@@ -1,3 +1,44 @@
+<<<<<<< HEAD
+*.py[cod]
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib64
+__pycache__
+
+# Chrome extensions
+*.crx
+
+# Dynamic libraries
+*.dylib
+
+# JSHydra
+buildtools/jshydra/mozilla/js
+
+#vim swap files
+*.sw*
+
+#zip files
+*.zip
+
+#Mac DS_Store
+*.DS_Store
+
+node_modules
+=======
 *.swp
 .DS_Store
 addon-sdk-*
@@ -10,3 +51,4 @@ release-utils/post-release.sh
 **packages
 bootstrap.js
 install.rdf
+>>>>>>> 062ef5088890cfa5967254a9732f81c4d9dcac00
