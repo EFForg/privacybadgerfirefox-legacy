@@ -253,7 +253,7 @@ function refreshPopup(settings) {
   $('#count').text(count);
   if(notracking.length > 0){
     printable = printable +
-        '<div class="clicker" id="notracking" style="text-align:left">' + no_tracking + '</div>';
+        '<div class="clicker" id="notracking">' + no_tracking + '</div>';
     for (let i = 0; i < notracking.length; i++){
       printable += _addOriginHTML(notracking[i], "noaction", false);
     }
