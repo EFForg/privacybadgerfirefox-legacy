@@ -3,7 +3,6 @@ const { storage } = require("sdk/simple-storage");
 var windows = require("sdk/windows").browserWindows;
 const main = require("../lib/main");
 const userStorage = require("../lib/userStorage");
-userStorage.init();
 
 // Site that sets a third party cookie
 const TEST_URL = "https://en.support.wordpress.com/third-party-cookies/";
@@ -170,7 +169,7 @@ exports.testBoth = function(assert, done) {
     done();
   });
 };
-*/
 
+*/
 require("sdk/test").run(exports);
 

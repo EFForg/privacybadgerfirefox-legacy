@@ -1,5 +1,8 @@
 const utils = require("../lib/utils.js");
 const { Policy } = require("../lib/contentPolicy.js");
+const userStorage = require("../lib/userStorage.js");
+userStorage.init();
+
 
 exports["test Policy hasWhitelistedScheme"] = function(assert) {
   let urls = {
