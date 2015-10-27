@@ -1,10 +1,10 @@
 #!/bin/sh
 set -e
+CURDIR="`dirname $0`"
 cd "`dirname $0`"
 
-APP_NAME=privacybadger
 # Auto-generated XPI name from 'cfx xpi'
-PRE_XPI_NAME="$APP_NAME.xpi"
+PRE_XPI_NAME=jid1-MnnxcxisBPnSXQ@jetpack-1.0.3.xpi #package name
 LATEST_SDK_VERSION=1.0.1
 RDF_NAME=xpi/install.rdf
 
@@ -31,13 +31,13 @@ mkdir xpi
 
 # Build the unsigned XPI and unzip it
 echo "Running jpm xpi"
-jpm -b `which firefox` xpi
-unzip -q -d xpi "$PRE_XPI_NAME"
-rm "$PRE_XPI_NAME"
+../build.sh -s
+unzip -q -d xpi "../src/$PRE_XPI_NAME"
+rm "../src/$PRE_XPI_NAME"
 
 # Customize install.rdf with our updateKey and URL
 sed -i 's,<em:id>jid1-MnnxcxisBPnSXQ@jetpack</em:id>,<em:id>jid1-MnnxcxisBPnSXQ-eff@jetpack</em:id>,' $RDF_NAME
-sed -i ':a;N;$!ba;s@</Description>\n</RDF>@\n@g' $RDF_NAME
+sed -i ':a;N;$!ba;s@\s*</Description>\n\s*</RDF>@\n@g' $RDF_NAME
 cat install-template.rdf >> $RDF_NAME
 cp -r ../META-INF xpi
 
@@ -46,8 +46,9 @@ rm -f "$XPI_NAME"
 cd xpi
 zip -q -X -9r "$XPI_NAME" .
 
-echo "Created $XPI_NAME in $(pwd)"
 
 # Move it to the canonical location
 mkdir -p ../pkg
 mv "$XPI_NAME" ../pkg/
+cd ../pkg/
+echo "Created $XPI_NAME in $(pwd)"
