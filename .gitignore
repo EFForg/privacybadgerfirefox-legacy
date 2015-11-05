@@ -10,3 +10,4 @@ release-utils/post-release.sh
 **packages
 bootstrap.js
 install.rdf
+src
