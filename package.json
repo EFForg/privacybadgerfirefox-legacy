@@ -45,6 +45,8 @@
     "type": "bool",
     "value": true
   }],
-  "icon": "data/icons/badger-48.png",
-  "icon64": "data/icons/badger-64.png"
+  "icon": {
+    "48": "icon.png",
+    "64": "icon64.png"
+  }
 }
