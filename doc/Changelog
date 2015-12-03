@@ -1,3 +1,10 @@
+1.0.4				  (2015-12-3)
+  * add spanish translation
+  * add chinese translation
+  * fix icon not displaying bug
+  * badge counter displays number of domains blocked and cookieblocked instead
+  of all potential trackers
+
 1.0.3				  (2015-10-01)
   * Fix slow options page bug
   * Fix bug where privacy badger was blocking things it shouldn't when 
