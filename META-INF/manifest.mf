@@ -2,8 +2,18 @@ Manifest-Version: 1.0
 
 Name: install.rdf
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: eVaInZKa1RIjClkDP1E/QQ==
-SHA1-Digest: px+Ynsj0WS29FPvbIbW5QhudXjs=
+MD5-Digest: oPOUx3VCa3DJl4ENWkLhLQ==
+SHA1-Digest: LhX6MvW7j7KGZrPNvuJtgJ9YRtc=
+
+Name: icon.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: wPEgjnj01ZymOK1XOvrGcg==
+SHA1-Digest: 6f+w6Smfox69rLe4/hukc3yrCzw=
+
+Name: icon64.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: AeySsXzZczv9CJ+hTgSz7w==
+SHA1-Digest: CQP8xUOuNH6GKxGj0d4BCDlPo7g=
 
 Name: bootstrap.js
 Digest-Algorithms: MD5 SHA1
@@ -12,8 +22,8 @@ SHA1-Digest: zJpzqwwkcqSyH1WTx95W5OVwAf8=
 
 Name: package.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: noWNlcRdFU26+LUocnVUdA==
-SHA1-Digest: /ni3ZL9PCY/0CH2M+QdJhtwJGdg=
+MD5-Digest: 74efjA/fWipb9CXpOqktXA==
+SHA1-Digest: RnF9jKQEfPa1VYzkxZ2IklPiILs=
 
 Name: data/blocked.html
 Digest-Algorithms: MD5 SHA1
@@ -506,8 +516,8 @@ SHA1-Digest: CB/1uLDZ4uphUON/HzQ4BgLMYCI=
 
 Name: data/skin/popup.css
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 9QAVfmREX0iA3dFpHqSvdA==
-SHA1-Digest: NHGe4HT1PaXzCGbmxkjK4pUAHuw=
+MD5-Digest: COpctiFtXpDeFItNeLhepQ==
+SHA1-Digest: roz3nobSTHnYCH5SLk0Yhppzgjw=
 
 Name: data/skin/socialwidgets.css
 Digest-Algorithms: MD5 SHA1
@@ -666,13 +676,13 @@ SHA1-Digest: FNJGYlm7QzAHhlSzLOCqxrk92YA=
 
 Name: lib/package.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: noWNlcRdFU26+LUocnVUdA==
-SHA1-Digest: /ni3ZL9PCY/0CH2M+QdJhtwJGdg=
+MD5-Digest: 74efjA/fWipb9CXpOqktXA==
+SHA1-Digest: RnF9jKQEfPa1VYzkxZ2IklPiILs=
 
 Name: lib/policyCheck.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: FMKha/cUkWWumsJVMdJnQA==
-SHA1-Digest: CYVqLG/EwijckSYl02RyefVui04=
+MD5-Digest: AVoYmwIRH6bBbCBigrfC7g==
+SHA1-Digest: VKdJzhJlWN5hiXzLHyFuUw+xMXo=
 
 Name: lib/prefsListener.js
 Digest-Algorithms: MD5 SHA1
@@ -711,8 +721,8 @@ SHA1-Digest: CokVLTUYC54zA9wWiUhcMND5XPA=
 
 Name: lib/ui.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 5ANHYbRXdFgrTJZt3ZvWmg==
-SHA1-Digest: zz5zDbT9j/IiR4xrtsdWUI/V1Ic=
+MD5-Digest: +OnieRbHl541fikJVlTmpA==
+SHA1-Digest: rdUkxkjtdgC5SARKGUpcJrbmJZg=
 
 Name: lib/userStorage.js
 Digest-Algorithms: MD5 SHA1
@@ -731,8 +741,13 @@ SHA1-Digest: AocK6C22r/TAlaiIv+fHGS/vRuA=
 
 Name: locale/en-US.properties
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 1X5jccACXFrZGd1i18fJLg==
-SHA1-Digest: rETME8eTYVsTdbpj4HvWa17tu+U=
+MD5-Digest: q6dA6I1aIkiD0kxcOYucAA==
+SHA1-Digest: qrcA/kT/ONUBirXtuGajSpC2MYk=
+
+Name: locale/es.properties
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: DsWjfKnFNB/cJO/cDz/vRg==
+SHA1-Digest: vsRxw4F/w095nvCu9kgNhPoYB8M=
 
 Name: locale/fr.properties
 Digest-Algorithms: MD5 SHA1
@@ -741,8 +756,8 @@ SHA1-Digest: 35TFOZfg+6kFahj0+09AiuGJqB0=
 
 Name: locale/it.properties
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: Yb6SmKBiYEmANAHcheLPhA==
-SHA1-Digest: rwYwImR7BFNm91RQijAV3mDPfeM=
+MD5-Digest: q8+DfcHTVS6bT5fHXLBMtg==
+SHA1-Digest: AjdFWI+prVKTmwVtCiI9/khGozw=
 
 Name: locale/nl.properties
 Digest-Algorithms: MD5 SHA1
@@ -756,8 +771,13 @@ SHA1-Digest: iwwBbo0rn2p9TYY4TFTEzS0XE7U=
 
 Name: locale/uk.properties
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: EFUQk8eRVNhitfd0YtYBMQ==
-SHA1-Digest: 059mjg/gJAhEvcomtzC2RQmGVRQ=
+MD5-Digest: vPdjMteepkMglX9cwq0nqg==
+SHA1-Digest: 6R7xM1uUAzZktNjq4MZzPIOiAXw=
+
+Name: locale/zh.properties
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: WcpqpN4bGX3Xh2VW6lxoZg==
+SHA1-Digest: lgPJ0Uq7nSEpvibPtB22N1UIkVw=
 
 Name: LICENSE
 Digest-Algorithms: MD5 SHA1
