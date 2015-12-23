@@ -17,7 +17,7 @@ mkdir $SRC;
 cp -r data lib package.json LICENSE locale icon.png icon64.png $SRC;
 
 # If this is a self hosted release include META-INF
-if [ $1 == "-s" ]; then
+if [ "$1" == "-s" ]; then
   cp -r META-INF $SRC;
 fi;
 
