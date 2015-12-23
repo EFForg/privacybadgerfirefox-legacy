@@ -82,6 +82,41 @@ exports.testRepeatAtRandom = function(assert, done){
   });
 }
 
+// Test util for determining if a host is private.
+exports.testIsPrivateHost = function(assert) {
+  let test_results = {
+    'localhost': true,
+    '127.0.0.1': true,
+    '9.4.201.150': false,
+    '10.3.0.99': true,
+    '11.240.84.107': false,
+    '171.20.103.65': false,
+    '172.15.2.0': false,
+    '172.16.25.30': true,
+    '172.31.16.2': true,
+    '172.32.3.4': false,
+    '173.28.86.211': false,
+    '191.168.33.41': false,
+    '192.167.101.111': false,
+    '192.168.1.5': true,
+    '192.169.204.154': false,
+    '193.168.28.139': false,
+    'privacybadger.org': false,
+  };
+
+  for (let host in test_results) {
+    // Ignore object properties.
+    if (! test_results.hasOwnProperty(host)) {
+      continue;
+    }
+
+    let expected = test_results[host];
+    let errorMessage = host +
+      (expected ? ' should be' : ' should not be') + ' private';
+    assert.equal(utils.isPrivateHost(host), expected, errorMessage);
+  }
+}
+
 exports.testIsSubdomain = function(assert){
   let tld = 'privacybadger.org';
   assert.equal(utils.isSubdomain('foo.privacybadger.org', tld), true);
