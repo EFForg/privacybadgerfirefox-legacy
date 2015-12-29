@@ -104,6 +104,8 @@ function createReplacementButtonImage(tracker) {
   button.setAttribute("class", "privacyBadgerReplacementButton");
   button.setAttribute("title", "PrivacyBadger has replaced this " +
                       tracker.name + " button.");
+  button.setAttribute("alt", "PrivacyBadger has replaced this " +
+                      tracker.name + " button.");
 
   switch (buttonType) {
     case 0: // normal button type; just open a new window when clicked
