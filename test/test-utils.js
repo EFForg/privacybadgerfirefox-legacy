@@ -86,7 +86,9 @@ exports.testRepeatAtRandom = function(assert, done){
 exports.testIsPrivateHost = function(assert) {
   let test_results = {
     'localhost': true,
+    '126.0.0.13': false,
     '127.0.0.1': true,
+    '128.0.2.27': false,
     '9.4.201.150': false,
     '10.3.0.99': true,
     '11.240.84.107': false,
