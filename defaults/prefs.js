@@ -34,3 +34,4 @@ pref("extensions.privacybadger.hideContributeButton", false);
 pref("extensions.privacybadger.blockableItemsSize", {width: 200, height: 200});
 pref("extensions.privacybadger.notificationurl", "https://notification.privacybadger.org/notification.json");
 pref("extensions.privacybadger.notificationdata", {});
+pref("extensions.privacybadger.disableFirstrunPage", false);
