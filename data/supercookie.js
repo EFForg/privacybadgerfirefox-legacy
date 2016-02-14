@@ -103,8 +103,8 @@ function getScScript() {
         lsItem = localStorage.getItem(lsKey);
         estimatedEntropy += estimateMaxEntropy(lsKey + lsItem);
         if (estimatedEntropy > LOCALSTORAGE_ENTROPY_THRESHOLD){
-          console.log("Found hi-entropy localStorage: ", estimatedEntropy,
-            " bits", document.location.href, lsKey);
+          // console.log("Found hi-entropy localStorage: ", estimatedEntropy,
+            // " bits", document.location.href, lsKey);
           return true;
         }
       }
@@ -143,6 +143,7 @@ document.addEventListener(event_id_super_cookie, function (e) {
   self.port.emit('superCookieReport', e.detail);
 });
 
+// TODO: we should only inject when the extension is not deactivated for the current page
 insertScript(getScScript(), {
   event_id_super_cookie: event_id_super_cookie
 });
