@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="jquery-ui/css/smoothness/jquery-ui.theme.css" />
+  <link rel="stylesheet" media="screen" href="skin/popup.css" />
+  <link rel="stylesheet" media="screen" href="skin/toggle-switch.css" />
+</head>
+<body id="main">
+  <div id="firstRun">
+    <p data-l10n-id="first_run_text"></p>
+  </div>
+  <div id="overlay">
+    <h1 id="report_title" data-l10n-id="report_title"></h1>
+      <span id="report_close" data-l10n-id="report_close"></span>
+      <p id="report_text" data-l10n-id="report_text"></p>
+        <label id="report_label" for="error_input" data-l10n-id="report_input_label"></label>
+        <textarea id="error_input" name="error_input" maxlength="300"></textarea>
+        <button id="report_button" data-l10n-id="report_button"></button>
+        <button id="report_cancel" data-l10n-id="report_cancel"></button>
+        <span id="report_success" data-l10n-id="report_success" class="hidden"></span>
+        <span id="report_fail" data-l10n-id="report_fail" class="hidden"></span>
+        <p id="report_terms" data-l10n-id="report_terms"></p>
+  </div>
+  <div id='privacyBadgerHeader'>
+    <span id='title'><img id="badgerImg" src='icons/badger-48.png' class="clickable"><img id="badgerImg2" src='icons/badger-grey-48.png' class="clickable"><h2 data-l10n-id="privacy_badger"></h2></span>
+    <span id='prefs'><img id="gearImg" src='icons/gear-light-25.png' title="Settings" class="clickable hidepanel"></span>
+    <span id='help'><img id="helpImg" src='icons/help.png' title="Help" class="clickable hidepanel"></span>
+    <div id='detected' class='clear'></div>
+    <div id="loader" class='clear' data-l10n-id="loading"></div>
+  </div>
+
+  <div id="blockedResourcesContainer">
+    <div class="spacer"></div>
+    <div id="blockedResources"></div>
+  </div>
+
+  <div class='pbButton' id='disableButton' data-l10n-id="deactivate_on_site"></div><div class='pbButton' id='enableButton' data-l10n-id="activate_on_site"></div>
+  <div id='error' class='pbButton' style="display:block" data-l10n-id="report_bug"></div>
+  <center><a id="helplink" class="hidePanel" href="https://www.eff.org/privacybadger" target="_blank" tabindex="-1" title="Privacy Badger Website" data-l10n-id="frequently_asked_questions"></a></center>
+  <div id='privacy_badger' style="display:none" data-l10n-id="privacy_badger"></div>
+  <div id='loading' style="display:none" data-l10n-id="loading"></div>
+  <div id='frequently_asked_questions' style="display:none" data-l10n-id="frequently_asked_questions"></div>
+  <div id='deactivate_on_site' style="display:none" data-l10n-id="deactivate_on_site"></div>
+  <div id='activate_on_site' style="display:none" data-l10n-id="activate_on_site"></div>
+  <div id='click_badger_activate_on_site' style="display:none" data-l10n-id="click_badger_activate_on_site"></div>
+  <div id='settings_unblock' style="display:none" data-l10n-id="settings_unblock"></div>
+  <div id='settings_disable' style="display:none" data-l10n-id="settings_disable"></div>
+  <div id='settings_report' style="display:none" data-l10n-id="settings_report"></div>
+  <div id='restore_button' style="display:none" data-l10n-id="restore_button"></div>
+  <div id='status_reload' style="display:none" data-l10n-id="status_reload"></div>
+  <div id='status_none_detected' style="display:none" data-l10n-id="status_none_detected"></div>
+  <div id='notracking' style="display:none" data-l10n-id="notracking"></div>
+  <div id='pb_detected' style="display:none" data-l10n-id="pb_detected"></div>
+  <div id='potential' style="display:none" data-l10n-id="potential"></div>
+  <div id='trackers' style="display:none" data-l10n-id="trackers"></div>
+  <div id='from_these_sites' style="display:none" data-l10n-id="from_these_sites"></div>
+  <div id='cookie_prefs_warning' style="display:none" data-l10n-id="cookie_prefs_warning"></div>
+  <div id='feed_the_badger_title' style="display:none" data-l10n-id="feed_the_badger_title"></div>
+  <div id='unblock_all' style="display:none" data-l10n-id="unblock_all"></div>
+  <div id='disable_on_page' style="display:none" data-l10n-id="disable_on_page"></div>
+  <div id='report_bug' style="display:none" data-l10n-id="report_bug"></div>
+  <div id='report_field' style="display:none" data-l10n-id="report_field"></div>
+</body>
+</html>

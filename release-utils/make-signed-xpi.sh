@@ -31,7 +31,7 @@ mkdir xpi
 
 # Build the unsigned XPI and unzip it
 echo "Running jpm xpi"
-../build.sh -s
+../build.sh $1 -s
 unzip -q -d xpi "../src/$PRE_XPI_NAME"
 rm "../src/$PRE_XPI_NAME"
 
