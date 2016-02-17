@@ -89,9 +89,11 @@ function initialize() {
  *
  * @param {Tracker} tracker the Tracker object for the button
  *
+ * @param {Element} trackerElem the DOM Element for the button
+ *
  * @return {Element} a replacement button element for the tracker
  */
-function createReplacementButtonImage(tracker) {
+function createReplacementButtonImage(tracker, trackerElem) {
   let buttonData = tracker.replacementButton;
 
   let button = document.createElement("img");
@@ -129,7 +131,17 @@ function createReplacementButtonImage(tracker) {
       button.savedClickListener = function() {
         replaceButtonWithHtmlCodeAndUnblockTracker(button,
                                                    buttonData.unblockDomains,
-                                                   details);
+                                                   details, null);
+      };
+      button.addEventListener("click", button.savedClickListener, true);
+      break;
+
+    case 3: // in place widget type; replace the existing button with the DOM 
+            // element that was previously there.
+      button.savedClickListener = function() {
+        replaceButtonWithHtmlCodeAndUnblockTracker(button,
+                                                   buttonData.unblockDomains,
+                                                   null, trackerElem);
       };
       button.addEventListener("click", button.savedClickListener, true);
       break;
@@ -206,15 +218,20 @@ function replaceButtonWithIframeAndUnblockTracker(button, tracker, iframeUrl) {
  * @param {Tracker} tracker the Tracker object for the tracker that should be
  *                          unblocked
  * @param {String} html the HTML code that should replace the button
+ * @param {Element} element the DOM Element that should replace the button
  */
-function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
+function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html, element) {
   unblockTracker(tracker, function() {
     // check is needed as for an unknown reason this callback function is
     // executed for buttons that have already been removed; we are trying
     // to prevent replacing an already removed button
     if (button.parentNode !== null) {
       let codeContainer = document.createElement("div");
-      codeContainer.innerHTML = html;
+      if(html) {
+        codeContainer.innerHTML = html;
+      } else {
+        codeContainer.innerHTML = element.outerHTML;
+      }
 
       button.parentNode.replaceChild(codeContainer, button);
 
@@ -290,7 +307,7 @@ function replaceIndividualButton(tracker) {
 
     console.log("Replacing social widget for " + tracker.name);
     let button =
-      createReplacementButtonImage(tracker);
+      createReplacementButtonImage(tracker, buttonToReplace);
 
     buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
   }
