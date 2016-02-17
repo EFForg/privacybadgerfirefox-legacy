@@ -103,8 +103,7 @@ function getScScript() {
         lsItem = localStorage.getItem(lsKey);
         estimatedEntropy += estimateMaxEntropy(lsKey + lsItem);
         if (estimatedEntropy > LOCALSTORAGE_ENTROPY_THRESHOLD){
-          console.log("Found hi-entropy localStorage: ", estimatedEntropy,
-            " bits", document.location.href, lsKey);
+          //console.log("Found hi-entropy localStorage: ", estimatedEntropy, " bits", document.location.href, lsKey);
           return true;
         }
       }
