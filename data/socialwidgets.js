@@ -131,7 +131,7 @@ function createReplacementButtonImage(tracker, trackerElem) {
       button.savedClickListener = function() {
         replaceButtonWithHtmlCodeAndUnblockTracker(button,
                                                    buttonData.unblockDomains,
-                                                   details, null);
+                                                   details);
       };
       button.addEventListener("click", button.savedClickListener, true);
       break;
@@ -141,7 +141,7 @@ function createReplacementButtonImage(tracker, trackerElem) {
       button.savedClickListener = function() {
         replaceButtonWithHtmlCodeAndUnblockTracker(button,
                                                    buttonData.unblockDomains,
-                                                   null, trackerElem);
+                                                   trackerElem);
       };
       button.addEventListener("click", button.savedClickListener, true);
       break;
@@ -217,20 +217,19 @@ function replaceButtonWithIframeAndUnblockTracker(button, tracker, iframeUrl) {
  * @param {Element} button the DOM element of the button to replace
  * @param {Tracker} tracker the Tracker object for the tracker that should be
  *                          unblocked
- * @param {String} html the HTML code that should replace the button
- * @param {Element} element the DOM Element that should replace the button
+ * @param {(String|Element)} html the HTML string or DOM Element that should replace the button
  */
-function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html, element) {
+function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
   unblockTracker(tracker, function() {
     // check is needed as for an unknown reason this callback function is
     // executed for buttons that have already been removed; we are trying
     // to prevent replacing an already removed button
     if (button.parentNode !== null) {
       let codeContainer = document.createElement("div");
-      if(html) {
+      if(typeof html == "string") {
         codeContainer.innerHTML = html;
       } else {
-        codeContainer.innerHTML = element.outerHTML;
+        codeContainer.innerHTML = html.outerHTML;
       }
 
       button.parentNode.replaceChild(codeContainer, button);
