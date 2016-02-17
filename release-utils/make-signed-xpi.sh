@@ -4,7 +4,7 @@ CURDIR="`dirname $0`"
 cd "`dirname $0`"
 
 # Auto-generated XPI name from 'cfx xpi'
-PRE_XPI_NAME=jid1-MnnxcxisBPnSXQ@jetpack-1.0.3.xpi #package name
+PRE_XPI_NAME=jid1-MnnxcxisBPnSXQ@jetpack-$1.xpi #package name
 LATEST_SDK_VERSION=1.0.1
 RDF_NAME=xpi/install.rdf
 
@@ -31,7 +31,7 @@ mkdir xpi
 
 # Build the unsigned XPI and unzip it
 echo "Running jpm xpi"
-../build.sh -s
+../build.sh $1 -s
 unzip -q -d xpi "../src/$PRE_XPI_NAME"
 rm "../src/$PRE_XPI_NAME"
 
