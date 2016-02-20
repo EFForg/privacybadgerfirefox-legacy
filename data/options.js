@@ -38,6 +38,8 @@ function loadOptions() {
       location.reload();
     }
 
+    $('#trackingDomainSearch').on('input', filterTrackingDomains);
+
     $("#blockedResourcesContainer").on("change", "input:radio", updateOrigin);
     $('#blockedResourcesContainer').on('click', '.userset .honeybadgerPowered', resetControl);
     $('#blockedResourcesContainer').on('mouseenter', '.tooltip', displayTooltip);
@@ -136,10 +138,10 @@ function updateSettings(elt, status) {
 function loadDisabledSites(disabledSites){
 console.log('disabled sites', disabledSites);
 $('#excludedDomainsBox').empty();
-$.each(disabledSites, function(key) {   
+$.each(disabledSites, function(key) {
   $('#excludedDomainsBox')
     .append($('<option>', { value : key })
-    .text(key)); 
+    .text(key));
 });
 }
 
@@ -186,32 +188,33 @@ function _reverseSort(list){
   return list.map(reverseString).sort().map(reverseString);
 }
 
-function loadOrigins(origins){
-  var trackerStatus = pb_detected + " <span id='count'>0</span> " + potential + " <a id='trackerLink' target=_blank tabindex=-1 title='What is a tracker?' href='https://www.eff.org/privacybadger#trackers'>" + trackers + "</a> " + from_these_sites;
-  $("#detected").html(trackerStatus);
-  var printable = "";
-  printable += '<div class="key">' +
-    '<div class="keyTipOuter"><div class="tooltipContainer" id="keyTooltip"></div></div>' + 
+/**
+ * Displays tracking domains with overview and tooltips.
+ * @param origins Tracking domains to display.
+ */
+function loadOrigins(origins) {
+  // Display tracker overview.
+  let trackerStatus = pb_detected + ' <span id="count">0</span> ' + potential +
+    ' <a id="trackerLink" target=_blank tabindex=-1 title="What is a tracker?" ' +
+    'href="https://www.eff.org/privacybadger#trackers">' +
+    trackers + '</a> ' + from_these_sites;
+  $('#detected').html(trackerStatus);
+
+  // Display tracker tooltips.
+  let trackerTooltips = '<div class="key">' +
+    '<div class="keyTipOuter"><div class="tooltipContainer" id="keyTooltip"></div></div>' +
     '<img class="tooltip" src="icons/UI-icons-red.png" tooltip="Move the slider left to block a domain.">'+
     '<img class="tooltip" src="icons/UI-icons-yellow.png" tooltip="Center the slider to block cookies.">'+
     '<img class="tooltip" src="icons/UI-icons-green.png" tooltip="Move the slider right to allow a domain.">'+
-    '</div><div id="blockedOriginsInner">';
-  var count = 0;
-  var sorted = _reverseSort(Object.keys(origins));
-  for (var i=0; i<sorted.length; i++){
-    var origin = sorted[i];
-    var action = origins[origin];
-    count++;
-    // todo: gross hack, use templating framework
-    printable = _addOriginHTML(origin, printable, action);
-  }
-  $('#count').text(count);
-  printable += "</div>";
-  $("#blockedResources").html(printable);
-  $('.switch-toggle').each(function(){ registerSliderHandlers(this); });
+    '</div><div id="blockedOriginsInner"></div>';
+  $('#blockedResources').html(trackerTooltips);
+
+  // Display tracking domains.
+  let sortedOrigins = _reverseSort(Object.keys(origins));
+  $('#count').text(sortedOrigins.length);
+  showTrackingDomains(sortedOrigins);
 
   console.log("Done refreshing origins");
-
 }
 
 function reloadOrigins(origins){
@@ -225,6 +228,51 @@ function reloadOrigins(origins){
       originCache[origin] = origins[origin];
     }
   }
+}
+
+/**
+ * Displays filtered list of tracking domains based on user input.
+ * @param event Input event triggered by user.
+ */
+function filterTrackingDomains(event) {
+  let domains = [];
+  let searchText = $('#trackingDomainSearch').val().toLowerCase();
+
+  for (let trackingDomain in originCache) {
+    // Ignore object properties.
+    if (! originCache.hasOwnProperty(trackingDomain)) {
+      continue;
+    }
+
+    // Ignore domains that do not contain search text.
+    if (trackingDomain.toLowerCase().indexOf(searchText) !== -1) {
+      domains.push(trackingDomain);
+    }
+  }
+
+  // Display filtered list of domains.
+  let sortedDomains = _reverseSort(domains);
+  showTrackingDomains(sortedDomains);
+}
+
+/**
+ * Displays list of tracking domains along with toggle controls.
+ * @param domains Tracking domains to display.
+ */
+function showTrackingDomains(domains) {
+  // Create HTML for list of tracking domains.
+  let trackerDetails = '<div id="blockedOriginsInner">';
+  for (let i = 0; i < domains.length; i++) {
+    let tracker = domains[i];
+    let action = originCache[tracker];
+    // todo: gross hack, use templating framework
+    trackerDetails = _addOriginHTML(tracker, trackerDetails, action);
+  }
+  trackerDetails += '</div>';
+
+  // Display tracking domains.
+  $('#blockedOriginsInner').html(trackerDetails);
+  $('.switch-toggle').each(function(){ registerSliderHandlers(this); });
 }
 
 function registerSliderHandlers(elem){
@@ -284,7 +332,7 @@ function _badgerStatusTitle(action, origin){
   return statusMap[action] + postfix;
 }
 function _addToggleHtml(origin, action){
-  
+
   var output = "";
   output += '<div class="switch-container tooltip ' + action + '" tooltip="' + _badgerStatusTitle(action, origin)  + '">';
   output += '<div class="switch-toggle switch-3 switch-candy">';
