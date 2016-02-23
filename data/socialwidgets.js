@@ -89,9 +89,11 @@ function initialize() {
  *
  * @param {Tracker} tracker the Tracker object for the button
  *
+ * @param {Element} trackerElem the DOM Element for the button
+ *
  * @return {Element} a replacement button element for the tracker
  */
-function createReplacementButtonImage(tracker) {
+function createReplacementButtonImage(tracker, trackerElem) {
   let buttonData = tracker.replacementButton;
 
   let button = document.createElement("img");
@@ -130,6 +132,16 @@ function createReplacementButtonImage(tracker) {
         replaceButtonWithHtmlCodeAndUnblockTracker(button,
                                                    buttonData.unblockDomains,
                                                    details);
+      };
+      button.addEventListener("click", button.savedClickListener, true);
+      break;
+
+    case 3: // in place widget type; replace the existing button with the DOM 
+            // element that was previously there.
+      button.savedClickListener = function() {
+        replaceButtonWithHtmlCodeAndUnblockTracker(button,
+                                                   buttonData.unblockDomains,
+                                                   trackerElem);
       };
       button.addEventListener("click", button.savedClickListener, true);
       break;
@@ -205,7 +217,7 @@ function replaceButtonWithIframeAndUnblockTracker(button, tracker, iframeUrl) {
  * @param {Element} button the DOM element of the button to replace
  * @param {Tracker} tracker the Tracker object for the tracker that should be
  *                          unblocked
- * @param {String} html the HTML code that should replace the button
+ * @param {(String|Element)} html the HTML string or DOM Element that should replace the button
  */
 function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
   unblockTracker(tracker, function() {
@@ -214,7 +226,11 @@ function replaceButtonWithHtmlCodeAndUnblockTracker(button, tracker, html) {
     // to prevent replacing an already removed button
     if (button.parentNode !== null) {
       let codeContainer = document.createElement("div");
-      codeContainer.innerHTML = html;
+      if(typeof html == "string") {
+        codeContainer.innerHTML = html;
+      } else {
+        codeContainer.innerHTML = html.outerHTML;
+      }
 
       button.parentNode.replaceChild(codeContainer, button);
 
@@ -290,7 +306,7 @@ function replaceIndividualButton(tracker) {
 
     console.log("Replacing social widget for " + tracker.name);
     let button =
-      createReplacementButtonImage(tracker);
+      createReplacementButtonImage(tracker, buttonToReplace);
 
     buttonToReplace.parentNode.replaceChild(button, buttonToReplace);
   }
