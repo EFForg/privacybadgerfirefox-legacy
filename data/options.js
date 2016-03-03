@@ -38,6 +38,8 @@ function loadOptions() {
       location.reload();
     }
 
+    // Set up input for searching through tracking domains.
+    $('#trackingDomainSearch').attr('placeholder', $('#options_domain_search').text());
     $('#trackingDomainSearch').on('input', filterTrackingDomains);
 
     $("#blockedResourcesContainer").on("change", "input:radio", updateOrigin);
