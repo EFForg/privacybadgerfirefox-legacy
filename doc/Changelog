@@ -1,3 +1,9 @@
+1.0.6				  (2016-3-2)
+  * New feature: Search within blocked domain list
+  * New feature: Use wildcard in disabled sites list
+  * Replace soundcloud widget with a click to play button
+  * Misc. bug fixes and translation improvements
+
 1.0.5				  (2015-12-3)
   * add spanish translation
   * add chinese translation
