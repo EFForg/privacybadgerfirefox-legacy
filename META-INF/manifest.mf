@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 
 Name: install.rdf
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: oPOUx3VCa3DJl4ENWkLhLQ==
-SHA1-Digest: LhX6MvW7j7KGZrPNvuJtgJ9YRtc=
+MD5-Digest: l+2XHk1gXGkjvM3/GRmNZw==
+SHA1-Digest: JPFZQVZULa2Km4W0XUfHUJoH5NU=
 
 Name: icon.png
 Digest-Algorithms: MD5 SHA1
@@ -22,8 +22,8 @@ SHA1-Digest: zJpzqwwkcqSyH1WTx95W5OVwAf8=
 
 Name: package.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 74efjA/fWipb9CXpOqktXA==
-SHA1-Digest: RnF9jKQEfPa1VYzkxZ2IklPiILs=
+MD5-Digest: 6LXDSevo0xmcQouSXR51Ow==
+SHA1-Digest: IBh015LfGiv/tiY0qbTNkrE5MnE=
 
 Name: data/blocked.html
 Digest-Algorithms: MD5 SHA1
@@ -77,13 +77,13 @@ SHA1-Digest: xyNAFb9yNJ569Vz1wgqGiq3C2/U=
 
 Name: data/options.html
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: EI6Okg13HiHHAdvOSNYhHg==
-SHA1-Digest: cZYxAfuGnMAI9vRGf/C3tbM/pOE=
+MD5-Digest: h/Yg5GPnNlu83V0BTZgvxQ==
+SHA1-Digest: XMcevewbdHHZ1hKuY7JUGhf+T/4=
 
 Name: data/options.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: +JCH1v52gRg4xfVtXTyOXg==
-SHA1-Digest: Hd0aaRjV1zpuHXG4QHfYm2E0cwg=
+MD5-Digest: vXuV/6ghVAQdDvisxVgx4Q==
+SHA1-Digest: c3/8kgux+ubKJJ0rL6h9G9mBQk8=
 
 Name: data/pbbutton.html
 Digest-Algorithms: MD5 SHA1
@@ -102,18 +102,18 @@ SHA1-Digest: pXdD3Bm593etwxx0HXxF7wWt7o4=
 
 Name: data/socialwidgets.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: pu5NDDG0S9qfBKN9aUXBGA==
-SHA1-Digest: m26yLe/1C8+IOfqv87XBncDFlYY=
+MD5-Digest: peVSSJNI/y20rGjqQ6mFoQ==
+SHA1-Digest: rcRbJGXl6kHtJtPnPc9jn9f/pBk=
 
 Name: data/socialwidgets.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: JjTBOD3gnEibxX3EWmpgng==
-SHA1-Digest: 9p/1huFmvWlV0UCAHs7fppgpSzE=
+MD5-Digest: AN7/D+wH+wPpiK0W7R5L9w==
+SHA1-Digest: 0J/jD0ONdDZs+n/5KOzL3l2Ogsg=
 
 Name: data/supercookie.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: hcm1hY3bM6L6WPZ/SvcO2A==
-SHA1-Digest: 37SiIDy/YiVY3kvAxj+lY6+Uu70=
+MD5-Digest: J0mU3NmOH2egJENSp8hfRg==
+SHA1-Digest: kX9gqh8g2qO6tblumDbL+1TI4eQ=
 
 Name: data/tld.js
 Digest-Algorithms: MD5 SHA1
@@ -372,8 +372,8 @@ SHA1-Digest: gRdgwZAlkS4PwvThyEUCTRl1FkQ=
 
 Name: data/icons/slideshow/PB-layouts-15.png
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: TWBTv2p5tkF38wX90EjEvw==
-SHA1-Digest: 3sK2+rXeU1b0QlZ4Ct9RDvmiM60=
+MD5-Digest: 1ZarhPP5FucdvQ+PF8jI/Q==
+SHA1-Digest: C7/EnFx3nT1b0nUp4VqNObTDLIg=
 
 Name: data/jquery-ui/css/smoothness/jquery-ui.theme.css
 Digest-Algorithms: MD5 SHA1
@@ -609,6 +609,11 @@ Digest-Algorithms: MD5 SHA1
 MD5-Digest: OFjVcMw7VbPMLJ296UyIUg==
 SHA1-Digest: k5HVUhuHqfcb52N+NJK8vZdN9Gw=
 
+Name: data/skin/socialwidgets/soundcloud.png
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: N9exqESgELh54JhqRe7peA==
+SHA1-Digest: C8802I4NYNk9YpFQIG64CYoQ9ZQ=
+
 Name: data/skin/socialwidgets/StumbleUpon.svg
 Digest-Algorithms: MD5 SHA1
 MD5-Digest: ZV0UFgwhhE6tIZ5MHYw/TQ==
@@ -646,8 +651,8 @@ SHA1-Digest: oc+JeeVdVbw7UKGDEDssmMzTh6A=
 
 Name: lib/contentPolicy.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: JN0QNEJ8dI8zjvowxtNjZA==
-SHA1-Digest: bGQT/97IuqXZCQXrxHUIvTWm+pY=
+MD5-Digest: GWKdBanSBGKL+C/bGQknXw==
+SHA1-Digest: w9Q/ABxG7aKmyGrBo30Pj+WIKjA=
 
 Name: lib/cookieUtils.js
 Digest-Algorithms: MD5 SHA1
@@ -671,13 +676,13 @@ SHA1-Digest: 4fPzULxqDwl0tqmJp0UXGJlyMsg=
 
 Name: lib/main.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: Bf1m+VaQwLOMLXDsb0dkJw==
-SHA1-Digest: FNJGYlm7QzAHhlSzLOCqxrk92YA=
+MD5-Digest: E048jFQnBS+h0Rymkl6ikA==
+SHA1-Digest: C2/aIB5cSHPxGJRGEU1J/TfjKMM=
 
 Name: lib/package.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 74efjA/fWipb9CXpOqktXA==
-SHA1-Digest: RnF9jKQEfPa1VYzkxZ2IklPiILs=
+MD5-Digest: 6LXDSevo0xmcQouSXR51Ow==
+SHA1-Digest: IBh015LfGiv/tiY0qbTNkrE5MnE=
 
 Name: lib/policyCheck.js
 Digest-Algorithms: MD5 SHA1
@@ -701,13 +706,13 @@ SHA1-Digest: aSYe8vR0CJejQwJwUE8/DU2HeVY=
 
 Name: lib/sha1.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: +YhmVZUDiAV+hM9Ca8hkiA==
-SHA1-Digest: hUjB1IrBG17FRxJt51R2PBfKhrU=
+MD5-Digest: Eog6CUA1qultlWuovrW7UA==
+SHA1-Digest: BFEdfX+JlWbtNzU9pH+tsADiGp4=
 
 Name: lib/socialWidgetHandler.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: CZuCYiTCMKM2S98uQNTGIQ==
-SHA1-Digest: W0srVYaO38SCQDlkLurA6nqTOsI=
+MD5-Digest: Ru6O1yRVTZCP7fXgWdhefA==
+SHA1-Digest: qBZkQJrqFxPKlkLk/TOql3YmuL0=
 
 Name: lib/socialWidgetLoader.js
 Digest-Algorithms: MD5 SHA1
@@ -726,23 +731,28 @@ SHA1-Digest: rdUkxkjtdgC5SARKGUpcJrbmJZg=
 
 Name: lib/userStorage.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: PnUGnIwOGSnM5qBncNWEig==
-SHA1-Digest: gHLxzhYN8SdPBIV3xslwCBW+R/4=
+MD5-Digest: GfnwtdlVghiPb5c2OAc/+Q==
+SHA1-Digest: GVHUgvMtYgyFpFHMvt3QsQ2rimA=
 
 Name: lib/utils.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 9K/b5NUYMdLK4Ws/uxxTJg==
-SHA1-Digest: X0QvZ1MULF3s1VYq8pUcKR3eQ14=
+MD5-Digest: WkJJmdOCBENG3QMGhPotVg==
+SHA1-Digest: jUzJ1vE3pnsHyD1SOgGnV6Mvmbs=
 
 Name: lib/WorkerQueue.js
 Digest-Algorithms: MD5 SHA1
 MD5-Digest: MLC9hvHiCQwjPW2Xdi+L8A==
 SHA1-Digest: AocK6C22r/TAlaiIv+fHGS/vRuA=
 
+Name: locale/de.properties
+Digest-Algorithms: MD5 SHA1
+MD5-Digest: p5ixJKpFIHFoJhIpZcRbrQ==
+SHA1-Digest: Hck6MUfcOtwmnvlIpCXaCxQpc3s=
+
 Name: locale/en-US.properties
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: q6dA6I1aIkiD0kxcOYucAA==
-SHA1-Digest: qrcA/kT/ONUBirXtuGajSpC2MYk=
+MD5-Digest: XA0NkEzBZb5o/eva+SVUmw==
+SHA1-Digest: bw5M7W+VkOZfWJ+13h3hxaF7kiQ=
 
 Name: locale/es.properties
 Digest-Algorithms: MD5 SHA1
@@ -751,13 +761,13 @@ SHA1-Digest: vsRxw4F/w095nvCu9kgNhPoYB8M=
 
 Name: locale/fr.properties
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: i2aP/vEYLB+ZhH8qzGTYcA==
-SHA1-Digest: 35TFOZfg+6kFahj0+09AiuGJqB0=
+MD5-Digest: OZpVl7/hf77drRaqARHVsQ==
+SHA1-Digest: 413gkMeN+LWmmWC0m/Pz6etf1tY=
 
 Name: locale/it.properties
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: q8+DfcHTVS6bT5fHXLBMtg==
-SHA1-Digest: AjdFWI+prVKTmwVtCiI9/khGozw=
+MD5-Digest: vWR9U9fB8XNetS38+yIanw==
+SHA1-Digest: ngZv91RXjjrACqSFN0aiKVri7UU=
 
 Name: locale/nl.properties
 Digest-Algorithms: MD5 SHA1
@@ -771,8 +781,8 @@ SHA1-Digest: iwwBbo0rn2p9TYY4TFTEzS0XE7U=
 
 Name: locale/uk.properties
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: vPdjMteepkMglX9cwq0nqg==
-SHA1-Digest: 6R7xM1uUAzZktNjq4MZzPIOiAXw=
+MD5-Digest: /jsfjc+jL7dObtJT5wnPIQ==
+SHA1-Digest: 2ShIhMsmYNPlLGn+2acXLVnd3C8=
 
 Name: locale/zh.properties
 Digest-Algorithms: MD5 SHA1
