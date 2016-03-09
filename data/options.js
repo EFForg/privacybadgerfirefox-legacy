@@ -35,7 +35,7 @@ function loadOptions() {
     $('#blockedResources').css('max-height',$(window).height() - 300);
     $(window).on('focus', debounce(handleVisibilityChange, 1000, true));
     function handleVisibilityChange(){
-      location.reload();
+      self.port.emit("reqSettings");
     }
 
     // Set up input for searching through tracking domains.
@@ -69,11 +69,10 @@ function loadOptions() {
     // prefs: from the simple-prefs sdk
     loadDisabledSites(settings.disabledSites);
     loadPrefs(settings.prefs);
-    if(!originCache){
-      originCache = settings.origins;
-      loadOrigins(settings.origins);
+    if (! originCache) {
+      loadTrackingDomains(settings.origins);
     } else {
-      reloadOrigins(settings.origins);
+      showTrackingDomainStats(settings.origins);
     }
   });
 }
@@ -192,44 +191,43 @@ function _reverseSort(list){
 
 /**
  * Displays tracking domains with overview and tooltips.
- * @param origins Tracking domains to display.
+ * @param domains Tracking domains to display.
  */
-function loadOrigins(origins) {
-  // Display tracker overview.
-  let trackerStatus = pb_detected + ' <span id="count">0</span> ' + potential +
+function loadTrackingDomains(domains) {
+  originCache = domains;
+
+  // Display overview.
+  let trackingOverview = pb_detected + ' <span id="count">0</span> ' + potential +
     ' <a id="trackerLink" target=_blank tabindex=-1 title="What is a tracker?" ' +
     'href="https://www.eff.org/privacybadger#trackers">' +
     trackers + '</a> ' + from_these_sites;
-  $('#detected').html(trackerStatus);
+  $('#detected').html(trackingOverview);
 
-  // Display tracker tooltips.
-  let trackerTooltips = '<div class="key">' +
+  // Display tooltips.
+  let trackingTooltips = '<div class="key">' +
     '<div class="keyTipOuter"><div class="tooltipContainer" id="keyTooltip"></div></div>' +
     '<img class="tooltip" src="icons/UI-icons-red.png" tooltip="Move the slider left to block a domain.">'+
     '<img class="tooltip" src="icons/UI-icons-yellow.png" tooltip="Center the slider to block cookies.">'+
     '<img class="tooltip" src="icons/UI-icons-green.png" tooltip="Move the slider right to allow a domain.">'+
     '</div><div id="blockedOriginsInner"></div>';
-  $('#blockedResources').html(trackerTooltips);
+  $('#blockedResources').html(trackingTooltips);
 
-  // Display tracking domains.
-  let sortedOrigins = _reverseSort(Object.keys(origins));
-  $('#count').text(sortedOrigins.length);
-  showTrackingDomains(sortedOrigins);
+  showTrackingDomainStats(domains);
 
-  console.log("Done refreshing origins");
+  console.log("Done loading tracking domains");
 }
 
-function reloadOrigins(origins){
-  var count = Object.keys(origins).length;
-  $('#count').text(count);
+/**
+ * Displays stats for tracking domains.
+ * @param domains Tracking domains to display stats for.
+ */
+function showTrackingDomainStats(domains) {
+  originCache = domains;
 
-  for(origin in origins){
-    if( origins[origin] !== originCache[origin] ) {
-      let printable = _addOriginHTML(origin, '', origins[origin]);
-      $("div[data-origin='"+origin+"']").replaceWith(printable);
-      originCache[origin] = origins[origin];
-    }
-  }
+  let trackingDomainCount = Object.keys(domains).length;
+  $('#count').text(trackingDomainCount);
+
+  showTrackingDomains(domains);
 }
 
 /**
@@ -252,9 +250,7 @@ function filterTrackingDomains(event) {
     }
   }
 
-  // Display filtered list of domains.
-  let sortedDomains = _reverseSort(domains);
-  showTrackingDomains(sortedDomains);
+  showTrackingDomains(domains);
 }
 
 /**
@@ -262,10 +258,12 @@ function filterTrackingDomains(event) {
  * @param domains Tracking domains to display.
  */
 function showTrackingDomains(domains) {
+  let sortedDomains = _reverseSort(Object.keys(domains));
+
   // Create HTML for list of tracking domains.
   let trackerDetails = '<div id="blockedOriginsInner">';
-  for (let i = 0; i < domains.length; i++) {
-    let tracker = domains[i];
+  for (let i = 0; i < sortedDomains.length; i++) {
+    let tracker = sortedDomains[i];
     let action = originCache[tracker];
     // todo: gross hack, use templating framework
     trackerDetails = _addOriginHTML(tracker, trackerDetails, action);
