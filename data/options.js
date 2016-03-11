@@ -227,7 +227,7 @@ function showTrackingDomainStats(domains) {
   let trackingDomainCount = Object.keys(domains).length;
   $('#count').text(trackingDomainCount);
 
-  showTrackingDomains(domains);
+  showTrackingDomains(Object.keys(domains));
 }
 
 /**
@@ -258,7 +258,7 @@ function filterTrackingDomains(event) {
  * @param domains Tracking domains to display.
  */
 function showTrackingDomains(domains) {
-  let sortedDomains = _reverseSort(Object.keys(domains));
+  let sortedDomains = _reverseSort(domains);
 
   // Create HTML for list of tracking domains.
   let trackerDetails = '<div id="blockedOriginsInner">';
