@@ -227,7 +227,7 @@ function showTrackingDomainStats(domains) {
   let trackingDomainCount = Object.keys(domains).length;
   $('#count').text(trackingDomainCount);
 
-  showTrackingDomains(domains);
+  showTrackingDomains(Object.keys(domains));
 }
 
 /**
@@ -235,22 +235,34 @@ function showTrackingDomainStats(domains) {
  * @param event Input event triggered by user.
  */
 function filterTrackingDomains(event) {
-  let domains = [];
-  let searchText = $('#trackingDomainSearch').val().toLowerCase();
+  let initialSearchText = $('#trackingDomainSearch').val().toLowerCase();
 
-  for (let trackingDomain in originCache) {
-    // Ignore object properties.
-    if (! originCache.hasOwnProperty(trackingDomain)) {
-      continue;
+  // Wait a short period of time and see if search text has changed.
+  // If so it means user is still typing so hold off on filtering.
+  let timeToWait = 500;
+  setTimeout(function() {
+    // Check search text.
+    let searchText = $('#trackingDomainSearch').val().toLowerCase();
+    if (searchText !== initialSearchText) {
+      return;
     }
 
-    // Ignore domains that do not contain search text.
-    if (trackingDomain.toLowerCase().indexOf(searchText) !== -1) {
-      domains.push(trackingDomain);
-    }
-  }
+    // Filter tracking domains based on search text.
+    let domains = [];
+    for (let trackingDomain in originCache) {
+      // Ignore object properties.
+      if (! originCache.hasOwnProperty(trackingDomain)) {
+        continue;
+      }
 
-  showTrackingDomains(domains);
+      // Ignore domains that do not contain search text.
+      if (trackingDomain.toLowerCase().indexOf(searchText) !== -1) {
+        domains.push(trackingDomain);
+      }
+    }
+
+    showTrackingDomains(domains);
+  }, timeToWait);
 }
 
 /**
@@ -258,7 +270,7 @@ function filterTrackingDomains(event) {
  * @param domains Tracking domains to display.
  */
 function showTrackingDomains(domains) {
-  let sortedDomains = _reverseSort(Object.keys(domains));
+  let sortedDomains = _reverseSort(domains);
 
   // Create HTML for list of tracking domains.
   let trackerDetails = '<div id="blockedOriginsInner">';
