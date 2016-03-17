@@ -224,10 +224,20 @@ function loadTrackingDomains(domains) {
 function showTrackingDomainStats(domains) {
   originCache = domains;
 
+  // Display updated tracking domain count.
   let trackingDomainCount = Object.keys(domains).length;
   $('#count').text(trackingDomainCount);
 
-  showTrackingDomains(Object.keys(domains));
+  // If no search text has been entered then update all domains to ensure new
+  // domains are included. If not, only refresh display for domains to avoid
+  // messing up user's filtered list.
+  let searchText = $('#trackingDomainSearch').val();
+  if (searchText.length === 0) {
+    showTrackingDomains(Object.keys(domains));
+  } else {
+    let filteredDomains = getFilteredTrackingDomains(searchText);
+    refreshTrackingDomainDisplay(filteredDomains);
+  }
 }
 
 /**
@@ -235,34 +245,46 @@ function showTrackingDomainStats(domains) {
  * @param event Input event triggered by user.
  */
 function filterTrackingDomains(event) {
-  let initialSearchText = $('#trackingDomainSearch').val().toLowerCase();
+  let initialSearchText = $('#trackingDomainSearch').val();
 
   // Wait a short period of time and see if search text has changed.
   // If so it means user is still typing so hold off on filtering.
   let timeToWait = 500;
   setTimeout(function() {
     // Check search text.
-    let searchText = $('#trackingDomainSearch').val().toLowerCase();
+    let searchText = $('#trackingDomainSearch').val();
     if (searchText !== initialSearchText) {
       return;
     }
 
-    // Filter tracking domains based on search text.
-    let domains = [];
-    for (let trackingDomain in originCache) {
-      // Ignore object properties.
-      if (! originCache.hasOwnProperty(trackingDomain)) {
-        continue;
-      }
-
-      // Ignore domains that do not contain search text.
-      if (trackingDomain.toLowerCase().indexOf(searchText) !== -1) {
-        domains.push(trackingDomain);
-      }
-    }
-
+    // Show filtered tracking domains.
+    let domains = getFilteredTrackingDomains(searchText);
     showTrackingDomains(domains);
   }, timeToWait);
+}
+
+/**
+ * Gets array of filtered tracking domains.
+ *
+ * @param {String} searchText Text to check tracking domains against.
+ * @returns {Array} Tracking domains containing search text, case-insensitive.
+ */
+function getFilteredTrackingDomains(searchText) {
+  let searchTextLowerCase = searchText.toLowerCase();
+
+  let domains = [];
+  for (let trackingDomain in originCache) {
+    // Ignore object properties.
+    if (! originCache.hasOwnProperty(trackingDomain)) {
+      continue;
+    }
+
+    // Ignore domains that do not contain search text.
+    if (trackingDomain.toLowerCase().indexOf(searchTextLowerCase) > -1) {
+      domains.push(trackingDomain);
+    }
+  }
+  return domains;
 }
 
 /**
@@ -285,6 +307,20 @@ function showTrackingDomains(domains) {
   // Display tracking domains.
   $('#blockedOriginsInner').html(trackerDetails);
   $('.switch-toggle').each(function(){ registerSliderHandlers(this); });
+}
+
+/**
+ * Refreshes display for given domains to show any action changes.
+ *
+ * @param {Array} domains Domains to refresh display for.
+ */
+function refreshTrackingDomainDisplay(domains) {
+  for (let i = 0; i < domains.length; i++) {
+    let trackingDomain = domains[i];
+    let domainHtml = _addOriginHTML(trackingDomain, '', originCache[trackingDomain]);
+    $("div[data-origin='" + trackingDomain + "']").replaceWith(domainHtml);
+    $('.switch-toggle').each(function(){ registerSliderHandlers(this); });
+  }
 }
 
 function registerSliderHandlers(elem){
