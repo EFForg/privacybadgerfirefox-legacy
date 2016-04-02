@@ -127,6 +127,7 @@ function registerListeners(){
   $("#disableButton").click(function() { self.port.emit("deactivateSite"); });
   $('#helpImg').click(function() { self.port.emit("openHelp"); });
   $('#gearImg').click(function() { self.port.emit("openOptions"); });
+  $('#donate').click(function() { self.port.emit("openDonate"); });
   $("#error").click(function(){ overlay.toggleClass('active'); });
   $("#report_cancel").click(function(){
     reportClose(overlay);
