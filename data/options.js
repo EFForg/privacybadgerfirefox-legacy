@@ -35,7 +35,7 @@ function loadOptions() {
     $('#blockedResources').css('max-height',$(window).height() - 300);
     $(window).on('focus', debounce(handleVisibilityChange, 1000, true));
     function handleVisibilityChange(){
-      location.reload();
+      self.port.emit("reqSettings");
     }
 
     // Set up input for searching through tracking domains.
@@ -69,11 +69,10 @@ function loadOptions() {
     // prefs: from the simple-prefs sdk
     loadDisabledSites(settings.disabledSites);
     loadPrefs(settings.prefs);
-    if(!originCache){
-      originCache = settings.origins;
-      loadOrigins(settings.origins);
+    if (! originCache) {
+      loadTrackingDomains(settings.origins);
     } else {
-      reloadOrigins(settings.origins);
+      showTrackingDomainStats(settings.origins);
     }
   });
 }
@@ -192,43 +191,52 @@ function _reverseSort(list){
 
 /**
  * Displays tracking domains with overview and tooltips.
- * @param origins Tracking domains to display.
+ * @param domains Tracking domains to display.
  */
-function loadOrigins(origins) {
-  // Display tracker overview.
-  let trackerStatus = pb_detected + ' <span id="count">0</span> ' + potential +
+function loadTrackingDomains(domains) {
+  originCache = domains;
+
+  // Display overview.
+  let trackingOverview = pb_detected + ' <span id="count">0</span> ' + potential +
     ' <a id="trackerLink" target=_blank tabindex=-1 title="What is a tracker?" ' +
     'href="https://www.eff.org/privacybadger#trackers">' +
     trackers + '</a> ' + from_these_sites;
-  $('#detected').html(trackerStatus);
+  $('#detected').html(trackingOverview);
 
-  // Display tracker tooltips.
-  let trackerTooltips = '<div class="key">' +
+  // Display tooltips.
+  let trackingTooltips = '<div class="key">' +
     '<div class="keyTipOuter"><div class="tooltipContainer" id="keyTooltip"></div></div>' +
     '<img class="tooltip" src="icons/UI-icons-red.png" tooltip="Move the slider left to block a domain.">'+
     '<img class="tooltip" src="icons/UI-icons-yellow.png" tooltip="Center the slider to block cookies.">'+
     '<img class="tooltip" src="icons/UI-icons-green.png" tooltip="Move the slider right to allow a domain.">'+
     '</div><div id="blockedOriginsInner"></div>';
-  $('#blockedResources').html(trackerTooltips);
+  $('#blockedResources').html(trackingTooltips);
 
-  // Display tracking domains.
-  let sortedOrigins = _reverseSort(Object.keys(origins));
-  $('#count').text(sortedOrigins.length);
-  showTrackingDomains(sortedOrigins);
+  showTrackingDomainStats(domains);
 
-  console.log("Done refreshing origins");
+  console.log("Done loading tracking domains");
 }
 
-function reloadOrigins(origins){
-  var count = Object.keys(origins).length;
-  $('#count').text(count);
+/**
+ * Displays stats for tracking domains.
+ * @param domains Tracking domains to display stats for.
+ */
+function showTrackingDomainStats(domains) {
+  originCache = domains;
 
-  for(origin in origins){
-    if( origins[origin] !== originCache[origin] ) {
-      let printable = _addOriginHTML(origin, '', origins[origin]);
-      $("div[data-origin='"+origin+"']").replaceWith(printable);
-      originCache[origin] = origins[origin];
-    }
+  // Display updated tracking domain count.
+  let trackingDomainCount = Object.keys(domains).length;
+  $('#count').text(trackingDomainCount);
+
+  // If no search text has been entered then update all domains to ensure new
+  // domains are included. If not, only refresh display for domains to avoid
+  // messing up user's filtered list.
+  let searchText = $('#trackingDomainSearch').val();
+  if (searchText.length === 0) {
+    showTrackingDomains(Object.keys(domains));
+  } else {
+    let filteredDomains = getFilteredTrackingDomains(searchText);
+    refreshTrackingDomainDisplay(filteredDomains);
   }
 }
 
@@ -237,9 +245,34 @@ function reloadOrigins(origins){
  * @param event Input event triggered by user.
  */
 function filterTrackingDomains(event) {
-  let domains = [];
-  let searchText = $('#trackingDomainSearch').val().toLowerCase();
+  let initialSearchText = $('#trackingDomainSearch').val();
 
+  // Wait a short period of time and see if search text has changed.
+  // If so it means user is still typing so hold off on filtering.
+  let timeToWait = 500;
+  setTimeout(function() {
+    // Check search text.
+    let searchText = $('#trackingDomainSearch').val();
+    if (searchText !== initialSearchText) {
+      return;
+    }
+
+    // Show filtered tracking domains.
+    let domains = getFilteredTrackingDomains(searchText);
+    showTrackingDomains(domains);
+  }, timeToWait);
+}
+
+/**
+ * Gets array of filtered tracking domains.
+ *
+ * @param {String} searchText Text to check tracking domains against.
+ * @returns {Array} Tracking domains containing search text, case-insensitive.
+ */
+function getFilteredTrackingDomains(searchText) {
+  let searchTextLowerCase = searchText.toLowerCase();
+
+  let domains = [];
   for (let trackingDomain in originCache) {
     // Ignore object properties.
     if (! originCache.hasOwnProperty(trackingDomain)) {
@@ -247,14 +280,11 @@ function filterTrackingDomains(event) {
     }
 
     // Ignore domains that do not contain search text.
-    if (trackingDomain.toLowerCase().indexOf(searchText) !== -1) {
+    if (trackingDomain.toLowerCase().indexOf(searchTextLowerCase) > -1) {
       domains.push(trackingDomain);
     }
   }
-
-  // Display filtered list of domains.
-  let sortedDomains = _reverseSort(domains);
-  showTrackingDomains(sortedDomains);
+  return domains;
 }
 
 /**
@@ -262,10 +292,12 @@ function filterTrackingDomains(event) {
  * @param domains Tracking domains to display.
  */
 function showTrackingDomains(domains) {
+  let sortedDomains = _reverseSort(domains);
+
   // Create HTML for list of tracking domains.
   let trackerDetails = '<div id="blockedOriginsInner">';
-  for (let i = 0; i < domains.length; i++) {
-    let tracker = domains[i];
+  for (let i = 0; i < sortedDomains.length; i++) {
+    let tracker = sortedDomains[i];
     let action = originCache[tracker];
     // todo: gross hack, use templating framework
     trackerDetails = _addOriginHTML(tracker, trackerDetails, action);
@@ -275,6 +307,20 @@ function showTrackingDomains(domains) {
   // Display tracking domains.
   $('#blockedOriginsInner').html(trackerDetails);
   $('.switch-toggle').each(function(){ registerSliderHandlers(this); });
+}
+
+/**
+ * Refreshes display for given domains to show any action changes.
+ *
+ * @param {Array} domains Domains to refresh display for.
+ */
+function refreshTrackingDomainDisplay(domains) {
+  for (let i = 0; i < domains.length; i++) {
+    let trackingDomain = domains[i];
+    let domainHtml = _addOriginHTML(trackingDomain, '', originCache[trackingDomain]);
+    $("div[data-origin='" + trackingDomain + "']").replaceWith(domainHtml);
+    $('.switch-toggle').each(function(){ registerSliderHandlers(this); });
+  }
 }
 
 function registerSliderHandlers(elem){

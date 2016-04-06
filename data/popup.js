@@ -121,12 +121,13 @@ function registerListeners(){
   var overlay = $('#overlay');
   $("#firstRun").click(function() { 
     self.port.emit("openSlideshow"); });
-  $("#badgerImg2").click(function() { self.port.emit("activateSite"); });
-  $("#badgerImg").click(function() { self.port.emit("deactivateSite"); });
+  $("#badgerImg2").click(function() { window.open("https://www.eff.org/privacybadger", "_blank"); });
+  $("#badgerImg").click(function() { window.open("https://www.eff.org/privacybadger", "_blank"); });
   $("#enableButton").click(function() { self.port.emit("activateSite"); });
   $("#disableButton").click(function() { self.port.emit("deactivateSite"); });
   $('#helpImg').click(function() { self.port.emit("openHelp"); });
   $('#gearImg').click(function() { self.port.emit("openOptions"); });
+  $('#donate').click(function() { self.port.emit("openDonate"); });
   $("#error").click(function(){ overlay.toggleClass('active'); });
   $("#report_cancel").click(function(){
     reportClose(overlay);
