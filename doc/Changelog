@@ -1,3 +1,8 @@
+1.7				  (2016-3-6)
+  * Bug fixes for options page
+  * Translation Improvements
+  * New donate button for EFF
+
 1.0.6				  (2016-3-2)
   * New feature: Search within blocked domain list
   * New feature: Use wildcard in disabled sites list
