@@ -506,6 +506,7 @@ self.port.on("hide", function(){
   $("#detected").hide();
   $("#blockedResources").hide();
   $("#firstRun").off();
+  $("#donate").off();
 });
 
 self.port.on("report-success", function(){
