@@ -47,7 +47,7 @@ a:hover { color: #bbbbff }
 }
 .origin{
   width: 206px;
-  color: #555555;
+  color: #555;
   font-size: 16px;
   float: left;
   display: inline;
@@ -98,7 +98,7 @@ a:hover { color: #bbbbff }
   color: #fcfcfc;
   background-color: #555;
   height: 14px;
-  border-radius: 7px;
+  border-radius: 4px;
   padding: 3px;
   z-index: 50;
   top: 0;
@@ -217,10 +217,9 @@ a:hover { color: #bbbbff }
   background: #fff;
 }
 .keyTipOuter{
-position: absolute;
-top: -25px;
-left: 100px;
-width: 230px;
+  position: absolute;
+  top: -25px;
+  left: 100px;
 }
 #blockedOriginsInner{
   margin-top: 25px;
