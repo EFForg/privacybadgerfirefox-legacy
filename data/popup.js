@@ -229,7 +229,7 @@ function refreshPopup(settings) {
       notracking.push(origin);
       continue;
     } else {
-      if (action.contains("user")){
+      if (action.indexOf("user") > -1){
         var prevOrigin = origin;
         origin = getTopLevel(action, origin);
         if (prevOrigin != origin){
