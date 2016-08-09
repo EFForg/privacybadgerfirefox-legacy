@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 
 Name: install.rdf
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: C6xglT7bee5ASBf+H/Qr/g==
-SHA1-Digest: g6pJ39x8RrSswFRIpZnBgoa9/Dw=
+MD5-Digest: vt/XKLvL8nJ4pWEsnUW9Ew==
+SHA1-Digest: h3qbvJg84gDKdBoLaCNfYFyTqs8=
 
 Name: icon.png
 Digest-Algorithms: MD5 SHA1
@@ -22,8 +22,8 @@ SHA1-Digest: hBvzrYsRacNpTOCOH+GOhYBn2mE=
 
 Name: package.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 077PCqNDC7VJrige62aIRA==
-SHA1-Digest: R2bJZtX3hjpPkaX9uw29/JLAqlM=
+MD5-Digest: wSNe4AiLFXtfiTGqYt66ZQ==
+SHA1-Digest: dPw0J7+wCgRNIIHs3ECDlkZHTNw=
 
 Name: data/blocked.html
 Digest-Algorithms: MD5 SHA1
@@ -681,8 +681,8 @@ SHA1-Digest: C2/aIB5cSHPxGJRGEU1J/TfjKMM=
 
 Name: lib/package.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: 077PCqNDC7VJrige62aIRA==
-SHA1-Digest: R2bJZtX3hjpPkaX9uw29/JLAqlM=
+MD5-Digest: wSNe4AiLFXtfiTGqYt66ZQ==
+SHA1-Digest: dPw0J7+wCgRNIIHs3ECDlkZHTNw=
 
 Name: lib/policyCheck.js
 Digest-Algorithms: MD5 SHA1
