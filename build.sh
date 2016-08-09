@@ -7,7 +7,6 @@
 
 cd "`dirname $0`"
 SRC=src #source directory to build from
-PKG=jid1-MnnxcxisBPnSXQ@jetpack-$1.xpi #package name
 
 if [ -d $SRC ]; then
   rm -rf $SRC;
