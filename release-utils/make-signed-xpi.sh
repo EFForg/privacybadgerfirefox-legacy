@@ -4,8 +4,8 @@ CURDIR="`dirname $0`"
 cd "`dirname $0`"
 
 # Auto-generated XPI name from 'cfx xpi'
-PRE_XPI_NAME=jid1-MnnxcxisBPnSXQ@jetpack-$1.xpi #package name
-LATEST_SDK_VERSION=1.0.1
+PRE_XPI_NAME=privacybadger.xpi #package name
+LATEST_SDK_VERSION=1.1.3
 RDF_NAME=xpi/install.rdf
 
 if ! type jpm > /dev/null; then
