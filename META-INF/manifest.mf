@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 
 Name: install.rdf
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: vt/XKLvL8nJ4pWEsnUW9Ew==
-SHA1-Digest: h3qbvJg84gDKdBoLaCNfYFyTqs8=
+MD5-Digest: VRwduQnu+Vj18fpYGKUvCg==
+SHA1-Digest: WJey3Qwt0zSSMs5uOMrCuMKepQY=
 
 Name: icon.png
 Digest-Algorithms: MD5 SHA1
@@ -22,8 +22,8 @@ SHA1-Digest: hBvzrYsRacNpTOCOH+GOhYBn2mE=
 
 Name: package.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: wSNe4AiLFXtfiTGqYt66ZQ==
-SHA1-Digest: dPw0J7+wCgRNIIHs3ECDlkZHTNw=
+MD5-Digest: Etd89++3NUE89XKBWlmpXw==
+SHA1-Digest: WV5tbfILz+/dgpzzJfn2n1gTB+I=
 
 Name: data/blocked.html
 Digest-Algorithms: MD5 SHA1
@@ -461,8 +461,8 @@ SHA1-Digest: /jEwLk+udEIDdyFfWHVxZ+CibFk=
 
 Name: data/jquery-ui/js/jquery-1.10.2.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: kVFXcM6MVd4jswZETY6pmA==
-SHA1-Digest: HYXw80ZOXkmwUidEv3MU4Xasdtk=
+MD5-Digest: h2IEW0AtvfYN2fP4QIBofw==
+SHA1-Digest: k+RX/uL8VC4uHYM9r1D0btQeRTg=
 
 Name: data/jquery-ui/js/jquery-ui.min.js
 Digest-Algorithms: MD5 SHA1
@@ -676,13 +676,13 @@ SHA1-Digest: 4fPzULxqDwl0tqmJp0UXGJlyMsg=
 
 Name: lib/main.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: E048jFQnBS+h0Rymkl6ikA==
-SHA1-Digest: C2/aIB5cSHPxGJRGEU1J/TfjKMM=
+MD5-Digest: q/vEhk36RuCcEwHgNeyLZg==
+SHA1-Digest: fia0f+kFUp0KXgWRoD8BlngiWr8=
 
 Name: lib/package.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: wSNe4AiLFXtfiTGqYt66ZQ==
-SHA1-Digest: dPw0J7+wCgRNIIHs3ECDlkZHTNw=
+MD5-Digest: Etd89++3NUE89XKBWlmpXw==
+SHA1-Digest: WV5tbfILz+/dgpzzJfn2n1gTB+I=
 
 Name: lib/policyCheck.js
 Digest-Algorithms: MD5 SHA1
@@ -756,8 +756,8 @@ SHA1-Digest: /t/4YG28fx5d83kf3cNJ0/kTl5o=
 
 Name: locale/es.properties
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: QS8Pv2Ip3bLNOVUMbvtx1Q==
-SHA1-Digest: /2cBRvbhXhP9FHslrwfvWh+oTyM=
+MD5-Digest: 6gMbqtzSgtbwT0CyjwNl7Q==
+SHA1-Digest: DA4RHFMmtFTAhsKPfnkPNF5KVnU=
 
 Name: locale/fr.properties
 Digest-Algorithms: MD5 SHA1
@@ -791,8 +791,8 @@ SHA1-Digest: hvoDgMNg3u0RZZXujZNxMkc6WOs=
 
 Name: locale/zh.properties
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: HQRu0F9nMxETeKm3BCJnQg==
-SHA1-Digest: 1ykYlCp1l0T2wzJXPKM34ta2Qkw=
+MD5-Digest: JAy/Wlie4Ua2MTJ6ru6MRQ==
+SHA1-Digest: c90BeLp2iM/1y88omsztpehVj70=
 
 Name: LICENSE
 Digest-Algorithms: MD5 SHA1
