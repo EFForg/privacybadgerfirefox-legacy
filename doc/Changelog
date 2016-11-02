@@ -1,3 +1,7 @@
+1.9.1                             (2016-11-2)
+  * Upgrade Jquery for mozilla validation
+  * Only migrate data every 24 hours so as to not impact performance
+
 1.9                               (2016-11-1)
   * Preparing for transition to web extensions
   * Changes to Chinese and Spanish translations
