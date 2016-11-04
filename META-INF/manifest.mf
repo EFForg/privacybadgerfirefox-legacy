@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 
 Name: install.rdf
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: VRwduQnu+Vj18fpYGKUvCg==
-SHA1-Digest: WJey3Qwt0zSSMs5uOMrCuMKepQY=
+MD5-Digest: 4tsJ41RjfLh6ux5k+omOuQ==
+SHA1-Digest: g6JRoVhWRUR5cK5wvntyQ/VF924=
 
 Name: icon.png
 Digest-Algorithms: MD5 SHA1
@@ -22,8 +22,8 @@ SHA1-Digest: hBvzrYsRacNpTOCOH+GOhYBn2mE=
 
 Name: package.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: Etd89++3NUE89XKBWlmpXw==
-SHA1-Digest: WV5tbfILz+/dgpzzJfn2n1gTB+I=
+MD5-Digest: 5geEizEvkS6vcpfdxdL3Gg==
+SHA1-Digest: 1xBlNfsEeXkiKjRk7HR9wqS3yCg=
 
 Name: data/blocked.html
 Digest-Algorithms: MD5 SHA1
@@ -57,8 +57,8 @@ SHA1-Digest: deotrMVi+S8AQxelemMcDst0KwU=
 
 Name: data/firstRun.html
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: WioI/HFU3eEE6vwudUQ+iA==
-SHA1-Digest: HIQtTCAEcqm4npoWUOMnqk31zzc=
+MD5-Digest: TFHe6E3s++quJdV+f237qg==
+SHA1-Digest: WaHfJqxHcJ5LcjVJBXI+YYxtzFM=
 
 Name: data/firstRun.js
 Digest-Algorithms: MD5 SHA1
@@ -459,10 +459,10 @@ Digest-Algorithms: MD5 SHA1
 MD5-Digest: oZ/hstcm6SDBLkOmXfkDmg==
 SHA1-Digest: /jEwLk+udEIDdyFfWHVxZ+CibFk=
 
-Name: data/jquery-ui/js/jquery-1.10.2.js
+Name: data/jquery-ui/js/jquery-2.2.4.min.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: h2IEW0AtvfYN2fP4QIBofw==
-SHA1-Digest: k+RX/uL8VC4uHYM9r1D0btQeRTg=
+MD5-Digest: L2sRp+kUcY4CkEEOhTZv6Q==
+SHA1-Digest: abtp4lyn1e8JNTF1hOYVPz/ZqIw=
 
 Name: data/jquery-ui/js/jquery-ui.min.js
 Digest-Algorithms: MD5 SHA1
@@ -676,13 +676,13 @@ SHA1-Digest: 4fPzULxqDwl0tqmJp0UXGJlyMsg=
 
 Name: lib/main.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: q/vEhk36RuCcEwHgNeyLZg==
-SHA1-Digest: fia0f+kFUp0KXgWRoD8BlngiWr8=
+MD5-Digest: PIfIOnbgbR1Ib9LNqbFEhw==
+SHA1-Digest: yyLAwYuPfFKo1HyEVHjo1VlxSkw=
 
 Name: lib/package.json
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: Etd89++3NUE89XKBWlmpXw==
-SHA1-Digest: WV5tbfILz+/dgpzzJfn2n1gTB+I=
+MD5-Digest: 5geEizEvkS6vcpfdxdL3Gg==
+SHA1-Digest: 1xBlNfsEeXkiKjRk7HR9wqS3yCg=
 
 Name: lib/policyCheck.js
 Digest-Algorithms: MD5 SHA1
@@ -726,8 +726,8 @@ SHA1-Digest: CokVLTUYC54zA9wWiUhcMND5XPA=
 
 Name: lib/ui.js
 Digest-Algorithms: MD5 SHA1
-MD5-Digest: k4NP2i0rZSvCiZGpF+RjWA==
-SHA1-Digest: 8P6F2JDdYxNrWyTv/I2abpMp5Xo=
+MD5-Digest: 7UAYkHNlGI/Pa9Y4gE15sA==
+SHA1-Digest: 5PjC8mhZZHzh6N//nXNPUzRdBSA=
 
 Name: lib/userStorage.js
 Digest-Algorithms: MD5 SHA1
