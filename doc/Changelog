@@ -1,3 +1,6 @@
+1.9.2                             (2016-11-4)
+  * Only run migration script on unload
+
 1.9.1                             (2016-11-2)
   * Upgrade Jquery for mozilla validation
   * Only migrate data every 24 hours so as to not impact performance

@@ -10,7 +10,7 @@
                    "ghostwords"],
   "permissions": { "private-browsing": true },
   "license": "GPL 3",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "main": "lib/main.js",
   "preferences": [{
     "name": "heuristicEnabled",
