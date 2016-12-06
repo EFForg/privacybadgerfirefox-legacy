@@ -3,7 +3,7 @@ This version of privacy badger is no longer maintained. All of the source code f
 
 Issues opened on this repository will not be checked. 
 
-# Privacy Badger Firefox [![Build Status](https://travis-ci.org/EFForg/privacybadgerfirefox.svg)](https://travis-ci.org/EFForg/privacybadgerfirefox)
+# Privacy Badger Firefox [![Build Status](https://travis-ci.org/EFForg/privacybadgerfirefox-legacy.svg)](https://travis-ci.org/EFForg/privacybadgerfirefox-legacy)
 
 ## Introduction
 
