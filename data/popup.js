@@ -322,7 +322,13 @@ function _addOriginHTML(rawOrigin, action, flag, multiTLD) {
   }
   var classText = 'class="' + classes.join(" ") + '"';
   //TODO do something with the flag here to show off opt-out sites
-  return '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div> <div class="origin">'+ flagText + _trimDomains(origin + multiText,25) + '</div>' + _addToggleHtml(origin, action) + '<img class="tooltipArrow" src="icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
+
+  var result = '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '">';
+  // Only add the reset to default button if it's required
+  if (title !== '') {
+    result += '<div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div>';
+  }
+  return result + '<div class="origin">'+ flagText + _trimDomains(origin + multiText,25) + '</div>' + _addToggleHtml(origin, action) + '<img class="tooltipArrow" src="icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
 }
 function _trim(str, max) {
   if (str.length >= max) {

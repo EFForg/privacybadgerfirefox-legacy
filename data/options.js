@@ -361,7 +361,12 @@ function _addOriginHTML(rawOrigin, printable, action) {
   }
   var classText = 'class="' + classes.join(" ") + '"';
 
-  return printable + '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '"><div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div><div class="origin">' + origin + '</div>' + _addToggleHtml(origin, action) + '<img class="tooltipArrow" src="icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
+  printable += '<div ' + classText + '" data-origin="' + origin + '" tooltip="' + _badgerStatusTitle(action, origin) + '">';
+  // Only add the reset to default button if it's required
+  if (title !== '') {
+    printable += '<div class="honeybadgerPowered tooltip" tooltip="'+ title + '"></div>';
+  }
+  return printable + '<div class="origin">' + origin + '</div>' + _addToggleHtml(origin, action) + '<img class="tooltipArrow" src="icons/badger-tb-arrow.png"><div class="tooltipContainer"></div></div>';
 }
 function _badgerStatusTitle(action, origin){
   let postfix;
